@@ -1,0 +1,6 @@
+# 기본적으로 lint-staged를 실행
+pnpm lint-staged
+
+# 추가로, 변경된 파일에 대해 테스트 실행 (원격의 main 브랜치와 비교)
+# !테스트가 실패하면 커밋이 중단되도록 설정!
+pnpm -r --filter "...[origin/main]" test -- --bail
