@@ -1,0 +1,14 @@
+{
+  "name": "@justkits/icons",
+  "description": "JustKits Icons Package",
+  "version": "0.0.1",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justkits/justkits-ts.git"
+  },
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com/"
+  }
+}
