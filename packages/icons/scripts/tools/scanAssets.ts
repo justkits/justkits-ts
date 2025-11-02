@@ -3,18 +3,29 @@ import { readFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import fg from "fast-glob";
 
-import { loadIconCache } from "@scripts/lib/cache";
+import { saveCache } from "@scripts/lib/cache";
+import { loadIconMap } from "@scripts/lib/db";
 
 /**
  * 주어진 디렉토리에 있는 파일들을 스캔하고, 갱신이 있는지 확인하는 스크립트
  * @param scanDir 스캔할 디렉토리 경로
- * @param cachePath 캐시 파일 경로
+ * @param filePath 데이터 파일 경로
  */
-export async function scanAssets(scanDir: string, cachePath: string) {
+export async function scanAssets(
+  scanDir: string,
+  mode: "icons" | "logos",
+): Promise<void> {
+  const CWD = process.cwd();
+
   console.log("🔍 Starting scan...");
 
-  // 1. 캐시를 불러와 기존 해시맵을 생성한다.
-  const oldCache = loadIconCache(cachePath);
+  const DB_PATH = resolve(
+    CWD,
+    mode === "icons" ? "db/icons-db.json" : "db/logos-db.json",
+  );
+
+  // 1. 데이터를 불러와 기존 해시맵을 생성한다.
+  const oldData = loadIconMap(DB_PATH);
   const processedIconNames = new Set<string>();
 
   // Reports
@@ -52,7 +63,7 @@ export async function scanAssets(scanDir: string, cachePath: string) {
     processedIconNames.add(iconName);
 
     const newHash = await calculateHash(absolutePath);
-    const oldMeta = oldCache[iconName];
+    const oldMeta = oldData[iconName];
 
     if (!oldMeta) {
       // Case 1: New icon
@@ -67,11 +78,30 @@ export async function scanAssets(scanDir: string, cachePath: string) {
   }
 
   // 5. 삭제된 아이콘 찾기
-  const deleted = Object.keys(oldCache).filter(
+  const deleted = Object.keys(oldData).filter(
     (name) => !processedIconNames.has(name),
   );
 
-  return { added, modified, deleted, unchanged };
+  // 6. 스캔 결과 캐시에 저장
+  const CACHE_PATH = resolve(
+    CWD,
+    mode === "icons" ? "db/icons-cache.json" : "db/logos-cache.json",
+  );
+  saveCache(CACHE_PATH, {
+    added,
+    modified,
+    deleted,
+    unchanged,
+  });
+
+  // 7. 결과 출력
+  console.log("✅ Scan completed.");
+  console.log("---");
+  console.log("Scan Summary:");
+  console.log(`- Added: ${added.length}`);
+  console.log(`- Modified: ${modified.length}`);
+  console.log(`- Deleted: ${deleted.length}`);
+  console.log(`- Unchanged: ${unchanged.length}`);
 }
 
 /**

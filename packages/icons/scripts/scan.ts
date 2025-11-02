@@ -4,20 +4,6 @@ import { Command } from "commander";
 import { parsePath } from "./lib/parsers";
 import { scanAssets } from "./tools/scanAssets";
 
-function printResults(results: {
-  added: string[];
-  modified: string[];
-  deleted: string[];
-  unchanged: string[];
-}) {
-  console.log("---");
-  console.log("Scan Summary:");
-  console.log(`- Added: ${results.added.length}`);
-  console.log(`- Modified: ${results.modified.length}`);
-  console.log(`- Deleted: ${results.deleted.length}`);
-  console.log(`- Unchanged: ${results.unchanged.length}`);
-}
-
 /**
  * Assets 디렉토리를 스캔하고, 아이콘의 변경사항을 감지하는 스크립트
  *   - argument로 디렉토리가 들어올 수도, 모드가 들어올 수도 있다.
@@ -41,16 +27,12 @@ async function main() {
 
   if (options.mode === "icons" || options.mode === "all") {
     const scanDir = resolve(CWD, "assets/icons");
-    const cachePath = resolve(CWD, "cache/icons-cache.json");
-    const results = await scanAssets(scanDir, cachePath);
-    printResults(results);
+    await scanAssets(scanDir, "icons");
     scanned = true;
   }
   if (options.mode === "logos" || options.mode === "all") {
     const scanDir = resolve(CWD, "assets/logos");
-    const cachePath = resolve(CWD, "cache/logos-cache.json");
-    const results = await scanAssets(scanDir, cachePath);
-    printResults(results);
+    await scanAssets(scanDir, "logos");
     scanned = true;
   }
 
@@ -62,15 +44,11 @@ async function main() {
     const { mode, scanDir } = parsePath(options.dir);
 
     if (mode === "icons" || mode === "all") {
-      const cachePath = resolve(CWD, "cache/icons-cache.json");
-      const results = await scanAssets(scanDir, cachePath);
-      printResults(results);
+      await scanAssets(scanDir, "icons");
       process.exit(0);
     }
     if (mode === "logos" || mode === "all") {
-      const cachePath = resolve(CWD, "cache/logos-cache.json");
-      const results = await scanAssets(scanDir, cachePath);
-      printResults(results);
+      await scanAssets(scanDir, "logos");
       process.exit(0);
     }
   }
