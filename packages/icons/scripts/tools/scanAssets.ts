@@ -1,107 +1,116 @@
+import { createHash } from "node:crypto";
 import { basename, resolve } from "node:path";
 import { readFile } from "node:fs/promises";
-import { createHash } from "node:crypto";
 import fg from "fast-glob";
 
-import { saveCache } from "@scripts/lib/cache";
-import { loadIconMap } from "@scripts/lib/db";
+import { CacheItem, IconsDiff, saveCache } from "@scripts/lib/cache";
+import { IconRegistry } from "@scripts/lib/db";
 
 /**
- * 주어진 디렉토리에 있는 파일들을 스캔하고, 갱신이 있는지 확인하는 스크립트
- * @param scanDir 스캔할 디렉토리 경로
- * @param filePath 데이터 파일 경로
+ * Assets 디렉토리를 스캔하고, 아이콘의 변경사항 감지하여, 캐시에 저장
+ *  -> 특정 디렉토리만 스캔하도록 할 수도 있다.
+ * @param dir 스캔할 디렉토리 경로 (유저가 지정한 경로 그대로 전달)
  */
-export async function scanAssets(
-  scanDir: string,
-  mode: "icons" | "logos",
-): Promise<void> {
+
+export async function scanAssets(dir: string) {
   const CWD = process.cwd();
 
-  console.log("🔍 Starting scan...");
+  // 1단계: 경로 파싱
+  if (!dir.includes("assets")) {
+    // 오류.
+    console.error(
+      "Invalid directory. Please provide a directory within the 'assets' folder.",
+    );
+    process.exit(1);
+  }
 
-  const DB_PATH = resolve(
-    CWD,
-    mode === "icons" ? "db/icons-db.json" : "db/logos-db.json",
-  );
+  const scanDir = resolve(CWD, dir);
 
-  // 1. 데이터를 불러와 기존 해시맵을 생성한다.
-  const oldData = loadIconMap(DB_PATH);
-  const processedIconNames = new Set<string>();
+  console.log(`🔍 Scanning for changes in icons from ${dir}...`);
 
-  // Reports
-  const added = [];
-  const modified = [];
-  const unchanged = [];
+  // 2단계: 스캔에 필요한 자료구조를 준비한다.
+  const registry = new IconRegistry();
+  const iconNames = new Set<string>();
 
-  // 2. 디렉토리를 순회하여, 모든 .svg 파일 경로 수집
+  const added: CacheItem[] = [];
+  const modified: CacheItem[] = [];
+  const deleted: CacheItem[] = [];
+  const unchanged: CacheItem[] = [];
+
+  // 3단계: SVG 파일들을 수집
   const svgPaths: string[] = await fg("**/*.svg", {
     cwd: scanDir,
     absolute: true,
   });
   svgPaths.sort((a, b) => a.localeCompare(b));
 
-  // 3. 중복 검사
-  const iconNames = new Map<string, string>();
-
+  // 4단계: SVG 파일들을 순회하며 해시 비교
   for (const filePath of svgPaths) {
-    const name = basename(filePath, ".svg");
-    if (iconNames.has(name)) {
-      console.error(`❌ Duplicate icon name detected: ${name}`);
+    const iconName = basename(filePath, ".svg");
+
+    // 중복검사 먼저 (중복이 있으면 바로 종료)
+    if (iconNames.has(iconName)) {
+      console.error(`❌ Duplicate icon name detected: ${iconName}`);
       console.error(`   - ${filePath}`);
-      console.error(`   - ${iconNames.get(name)}`);
+      console.error(
+        `   - ${Array.from(iconNames).find((name) => name === iconName)}`,
+      );
       console.error("Icon names must be unique.");
       process.exit(1);
     }
-    iconNames.set(name, filePath);
-  }
 
-  // 4. SVG 파일들을 순회하며 해시 비교
-  for (const filePath of svgPaths) {
-    const iconName = basename(filePath, ".svg");
+    iconNames.add(iconName);
+
+    // 중복이 없으면, 기존 데이터와 해시 비교
     const absolutePath = resolve(scanDir, filePath);
-
-    processedIconNames.add(iconName);
-
     const newHash = await calculateHash(absolutePath);
-    const oldMeta = oldData[iconName];
 
-    if (!oldMeta) {
-      // Case 1: New icon
-      added.push(iconName);
-    } else if (oldMeta.hash === newHash) {
-      // Case 2: Unchanged icon
-      unchanged.push(iconName);
+    const result = registry.check(iconName, newHash);
+
+    const item: CacheItem = {
+      name: iconName,
+      path: absolutePath,
+      hash: newHash,
+      warnings: [],
+    };
+
+    if (result === "NEW") {
+      added.push(item);
+    } else if (result === "MODIFIED") {
+      modified.push(item);
     } else {
-      // Case 3: Modified icon
-      modified.push(iconName);
+      unchanged.push(item);
+    }
+
+    if (result === "HASH_COLLISION") {
+      item.warnings.push("Hash collision detected with existing icon.");
     }
   }
 
-  // 5. 삭제된 아이콘 찾기
-  const deleted = Object.keys(oldData).filter(
-    (name) => !processedIconNames.has(name),
-  );
+  // 5단계: 삭제된 아이콘 찾기
+  for (const existingName of registry.getIconNames()) {
+    if (!iconNames.has(existingName)) {
+      const item: CacheItem = {
+        name: existingName,
+        path: "",
+        hash: "",
+        warnings: [],
+      };
+      deleted.push(item);
+    }
+  }
 
-  // 6. 스캔 결과 캐시에 저장
-  const CACHE_PATH = resolve(
-    CWD,
-    mode === "icons" ? "db/icons-cache.json" : "db/logos-cache.json",
-  );
-  saveCache(CACHE_PATH, {
+  // 6단계: 스캔 결과 캐시에 저장
+  const diff: IconsDiff = {
     added,
     modified,
     deleted,
     unchanged,
-  });
+  };
+  saveCache(diff);
 
-  // 7. 결과 출력
-  console.log("✅ Scan completed.");
-  console.log("---");
-  console.log("Scan Summary:");
-  console.log(`- Added: ${added.length}`);
-  console.log(`- Modified: ${modified.length}`);
-  console.log(`- Deleted: ${deleted.length}`);
-  console.log(`- Unchanged: ${unchanged.length}`);
+  // 7단계: 결과 반환
+  return diff;
 }
 
 /**

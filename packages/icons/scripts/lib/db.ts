@@ -1,52 +1,85 @@
 import fs from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, resolve } from "node:path";
 
-type OutputType = {
+type IconData = {
   path: string; // 출력 경로
-  componentName: string;
   createdAt: string;
   updatedAt: string;
-  deprecated: boolean;
 };
 
 type IconMeta = {
-  hash: string;
+  hash: string; // svg 파일 해시
   family: string;
+  componentName: string;
+  deprecated: boolean;
   outputs: {
-    web: OutputType | null;
-    native: OutputType | null;
+    web: IconData | null;
+    native: IconData | null;
   };
 };
 
-// 타입 정의
-export type IconMap = Record<string, IconMeta>; // key = 아이콘 이름
+const DB_PATH = resolve(process.cwd(), "db/icons-map.json");
 
-/**
- * 이전 아이콘 데이터 로드
- * @returns 이전 아이콘 데이터
- */
-export function loadIconMap(filePath: string): IconMap {
-  if (!fs.existsSync(filePath)) return {};
-  try {
-    const raw = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-    if (raw && typeof raw === "object") return raw as IconMap;
-  } catch {
-    // 무시
+type ScanResult = "NEW" | "MODIFIED" | "UNCHANGED" | "HASH_COLLISION";
+
+export class IconRegistry {
+  private iconsByName: Record<string, IconMeta> = {}; // name -> metadata
+  private iconsByHash: Record<string, string> = {}; // hash -> icon name
+
+  // 초기에 데이터 로드
+  constructor() {
+    if (fs.existsSync(DB_PATH)) {
+      const rawMap = fs.readFileSync(DB_PATH, "utf-8");
+      this.iconsByName = JSON.parse(rawMap);
+
+      for (const [name, meta] of Object.entries(this.iconsByName)) {
+        this.iconsByHash[meta.hash] = name;
+      }
+    } else {
+      console.warn("IconRegistry: DB file not found, starting fresh.");
+    }
   }
-  return {};
-}
 
-/**
- * 아이콘 데이터 저장
- * @param map 저장할 아이콘 데이터
- */
-export function updateIconMap(map: IconMap, filePath: string): void {
-  const dir = dirname(filePath);
-  const tmp = join(
-    dir,
-    `.tmp-${Date.now()}-${Math.random().toString(16).slice(2)}.json`,
-  );
-  fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(tmp, JSON.stringify(map, null, 2), "utf-8");
-  fs.renameSync(tmp, filePath);
+  save() {
+    const dir = dirname(DB_PATH);
+    fs.mkdirSync(dir, { recursive: true });
+
+    // Save iconsByName
+    const tmpMap = `${dir}/.tmp-icons-map-${Date.now()}.json`;
+    fs.writeFileSync(
+      tmpMap,
+      JSON.stringify(this.iconsByName, null, 2),
+      "utf-8",
+    );
+    fs.renameSync(tmpMap, DB_PATH);
+  }
+
+  check(name: string, hash: string): ScanResult {
+    const existingByName = this.iconsByName[name];
+    const existingNameByHash = this.iconsByHash[hash];
+
+    if (existingByName) {
+      if (existingByName.hash === hash) {
+        // 이름과 해시 모두 동일 -> 변경 없음
+        return "UNCHANGED";
+      } else {
+        // 이름은 동일하지만 해시가 다름 -> 수정된 아이콘
+        return "MODIFIED";
+      }
+    }
+
+    if (existingNameByHash) {
+      // 해시가 같은 다른 이름의 아이콘이 존재
+      console.warn(
+        `❌ Hash collision detected for icon: ${name} with existing icon: ${existingNameByHash}`,
+      );
+      return "HASH_COLLISION";
+    }
+
+    return "NEW";
+  }
+
+  getIconNames(): Set<string> {
+    return new Set(Object.keys(this.iconsByName));
+  }
 }
