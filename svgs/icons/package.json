@@ -4,6 +4,13 @@
   "version": "0.0.1",
   "type": "module",
   "private": false,
+  "keywords": [
+    "icons",
+    "react",
+    "typescript"
+  ],
+  "author": "JustWon",
+  "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/justkits/justkits-ts.git"
@@ -12,7 +19,7 @@
     "access": "restricted",
     "registry": "https://npm.pkg.github.com/"
   },
-  "keywords": [],
-  "author": "JustWon",
-  "license": "SEE LICENSE IN LICENSE"
+  "devDependencies": {
+    "@types/react": "^19.2.4"
+  }
 }
