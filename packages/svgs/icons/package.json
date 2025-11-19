@@ -20,6 +20,7 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "devDependencies": {
+    "@justkits/svgs-core": "workspace:*",
     "@types/react": "^19.2.4"
   }
 }
