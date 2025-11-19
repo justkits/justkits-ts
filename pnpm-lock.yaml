@@ -51,9 +51,7 @@ importers:
         specifier: ^8.46.2
         version: 8.46.2(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3)
 
-  packages/icons: {}
-
-  svgs/core:
+  packages/svgs/core:
     devDependencies:
       '@svgr/core':
         specifier: ^8.1.0
@@ -71,13 +69,14 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  svgs/icons:
+  packages/svgs/icons:
     devDependencies:
+      '@justkits/svgs-core':
+        specifier: workspace:*
+        version: link:../core
       '@types/react':
         specifier: ^19.2.4
         version: 19.2.4
-
-  svgs/logos: {}
 
 packages:
 
