@@ -15,9 +15,6 @@ export abstract class ComponentsBaseManager {
   protected NATIVE_DIR: string;
 
   protected allComponents: ComponentMeta[];
-
-  protected warnings: string[];
-  protected errors: string[];
   protected isScanned: boolean;
 
   constructor(srcDir: string) {
@@ -25,9 +22,6 @@ export abstract class ComponentsBaseManager {
     this.NATIVE_DIR = join(srcDir, "native");
 
     this.allComponents = [];
-
-    this.warnings = [];
-    this.errors = [];
     this.isScanned = false;
   }
 
@@ -103,22 +97,16 @@ export abstract class ComponentsBaseManager {
     const files = await readdir(dir, { withFileTypes: true });
 
     for (const file of files) {
-      // tsx파일이면 배열에 추가, 그렇지 않으면 warning에 추가
       if (file.isFile() && file.name.endsWith(".tsx")) {
         const componentName = file.name.replace(".tsx", "");
         const relativePath = relative(this.WEB_DIR, `${dir}/${componentName}`);
 
-        const componentMeta: ComponentMeta = {
+        components.push({
           componentName,
           relativePath: relativePath.replaceAll("\\", "/"),
-        };
-
-        components.push(componentMeta);
-      } else {
-        this.warnings.push(
-          `TSX component file expected, but found: ${file.name} in directory ${dir}`,
-        );
+        });
       }
+      // Silently skip non-tsx files (e.g., index.ts barrels)
     }
 
     return components;

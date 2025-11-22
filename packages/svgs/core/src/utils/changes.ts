@@ -9,9 +9,11 @@ export abstract class BaseChangesDetector<
   protected iconNames: Record<string, string>; // iconName -> path
   protected iconHashes: Record<string, string>; // hash -> iconName
 
-  protected added: M[];
-  protected updated: M[];
-  protected deleted: M[];
+  protected toConvert: M[];
+  protected toDelete: M[];
+
+  protected addedCount: number;
+  protected updatedCount: number;
 
   private readonly errors: string[];
 
@@ -19,9 +21,11 @@ export abstract class BaseChangesDetector<
     this.iconNames = {};
     this.iconHashes = {};
 
-    this.added = [];
-    this.updated = [];
-    this.deleted = [];
+    this.toConvert = [];
+    this.toDelete = [];
+
+    this.addedCount = 0;
+    this.updatedCount = 0;
 
     this.errors = [];
   }
@@ -41,8 +45,8 @@ export abstract class BaseChangesDetector<
     this.printSummary();
 
     return {
-      toConvert: this.added.concat(this.updated),
-      toDelete: this.deleted,
+      toConvert: this.toConvert,
+      toDelete: this.toDelete,
     };
   }
 
@@ -73,7 +77,7 @@ export abstract class BaseChangesDetector<
   private printSummary(): void {
     logger.info("=== Changes Detection Summary ===");
     logger.info(
-      `${this.added.length} new, ${this.updated.length} updated, ${this.deleted.length} deleted icons detected.`,
+      `${this.addedCount} new, ${this.updatedCount} updated, ${this.toDelete.length} deleted icons detected.`,
     );
 
     if (this.errors.length > 0) {

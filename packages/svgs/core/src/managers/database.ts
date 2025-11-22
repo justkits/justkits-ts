@@ -25,7 +25,6 @@ export class SVGDatabaseManager<T extends SVGMetadata> {
   private hashTable: Map<string, string>; // 아이콘 해시 -> 아이콘 이름 테이블 (런타임에서만 사용)
 
   private isLoaded: boolean;
-  private isSaving: boolean;
   private saveNeeded: boolean;
 
   constructor(filePath: string) {
@@ -35,7 +34,6 @@ export class SVGDatabaseManager<T extends SVGMetadata> {
     this.hashTable = new Map();
 
     this.isLoaded = false;
-    this.isSaving = false;
     this.saveNeeded = false;
   }
 
@@ -86,20 +84,17 @@ export class SVGDatabaseManager<T extends SVGMetadata> {
       if (e instanceof Error) {
         logger.error(e.message);
       }
+      throw e;
     }
   }
 
   public async save(): Promise<void> {
     this.assertLoaded();
 
-    if (this.isSaving) return;
-
     if (!this.saveNeeded) {
       logger.info("No changes to save.");
       return;
     }
-
-    this.isSaving = true;
 
     try {
       const data = Array.from(this.iconsTable.entries());
@@ -109,12 +104,10 @@ export class SVGDatabaseManager<T extends SVGMetadata> {
       this.saveNeeded = false;
     } catch (e) {
       logger.error(`Failed to save database to ${this.FILE_PATH}.`);
-
       if (e instanceof Error) {
         logger.error(e.message);
       }
-    } finally {
-      this.isSaving = false;
+      throw e;
     }
   }
 

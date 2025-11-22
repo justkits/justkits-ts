@@ -17,24 +17,15 @@ class IconComponentsManager extends ComponentsBaseManager {
 
     for (const dirent of webDirents) {
       if (!dirent.isDirectory()) {
-        this.warnings.push(
-          `Component family directory expected, but found file: ${dirent.name}`,
-        );
-        continue;
+        continue; // Skip non-directory entries (e.g., index.ts)
       }
 
       const familyName = dirent.name;
       const dir = resolve(this.WEB_DIR, familyName, "components");
 
-      try {
-        const components = await this.collectComponents(dir);
-        this.componentsByFamilies[familyName] = components;
-        this.allComponents.push(...components);
-      } catch (error) {
-        this.errors.push(
-          `Failed to collect components for family ${familyName}: ${error}`,
-        );
-      }
+      const components = await this.collectComponents(dir);
+      this.componentsByFamilies[familyName] = components;
+      this.allComponents.push(...components);
     }
 
     this.isScanned = true;

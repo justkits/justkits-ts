@@ -7,24 +7,20 @@ class ChangesDetector extends BaseChangesDetector<IconAsset, IconMetadata> {
   protected compareHash(svg: IconAsset) {
     const oldIcon = databaseManager.get(svg.iconName);
 
+    const metadata: IconMetadata = {
+      family: svg.family,
+      componentName: this.kebabToPascal(svg.iconName),
+      iconName: svg.iconName,
+      hash: svg.hash,
+      path: svg.path,
+    };
+
     if (!oldIcon) {
-      // NEW
-      this.added.push({
-        family: svg.family,
-        componentName: this.kebabToPascal(svg.iconName),
-        iconName: svg.iconName,
-        hash: svg.hash,
-        path: svg.path,
-      });
+      this.toConvert.push(metadata);
+      this.addedCount++;
     } else if (oldIcon.hash !== svg.hash) {
-      // UPDATED
-      this.updated.push({
-        family: svg.family,
-        componentName: this.kebabToPascal(svg.iconName),
-        iconName: svg.iconName,
-        path: svg.path,
-        hash: svg.hash,
-      });
+      this.toConvert.push(metadata);
+      this.updatedCount++;
     }
 
     this.iconNames[svg.iconName] = svg.path;
@@ -36,8 +32,7 @@ class ChangesDetector extends BaseChangesDetector<IconAsset, IconMetadata> {
 
     for (const icon of allExistingIcons) {
       if (!this.iconNames[icon.iconName]) {
-        // DELETED
-        this.deleted.push(icon);
+        this.toDelete.push(icon);
       }
     }
   }

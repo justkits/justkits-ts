@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { unlink } from "node:fs/promises";
-import { BaseConverter } from "@justkits/svgs-core";
+import { atomicWrite, BaseConverter } from "@justkits/svgs-core";
 
 import { PATHS } from "../config";
 import { databaseManager, IconMetadata } from "../lib/database";
@@ -35,13 +35,8 @@ class IconConverter extends BaseConverter<IconMetadata> {
       },
     );
 
-    this.convertedSVGs.push({
-      componentName: metadata.componentName,
-      webCode,
-      webFilePath,
-      nativeCode,
-      nativeFilePath,
-    });
+    await atomicWrite(webFilePath, webCode);
+    await atomicWrite(nativeFilePath, nativeCode);
 
     databaseManager.upsert(metadata);
   }
