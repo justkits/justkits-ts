@@ -1,3 +1,9 @@
 {
-  "extends": "../../tsconfig.base.json"
+  "extends": "@configs/typescript/base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "paths": {
+      "@icons/*": ["./src/*"]
+    }
+  }
 }
