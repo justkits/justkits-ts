@@ -19,8 +19,13 @@
     "access": "restricted",
     "registry": "https://npm.pkg.github.com/"
   },
+  "scripts": {
+    "generate": "tsx ./scripts/generate.ts"
+  },
   "devDependencies": {
+    "@configs/typescript": "workspace:*",
     "@justkits/svgs-core": "workspace:*",
-    "@types/react": "^19.2.4"
+    "@types/react": "^19.2.4",
+    "tsx": "^4.20.6"
   }
 }
