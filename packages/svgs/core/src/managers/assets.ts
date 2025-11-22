@@ -41,8 +41,6 @@ export abstract class AssetsBaseManager<T extends AssetsMeta> {
   protected async analyzeIconFile(
     filePath: string,
   ): Promise<Omit<AssetsMeta, "path"> | null> {
-    this.assertScanned();
-
     const iconStat = await stat(filePath);
 
     if (iconStat.isDirectory()) {
