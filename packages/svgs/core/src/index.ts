@@ -1,6 +1,6 @@
-export { AssetsMeta, AssetsBaseManager } from "./assets";
-export { ComponentMeta, ComponentsBaseManager } from "./components";
-export { IconMetaData, IconsDatabaseBaseManager } from "./database";
+export { AssetsMeta, AssetsBaseManager } from "./managers/assets";
+export { ComponentMeta, ComponentsBaseManager } from "./managers/components";
+export { SVGMetadata, SVGDatabaseManager } from "./managers/database";
 
-export { defaultOptions } from "./svgr/options";
-export { svg2tsx } from "./svgr/svg2tsx";
+export { BaseChangesDetector } from "./utils/changes";
+export { BaseConverter } from "./utils/converter";
