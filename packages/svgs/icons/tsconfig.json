@@ -1,0 +1,12 @@
+{
+  "extends": "@configs/typescript/base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "paths": {
+      "@icons/*": ["./src/*"]
+    }
+  },
+  "include": ["src"]
+}

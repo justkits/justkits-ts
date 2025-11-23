@@ -1,3 +1,5 @@
 packages:
-  - "packages/*"
-  - "svgs/*"
+  - packages/**/*
+
+ignoredBuiltDependencies:
+  - esbuild
