@@ -32,6 +32,15 @@ class IconConverter extends BaseConverter<IconMetadata> {
         ...this.defaultOptions,
         template: this.componentTemplate,
         native: true,
+        svgoConfig: {
+          plugins: [
+            {
+              name: "preset-default",
+              params: { overrides: { removeViewBox: false } },
+            },
+            "removeXMLNS",
+          ],
+        },
       },
     );
 
