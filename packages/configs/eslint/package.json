@@ -1,8 +1,24 @@
 {
   "name": "@justkits/eslint-config",
-  "type": "module",
+  "description": "JustKits ESLint Configs",
   "private": false,
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "type": "module",
+  "keywords": [
+    "eslint",
+    "config",
+    "typescript"
+  ],
+  "author": "JustWon",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justkits/justkits-ts.git"
+  },
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com/"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -21,11 +37,15 @@
       "types": "./dist/markdown.d.ts"
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc"
   },
   "devDependencies": {
-    "@eslint/config-helpers": "^0.5.0",
     "@eslint/css": "^0.13.0",
     "@eslint/js": "^9.38.0",
     "@eslint/json": "^0.13.2",
