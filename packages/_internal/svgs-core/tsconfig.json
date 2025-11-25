@@ -1,5 +1,5 @@
 {
-  "extends": "@configs/typescript/base.json",
+  "extends": "@justkits/tsconfig/base.json",
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "baseUrl": "src",

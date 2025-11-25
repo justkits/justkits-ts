@@ -1,5 +1,5 @@
 {
-  "extends": "@configs/typescript/base.json",
+  "extends": "@justkits/tsconfig/base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
     "outDir": "./dist",

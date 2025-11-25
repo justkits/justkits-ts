@@ -6,7 +6,7 @@ export const sharedConfig = defineConfig({
     environment: "node",
     coverage: {
       provider: "istanbul",
-      reporter: [["text", { skipFull: true }]],
+      reporter: [["text", { skipFull: true }], "lcov"],
     },
   },
 });

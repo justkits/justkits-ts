@@ -1,11 +1,12 @@
 {
   "name": "@justkits/svgs-core",
-  "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@10.22.0",
   "type": "module",
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
   "scripts": {
     "build": "tsc && tsc-alias",
@@ -14,14 +15,16 @@
     "coverage": "vitest --coverage"
   },
   "devDependencies": {
-    "@configs/typescript": "workspace:*",
-    "@configs/vitest": "workspace:*",
+    "@justkits/tsconfig": "workspace:*",
+    "@justkits/vitest-config": "workspace:*",
     "@svgr/core": "^8.1.0",
     "@svgr/plugin-jsx": "^8.1.0",
     "@svgr/plugin-svgo": "^8.1.0",
+    "@vitest/coverage-istanbul": "^4.0.13",
     "chalk": "^5.6.2",
     "dir-compare": "^5.0.0",
     "tsc-alias": "^1.8.16",
-    "typescript": "^5.9.3"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

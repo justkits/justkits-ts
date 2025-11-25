@@ -1,9 +1,9 @@
 {
   "name": "@justkits/icons",
   "description": "JustKits Icons Package",
-  "version": "0.0.1",
-  "type": "module",
   "private": false,
+  "version": "0.0.2",
+  "type": "module",
   "keywords": [
     "icons",
     "react",
@@ -21,6 +21,7 @@
   },
   "exports": {
     ".": {
+      "types": "./dist/web/index.d.ts",
       "react-native": "./dist/native/index.js",
       "default": "./dist/web/index.js"
     }
@@ -29,23 +30,29 @@
     "dist"
   ],
   "scripts": {
+    "build": "tsc && tsc-alias",
     "generate": "tsx ./scripts/generate.ts",
-    "build": "tsc && tsc-alias"
+    "lint": "eslint .",
+    "test": "vitest run"
   },
   "devDependencies": {
-    "@configs/typescript": "workspace:*",
+    "@justkits/eslint-config": "workspace:*",
     "@justkits/svgs-core": "workspace:*",
+    "@justkits/tsconfig": "workspace:*",
+    "@justkits/vitest-config": "workspace:*",
     "@types/react": "^19.2.4",
+    "eslint": "catalog:",
     "tsc-alias": "^1.8.16",
     "tsx": "^4.20.6",
-    "typescript": "^5.9.3"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-native-svg": ">=15.0.0"
+    "react": ">=18.0.0"
   },
   "peerDependenciesMeta": {
     "react-native-svg": {
+      "version": ">=15.0.0",
       "optional": true
     }
   }

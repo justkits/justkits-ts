@@ -98,5 +98,15 @@
       "hash": "d15c29020ca444e4a856c4a6f53812952e7b0d9534695ecad07ded88f47095b3",
       "path": "media/video.svg"
     }
+  ],
+  [
+    "settings",
+    {
+      "family": "app",
+      "componentName": "Settings",
+      "iconName": "settings",
+      "hash": "88d34e3849e848d90497b6250f4e48c49304e5ed4a60b5d6a35258f73436f912",
+      "path": "app/settings.svg"
+    }
   ]
 ]

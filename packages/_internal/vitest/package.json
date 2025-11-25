@@ -1,0 +1,19 @@
+{
+  "name": "@justkits/vitest-config",
+  "type": "module",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@justkits/tsconfig": "workspace:*",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "vitest": "^4.0.13",
+    "@vitest/coverage-istanbul": "^4.0.13"
+  }
+}
