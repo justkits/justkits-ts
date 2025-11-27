@@ -1,0 +1,44 @@
+name: Icons Test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "packages/icons/**"
+      - "packages/_internal/**"
+      - "pnpm-lock.yaml"
+      - "tsconfig*.json"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "packages/icons/**"
+      - "packages/_internal/**"
+      - "pnpm-lock.yaml"
+      - "tsconfig*.json"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Setup Project
+        uses: ./.github/actions/prepare
+
+      - name: Build Project Packages
+        uses: ./.github/actions/build-packages
+
+      - name: Test @justkits/icons Package
+        uses: ./.github/actions/test
+        with:
+          package-path: packages/icons
+          package-name: "@justkits/icons"
+          codecov-token: ${{ secrets.CODECOV_TOKEN }}

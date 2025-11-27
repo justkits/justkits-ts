@@ -1,0 +1,22 @@
+name: Build project packages
+description: Build project (if needed)
+
+runs:
+  using: "composite"
+  steps:
+    ## Checkout, Setup pnpm and Node.js은 선행되었다고 가정
+    - name: Restore build outputs from cache
+      id: cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          packages/**/dist
+          packages/**/.tsbuildinfo
+        key: build-${{ runner.os }}-${{ hashFiles('packages/**/src/**', 'packages/**/tsconfig.json', 'pnpm-lock.yaml') }}
+        restore-keys: |
+          build-${{ runner.os }}-
+
+    - name: Build project
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: pnpm -r build

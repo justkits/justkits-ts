@@ -1,0 +1,103 @@
+name: Code Quality
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  security-events: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  basic-quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Setup Project
+        uses: ./.github/actions/prepare
+
+      - name: Check Formatting
+        id: prettier
+        continue-on-error: true
+        run: pnpm exec prettier --check .
+
+      - name: Lint and Generate SARIF
+        id: lint
+        continue-on-error: true
+        run: |
+          pnpm -r --workspace-concurrency=4 lint \
+            --format @microsoft/eslint-formatter-sarif \
+            --output-file eslint-results.sarif
+
+      - name: Upload ESLint SARIF
+        if: hashFiles('eslint-results.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: eslint-results.sarif
+          category: eslint
+
+      - name: Type Check
+        id: typecheck
+        continue-on-error: true
+        run: pnpm -r --workspace-concurrency=4 exec tsc --noEmit
+
+      - name: Security Audit
+        id: audit
+        continue-on-error: true
+        run: pnpm audit --audit-level=critical
+
+      - name: Check for failures
+        if: always()
+        run: |
+          chmod +x .github/scripts/check-quality-results.sh
+          .github/scripts/check-quality-results.sh \
+            "${{ steps.prettier.outcome }}" \
+            "${{ steps.lint.outcome }}" \
+            "${{ steps.typecheck.outcome }}" \
+            "${{ steps.audit.outcome }}"
+
+  sonar-quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Setup Project
+        uses: ./.github/actions/prepare
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  github-code-scanning:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Setup Project
+        uses: ./.github/actions/prepare
+
+      - name: Github CodeQL Setup
+        uses: github/codeql-action/init@v4
+        with:
+          languages: typescript
+
+      - name: Build Project Packages
+        uses: ./.github/actions/build-packages
+
+      - name: GitHub Code Scanning Analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:typescript"
