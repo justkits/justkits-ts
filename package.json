@@ -5,6 +5,7 @@
   "private": true,
   "devDependencies": {
     "@justkits/eslint-config": "workspace:*",
+    "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.6",
     "prettier": "catalog:"
