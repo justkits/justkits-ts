@@ -1,0 +1,16 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 10%
+
+flag_management:
+  individual_flags:
+    - name: "@justkits/icons"
+      paths:
+        - "packages/icons/"
+
+    - name: "@justkits/svgs-core"
+      paths:
+        - "packages/_internal/svgs-core/"
