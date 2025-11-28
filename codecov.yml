@@ -6,8 +6,21 @@ coverage:
         threshold: 1%
     patch:
       default:
-        target: 95%
+        target: 100%
         threshold: 10%
+        if_no_uploads_reported: success
+        if_not_found: success
+
+ignore:
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/*.spec.ts"
+  - "**/*.spec.tsx"
+  - "**/__tests__/**/*"
+  - "**/__mocks__/**/*"
+  - "**/dist/**/*"
+  - "**/node_modules/**/*"
+  - "**/*.d.ts"
 
 flag_management:
   individual_flags:
@@ -34,4 +47,4 @@ flag_management:
 comment:
   layout: "diff, flags, files"
   behavior: "default"
-  require_changes: false
+  require_changes: true
