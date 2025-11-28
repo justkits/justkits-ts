@@ -30,6 +30,9 @@ jobs:
       - name: Setup Project
         uses: ./.github/actions/prepare
 
+      - name: Build Project Packages
+        uses: ./.github/actions/build-packages
+
       - name: Check Formatting
         id: prettier
         continue-on-error: true
