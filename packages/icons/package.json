@@ -32,27 +32,29 @@
   "scripts": {
     "build": "tsc && tsc-alias",
     "generate": "tsx ./scripts/generate.ts",
-    "lint": "eslint .",
-    "test": "vitest run"
+    "test": "vitest --coverage",
+    "coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@justkits/eslint-config": "workspace:*",
     "@justkits/svgs-core": "workspace:*",
     "@justkits/tsconfig": "workspace:*",
     "@justkits/vitest-config": "workspace:*",
+    "@testing-library/react": "^16.3.0",
     "@types/react": "^19.2.4",
+    "@vitest/coverage-v8": "catalog:",
     "eslint": "catalog:",
+    "jsdom": "^27.2.0",
     "tsc-alias": "^1.8.16",
     "tsx": "^4.20.6",
     "typescript": "catalog:",
     "vitest": "catalog:"
   },
   "peerDependencies": {
-    "react": ">=18.0.0"
+    "react": ">=18.0.0",
+    "react-native-svg": ">=15.0.0"
   },
   "peerDependenciesMeta": {
     "react-native-svg": {
-      "version": ">=15.0.0",
       "optional": true
     }
   }
