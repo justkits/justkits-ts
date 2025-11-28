@@ -13,7 +13,8 @@
   "scripts": {
     "prepare": "husky",
     "lint": "eslint .",
-    "format": "prettier --write --log-level warn ."
+    "format": "prettier --write --log-level warn .",
+    "clean": "rm -rf node_modules .eslintcache .prettiercache packages/*/dist packages/*/node_modules"
   },
   "lint-staged": {
     "*.{json,md,yml,yaml}": "prettier --check",
