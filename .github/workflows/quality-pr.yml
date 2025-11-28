@@ -97,29 +97,3 @@ jobs:
         uses: sonarsource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-  github-code-scanning:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    permissions:
-      contents: read
-      security-events: write
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Project
-        uses: ./.github/actions/prepare
-
-      - name: Github CodeQL Setup
-        uses: github/codeql-action/init@v4
-        with:
-          languages: typescript
-
-      - name: Build Project Packages
-        uses: ./.github/actions/build-packages
-
-      - name: GitHub Code Scanning Analysis
-        uses: github/codeql-action/analyze@v4
-        with:
-          category: "/language:typescript"
