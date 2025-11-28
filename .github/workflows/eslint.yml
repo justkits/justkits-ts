@@ -27,6 +27,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Setup Project
         uses: ./.github/actions/prepare
 
@@ -53,6 +56,9 @@ jobs:
       contents: read
       packages: write
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Setup Project
         uses: ./.github/actions/prepare
 

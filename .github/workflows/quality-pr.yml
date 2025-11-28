@@ -24,6 +24,9 @@ jobs:
       contents: read
       security-events: write
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Setup Project
         uses: ./.github/actions/prepare
 
@@ -71,6 +74,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Setup Project
         uses: ./.github/actions/prepare
 
@@ -86,6 +92,9 @@ jobs:
       contents: read
       security-events: write
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Setup Project
         uses: ./.github/actions/prepare
 
