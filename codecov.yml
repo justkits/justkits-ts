@@ -14,3 +14,8 @@ flag_management:
     - name: "@justkits/svgs-core"
       paths:
         - "packages/_internal/svgs-core/"
+
+comment:
+  layout: "diff, flags, files"
+  behavior: "default"
+  require_changes: false
