@@ -2,10 +2,10 @@ packages:
   - packages/*
 
 catalog:
-  "@types/node": ^20.5.12
+  "@types/node": ^24.10.1
   "@vitest/coverage-v8": 4.0.14
-  eslint: 9.38.0
-  prettier: ^3.6.2
+  eslint: 9.39.1
+  prettier: ^3.7.1
   typescript: ^5.9.3
   vitest: ^4.0.14
 
