@@ -1,18 +1,18 @@
-name: SVGs Core Test
+name: SVGs Core CI
 
 on:
   push:
     branches:
       - main
     paths:
-      - "packages/_internal/**"
+      - "packages/_svgs-core/**"
       - "pnpm-lock.yaml"
       - "tsconfig*.json"
   pull_request:
     branches:
       - main
     paths:
-      - "packages/_internal/**"
+      - "packages/_svgs-core/**"
       - "pnpm-lock.yaml"
       - "tsconfig*.json"
 
@@ -28,6 +28,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Setup Project
         uses: ./.github/actions/prepare
 
@@ -37,7 +40,7 @@ jobs:
       - name: Test @justkits/svgs-core Package
         uses: ./.github/actions/test
         with:
-          package-path: packages/_internal/svgs-core
+          package-path: packages/_svgs-core
           package-name: "@justkits/svgs-core"
           codecov-token: ${{ secrets.CODECOV_TOKEN }}
 
