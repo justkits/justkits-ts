@@ -62,6 +62,8 @@ jobs:
       - name: Type Check
         id: typecheck
         continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: pnpm -r --workspace-concurrency=4 exec tsc --noEmit
 
       - name: Security Audit
@@ -86,6 +88,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Project
         uses: ./.github/actions/prepare
