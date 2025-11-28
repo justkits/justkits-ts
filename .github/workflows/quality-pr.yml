@@ -33,6 +33,12 @@ jobs:
       - name: Build Project Packages
         uses: ./.github/actions/build-packages
 
+      - name: Dependency Review
+        id: dependency-review
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        uses: actions/dependency-review-action@v4
+
       - name: Check Formatting
         id: prettier
         continue-on-error: true
@@ -68,6 +74,7 @@ jobs:
         run: |
           chmod +x .github/scripts/check-quality-results.sh
           .github/scripts/check-quality-results.sh \
+            "${{ steps.dependency-review.outcome }}" \
             "${{ steps.prettier.outcome }}" \
             "${{ steps.lint.outcome }}" \
             "${{ steps.typecheck.outcome }}" \
