@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": "src",
     "outDir": "dist",
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
     "paths": {
       "@lib/*": ["lib/*"],
       "@managers/*": ["managers/*"],

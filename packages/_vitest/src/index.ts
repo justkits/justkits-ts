@@ -5,8 +5,8 @@ export const sharedConfig = defineConfig({
     globals: true,
     environment: "node",
     coverage: {
-      provider: "istanbul",
-      reporter: [["text", { skipFull: true }], "lcov"],
+      provider: "v8",
+      reporter: [["text", { skipFull: true }], "clover", "lcov"],
     },
   },
 });

@@ -11,8 +11,8 @@
   "scripts": {
     "build": "tsc && tsc-alias",
     "clean": "rm -rf dist",
-    "test": "vitest run",
-    "coverage": "vitest --coverage"
+    "test": "vitest --coverage",
+    "coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@justkits/tsconfig": "workspace:*",
@@ -20,7 +20,7 @@
     "@svgr/core": "^8.1.0",
     "@svgr/plugin-jsx": "^8.1.0",
     "@svgr/plugin-svgo": "^8.1.0",
-    "@vitest/coverage-istanbul": "^4.0.13",
+    "@vitest/coverage-v8": "catalog:",
     "chalk": "^5.6.2",
     "dir-compare": "^5.0.0",
     "tsc-alias": "^1.8.16",
