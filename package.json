@@ -4,20 +4,22 @@
   "version": "1.0.0",
   "private": true,
   "devDependencies": {
-    "@justkits/eslint-config": "workspace:*",
+    "@justkits/eslint": "workspace:*",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.6",
     "prettier": "catalog:"
   },
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint": "eslint .",
+    "format": "prettier --write --log-level warn ."
   },
   "lint-staged": {
-    "*.{json,md,yml,yaml}": "prettier --write --config ./configs/.prettierrc --ignore-path ./configs/.prettierignore",
+    "*.{json,md,yml,yaml}": "prettier --check",
     "*.{ts,tsx,js,jsx}": [
-      "eslint --config ./configs/eslint.config.ts",
-      "prettier --write --config ./configs/.prettierrc --ignore-path ./configs/.prettierignore"
+      "eslint",
+      "prettier --check"
     ]
   },
   "dependencies": {

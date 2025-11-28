@@ -30,9 +30,9 @@ importers:
         specifier: 'catalog:'
         version: 9.38.0(jiti@2.6.1)
     devDependencies:
-      '@justkits/eslint-config':
+      '@justkits/eslint':
         specifier: workspace:*
-        version: link:packages/eslint-config
+        version: link:packages/eslint
       '@microsoft/eslint-formatter-sarif':
         specifier: ^3.1.0
         version: 3.1.0
@@ -46,14 +46,14 @@ importers:
         specifier: 'catalog:'
         version: 3.6.2
 
-  packages/_internal/svgs-core:
+  packages/_svgs-core:
     devDependencies:
       '@justkits/tsconfig':
         specifier: workspace:*
-        version: link:../ts
+        version: link:../_tsconfig
       '@justkits/vitest-config':
         specifier: workspace:*
-        version: link:../vitest
+        version: link:../_vitest
       '@svgr/core':
         specifier: ^8.1.0
         version: 8.1.0(typescript@5.9.3)
@@ -82,7 +82,7 @@ importers:
         specifier: 'catalog:'
         version: 4.0.14(@types/node@24.9.1)(jiti@2.6.1)(jsdom@27.2.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1)
 
-  packages/_internal/ts:
+  packages/_tsconfig:
     dependencies:
       '@types/node':
         specifier: ^24.9.1
@@ -91,7 +91,7 @@ importers:
         specifier: 'catalog:'
         version: 5.9.3
 
-  packages/_internal/vitest:
+  packages/_vitest:
     dependencies:
       '@vitest/coverage-v8':
         specifier: ^4.0.14
@@ -99,7 +99,7 @@ importers:
     devDependencies:
       '@justkits/tsconfig':
         specifier: workspace:*
-        version: link:../ts
+        version: link:../_tsconfig
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -107,11 +107,7 @@ importers:
         specifier: 'catalog:'
         version: 4.0.14(@types/node@24.9.1)(jiti@2.6.1)(jsdom@27.2.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1)
 
-  packages/eslint-config:
-    dependencies:
-      jiti:
-        specifier: ^2.6.1
-        version: 2.6.1
+  packages/eslint:
     devDependencies:
       '@eslint/css':
         specifier: ^0.13.0
@@ -127,7 +123,7 @@ importers:
         version: 7.5.0
       '@justkits/tsconfig':
         specifier: workspace:*
-        version: link:../_internal/ts
+        version: link:../_tsconfig
       eslint:
         specifier: 'catalog:'
         version: 9.38.0(jiti@2.6.1)
@@ -153,18 +149,15 @@ importers:
         specifier: '>=15.0.0'
         version: 15.15.0(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.4)(react@19.2.0))(react@19.2.0)
     devDependencies:
-      '@justkits/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
       '@justkits/svgs-core':
         specifier: workspace:*
-        version: link:../_internal/svgs-core
+        version: link:../_svgs-core
       '@justkits/tsconfig':
         specifier: workspace:*
-        version: link:../_internal/ts
+        version: link:../_tsconfig
       '@justkits/vitest-config':
         specifier: workspace:*
-        version: link:../_internal/vitest
+        version: link:../_vitest
       '@testing-library/react':
         specifier: ^16.3.0
         version: 16.3.0(@testing-library/dom@10.4.1)(@types/react@19.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -6021,7 +6014,8 @@ snapshots:
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
-  jiti@2.6.1: {}
+  jiti@2.6.1:
+    optional: true
 
   js-tokens@4.0.0: {}
 
