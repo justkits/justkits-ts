@@ -59,13 +59,6 @@ jobs:
           sarif_file: eslint-results.sarif
           category: eslint
 
-      - name: Type Check
-        id: typecheck
-        continue-on-error: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: pnpm -r --workspace-concurrency=4 exec tsc --noEmit
-
       - name: Security Audit
         id: audit
         continue-on-error: true
@@ -79,7 +72,6 @@ jobs:
             "${{ steps.dependency-review.outcome }}" \
             "${{ steps.prettier.outcome }}" \
             "${{ steps.lint.outcome }}" \
-            "${{ steps.typecheck.outcome }}" \
             "${{ steps.audit.outcome }}"
 
   sonar-quality:

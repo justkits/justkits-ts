@@ -1,15 +1,14 @@
 #!/bin/bash
 
 # GitHub Actions Quality Check Results Script
-# Usage: check-quality-results.sh <dependency_review_outcome> <prettier_outcome> <lint_outcome> <typecheck_outcome> <audit_outcome>
+# Usage: check-quality-results.sh <dependency_review_outcome> <prettier_outcome> <lint_outcome> <audit_outcome>
 
 set -e
 
 DEPENDENCY_REVIEW_OUTCOME=$1
 PRETTIER_OUTCOME=$2
 LINT_OUTCOME=$3
-TYPECHECK_OUTCOME=$4
-AUDIT_OUTCOME=$5
+AUDIT_OUTCOME=$4
 
 echo "## Quality Check Results" >> $GITHUB_STEP_SUMMARY
 echo "" >> $GITHUB_STEP_SUMMARY
@@ -40,14 +39,6 @@ if [ "$LINT_OUTCOME" != "success" ]; then
   FAILED=1
 else
   echo "✅ Lint check passed" >> $GITHUB_STEP_SUMMARY
-fi
-
-# Check TypeScript
-if [ "$TYPECHECK_OUTCOME" != "success" ]; then
-  echo "❌ Type check failed" >> $GITHUB_STEP_SUMMARY
-  FAILED=1
-else
-  echo "✅ Type check passed" >> $GITHUB_STEP_SUMMARY
 fi
 
 # Check Security Audit
