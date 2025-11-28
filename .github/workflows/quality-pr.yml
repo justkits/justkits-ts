@@ -24,6 +24,8 @@ jobs:
     permissions:
       contents: read
       security-events: write
+    env:
+      GITHUB_TOKEN: test
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -76,7 +78,7 @@ jobs:
         id: lint
         continue-on-error: true
         run: |
-          pnpm lint -- --cache \
+          pnpm lint --cache \
             --format @microsoft/eslint-formatter-sarif \
             --output-file eslint-results.sarif
 
