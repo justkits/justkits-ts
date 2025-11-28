@@ -1,4 +1,4 @@
-name: Publish Icons Package
+name: Icons CI/CD
 
 on:
   workflow_dispatch:
