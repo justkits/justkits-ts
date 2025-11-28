@@ -2,7 +2,11 @@ coverage:
   status:
     project:
       default:
-        target: 80%
+        target: auto
+        threshold: 1%
+    patch:
+      default:
+        target: 95%
         threshold: 10%
 
 flag_management:
@@ -13,7 +17,19 @@ flag_management:
 
     - name: "@justkits/svgs-core"
       paths:
-        - "packages/_internal/svgs-core/"
+        - "packages/_svgs-core/"
+
+    - name: "@justkits/eslint"
+      paths:
+        - "packages/eslint/"
+
+    - name: "@justkits/react-jwt"
+      paths:
+        - "packages/react-jwt/"
+
+    - name: "@justkits/logos"
+      paths:
+        - "packages/logos/"
 
 comment:
   layout: "diff, flags, files"

@@ -1,14 +1,15 @@
 #!/bin/bash
 
 # GitHub Actions Quality Check Results Script
-# Usage: check-quality-results.sh <dependency_review_outcome> <prettier_outcome> <lint_outcome> <audit_outcome>
+# Usage: check-quality-results.sh
+# Environment variables required: DEPENDENCY_REVIEW_OUTCOME, PRETTIER_OUTCOME, LINT_OUTCOME, AUDIT_OUTCOME
 
 set -e
 
-DEPENDENCY_REVIEW_OUTCOME=$1
-PRETTIER_OUTCOME=$2
-LINT_OUTCOME=$3
-AUDIT_OUTCOME=$4
+DEPENDENCY_REVIEW_OUTCOME=${DEPENDENCY_REVIEW_OUTCOME:-skipped}
+PRETTIER_OUTCOME=${PRETTIER_OUTCOME:-skipped}
+LINT_OUTCOME=${LINT_OUTCOME:-skipped}
+AUDIT_OUTCOME=${AUDIT_OUTCOME:-skipped}
 
 echo "## Quality Check Results" >> $GITHUB_STEP_SUMMARY
 echo "" >> $GITHUB_STEP_SUMMARY

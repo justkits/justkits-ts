@@ -1,6 +1,7 @@
 name: SVGs Core CI
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main

@@ -1,6 +1,7 @@
 name: Publish Icons Package
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
