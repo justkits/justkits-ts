@@ -36,7 +36,7 @@ jobs:
         id: lint
         continue-on-error: true
         run: |
-          pnpm -r --workspace-concurrency=4 lint \
+          pnpm lint \
             --format @microsoft/eslint-formatter-sarif \
             --output-file eslint-results.sarif
 
