@@ -1,0 +1,87 @@
+{
+  "name": "@justkits/eslint",
+  "description": "JustKits ESLint configs, custom rules, and tooling",
+  "private": false,
+  "version": "2.0.0",
+  "type": "module",
+  "keywords": [
+    "eslint",
+    "config",
+    "rules",
+    "plugin",
+    "typescript",
+    "tooling"
+  ],
+  "author": "JustWon",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justkits/justkits-ts.git"
+  },
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./react": {
+      "import": "./dist/react.js",
+      "types": "./dist/react.d.ts"
+    },
+    "./json": {
+      "import": "./dist/json.js",
+      "types": "./dist/json.d.ts"
+    },
+    "./markdown": {
+      "import": "./dist/markdown.js",
+      "types": "./dist/markdown.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@eslint/css": "^0.13.0",
+    "@eslint/js": "^9.38.0",
+    "@eslint/json": "^0.13.2",
+    "@eslint/markdown": "^7.5.0",
+    "@justkits/tsconfig": "workspace:*",
+    "eslint": "catalog:",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.4.0",
+    "typescript": "catalog:",
+    "typescript-eslint": "^8.46.2"
+  },
+  "peerDependencies": {
+    "@eslint/css": "^0.13.0",
+    "@eslint/js": "^9.38.0",
+    "@eslint/json": "^0.13.2",
+    "@eslint/markdown": "^7.5.0",
+    "eslint": "^9.38.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.4.0",
+    "typescript-eslint": "^8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@eslint/css": {
+      "optional": true
+    },
+    "@eslint/json": {
+      "optional": true
+    },
+    "@eslint/markdown": {
+      "optional": true
+    },
+    "eslint-plugin-react": {
+      "optional": true
+    }
+  }
+}

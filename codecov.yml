@@ -1,0 +1,50 @@
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 1%
+    patch:
+      default:
+        target: 100%
+        threshold: 10%
+        if_no_uploads_reported: success
+        if_not_found: success
+
+ignore:
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/*.spec.ts"
+  - "**/*.spec.tsx"
+  - "**/__tests__/**/*"
+  - "**/__mocks__/**/*"
+  - "**/dist/**/*"
+  - "**/node_modules/**/*"
+  - "**/*.d.ts"
+
+flag_management:
+  individual_flags:
+    - name: "@justkits/icons"
+      paths:
+        - "packages/icons/"
+
+    - name: "@justkits/svgs-core"
+      paths:
+        - "packages/_svgs-core/"
+
+    - name: "@justkits/eslint"
+      paths:
+        - "packages/eslint/"
+
+    - name: "@justkits/react-jwt"
+      paths:
+        - "packages/react-jwt/"
+
+    - name: "@justkits/logos"
+      paths:
+        - "packages/logos/"
+
+comment:
+  layout: "diff, flags, files"
+  behavior: "default"
+  require_changes: true

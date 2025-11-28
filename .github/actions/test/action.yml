@@ -1,0 +1,30 @@
+name: "Test Package"
+description: "Run tests for a specific package and collect coverage"
+
+inputs:
+  package-name:
+    description: "The name of the package"
+    required: true
+  package-path:
+    description: "The relative path to the package"
+    required: true
+  codecov-token:
+    description: "Codecov token for uploading coverage"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    ## Setup Project와 Build Packages를 이미 했다고 가정
+    - name: Run Tests (with Coverage)
+      shell: bash
+      run: pnpm --filter ${{ inputs.package-name }} coverage
+      ## 각 패키지마다 coverage 스크립트를 정의해야 한다
+
+    - name: Upload Coverage to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ inputs.codecov-token }}
+        files: ${{ inputs.package-path }}/coverage/clover.xml
+        flags: ${{ inputs.package-name }}
+        fail_ci_if_error: true

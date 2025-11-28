@@ -4,29 +4,26 @@
   "version": "1.0.0",
   "private": true,
   "devDependencies": {
-    "@eslint/css": "^0.13.0",
-    "@eslint/js": "^9.38.0",
-    "@eslint/json": "^0.13.2",
-    "@eslint/markdown": "^7.5.0",
-    "@types/node": "^24.9.1",
-    "eslint": "^9.38.0",
-    "eslint-plugin-react": "^7.37.5",
-    "globals": "^16.4.0",
+    "@justkits/eslint": "workspace:*",
+    "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "husky": "^9.1.7",
-    "jiti": "^2.6.1",
     "lint-staged": "^16.2.6",
-    "prettier": "^3.6.2",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.2"
+    "prettier": "catalog:"
   },
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint": "eslint .",
+    "format": "prettier --write --log-level warn .",
+    "clean": "rm -rf node_modules .eslintcache .prettiercache packages/*/dist packages/*/node_modules"
   },
   "lint-staged": {
-    "*.{json,md,yml,yaml}": "prettier --write",
+    "*.{json,md,yml,yaml}": "prettier --check",
     "*.{ts,tsx,js,jsx}": [
-      "eslint --fix",
-      "prettier --write"
+      "eslint",
+      "prettier --check"
     ]
+  },
+  "dependencies": {
+    "eslint": "catalog:"
   }
 }

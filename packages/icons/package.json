@@ -1,0 +1,61 @@
+{
+  "name": "@justkits/icons",
+  "description": "JustKits Icons Package",
+  "private": false,
+  "version": "0.0.2",
+  "type": "module",
+  "keywords": [
+    "icons",
+    "react",
+    "typescript"
+  ],
+  "author": "JustWon",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justkits/justkits-ts.git"
+  },
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/web/index.d.ts",
+      "react-native": "./dist/native/index.js",
+      "default": "./dist/web/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "generate": "tsx ./scripts/generate.ts",
+    "test": "vitest --coverage",
+    "coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@justkits/svgs-core": "workspace:*",
+    "@justkits/tsconfig": "workspace:*",
+    "@justkits/vitest-config": "workspace:*",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.2.4",
+    "@vitest/coverage-v8": "catalog:",
+    "eslint": "catalog:",
+    "jsdom": "^27.2.0",
+    "tsc-alias": "^1.8.16",
+    "tsx": "^4.20.6",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-native-svg": ">=15.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react-native-svg": {
+      "optional": true
+    }
+  }
+}

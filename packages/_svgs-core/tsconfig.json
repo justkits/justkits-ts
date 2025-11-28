@@ -1,0 +1,14 @@
+{
+  "extends": "@justkits/tsconfig/base.json",
+  "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "baseUrl": "src",
+    "outDir": "dist",
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+    "paths": {
+      "@lib/*": ["lib/*"],
+      "@managers/*": ["managers/*"],
+      "@utils/*": ["utils/*"]
+    }
+  }
+}

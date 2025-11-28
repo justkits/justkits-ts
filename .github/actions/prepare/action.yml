@@ -1,0 +1,25 @@
+name: Setup Project
+description: Setup Node.js and pnpm, install dependencies
+
+inputs:
+  node-version:
+    description: Node.js version to setup
+    required: false
+    default: 22.14.0
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: "pnpm"
+        cache-dependency-path: pnpm-lock.yaml
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile
