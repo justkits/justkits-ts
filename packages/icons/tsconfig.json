@@ -3,9 +3,9 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "paths": {
-      "@icons/*": ["./src/*"]
-    },
-    "types": ["node"]
+      "@icons/*": ["./src/*"],
+      "@scripts/*": ["./scripts/*"]
+    }
   },
   "include": ["src", "scripts", "tests"]
 }
