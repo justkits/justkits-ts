@@ -2,12 +2,9 @@
   "extends": "@justkits/tsconfig/base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "tsBuildInfoFile": "./dist/.tsbuildinfo",
     "paths": {
       "@icons/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "scripts", "tests"]
 }

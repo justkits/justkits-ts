@@ -7,19 +7,20 @@ const config = defineConfig({
   resolve: {
     alias: {
       "@icons": resolve(__dirname, "src"),
+      "@justkits/svgs-core": resolve(__dirname, "tests/__mocks__/svgs-core.ts"),
       "react-native-svg": resolve(
         __dirname,
-        "src/__tests__/__mocks__/react-native-svg.tsx",
+        "tests/__mocks__/react-native-svg.tsx",
       ),
     },
   },
   test: {
     root: __dirname,
     environment: "jsdom",
-    include: ["src/**/*.test.tsx"],
+    include: ["tests/**/*.test.tsx"],
     coverage: {
-      include: ["src/**/*.tsx"],
-      exclude: ["src/__tests__/*"],
+      include: ["src/**/*.tsx", "scripts/**/*.ts"],
+      exclude: ["tests/*"],
     },
   },
 });
