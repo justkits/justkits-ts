@@ -4,7 +4,8 @@
     "jsx": "react-jsx",
     "paths": {
       "@icons/*": ["./src/*"]
-    }
+    },
+    "types": ["node"]
   },
   "include": ["src", "scripts", "tests"]
 }
