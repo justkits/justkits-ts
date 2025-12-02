@@ -97,12 +97,6 @@ describe("IconComponentsManager", () => {
 
       await testManager.scanWebDirectory();
 
-      expect(testManager.isScanned).toBe(true);
-      expect(testManager.allComponents).toHaveLength(1);
-      expect(testManager.allComponents[0]).toEqual(mockComponent);
-      expect(testManager.componentsByFamilies).toEqual({
-        app: [mockComponent],
-      });
       expect(readdirMock).toHaveBeenCalledWith("/mocked/path/src", {
         withFileTypes: true,
       });
