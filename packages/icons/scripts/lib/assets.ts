@@ -3,7 +3,7 @@ import { readdir } from "node:fs/promises";
 import { join, relative } from "node:path";
 import { AssetsMeta, AssetsBaseManager } from "@justkits/svgs-core";
 
-import { PATHS } from "../config";
+import { PATHS } from "@scripts/config";
 
 export type IconAsset = AssetsMeta & {
   family: string;
