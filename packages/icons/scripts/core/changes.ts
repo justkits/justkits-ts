@@ -1,7 +1,7 @@
 import { BaseChangesDetector } from "@justkits/svgs-core";
 
-import { IconAsset } from "../lib/assets";
-import { databaseManager, IconMetadata } from "../lib/database";
+import { IconAsset } from "@scripts/lib/assets";
+import { databaseManager, IconMetadata } from "@scripts/lib/database";
 
 class ChangesDetector extends BaseChangesDetector<IconAsset, IconMetadata> {
   protected compareHash(svg: IconAsset) {

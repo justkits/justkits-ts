@@ -2,7 +2,7 @@ import { readdir } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { ComponentMeta, ComponentsBaseManager } from "@justkits/svgs-core";
 
-import { PATHS } from "../config";
+import { PATHS } from "@scripts/config";
 
 class IconComponentsManager extends ComponentsBaseManager {
   private componentsByFamilies: Record<string, ComponentMeta[]>;

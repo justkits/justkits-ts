@@ -2,8 +2,8 @@
 import { unlink } from "node:fs/promises";
 import { atomicWrite, BaseConverter } from "@justkits/svgs-core";
 
-import { PATHS } from "../config";
-import { databaseManager, IconMetadata } from "../lib/database";
+import { PATHS } from "@scripts/config";
+import { databaseManager, IconMetadata } from "@scripts/lib/database";
 
 class IconConverter extends BaseConverter<IconMetadata> {
   private componentTemplate(variables: any, { tpl }: any): any {

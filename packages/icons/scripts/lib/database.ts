@@ -1,6 +1,6 @@
 import { SVGDatabaseManager, type SVGMetadata } from "@justkits/svgs-core";
 
-import { PATHS } from "../config";
+import { PATHS } from "@scripts/config";
 
 export type IconMetadata = SVGMetadata & {
   family: string;
