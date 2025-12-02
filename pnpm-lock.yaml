@@ -7,7 +7,7 @@ settings:
 catalogs:
   default:
     '@types/node':
-      specifier: ^20.19.25
+      specifier: 20.19.25
       version: 20.19.25
     '@vitest/coverage-v8':
       specifier: 4.0.14
@@ -19,10 +19,10 @@ catalogs:
       specifier: ^3.7.3
       version: 3.7.3
     typescript:
-      specifier: ^5.9.3
+      specifier: 5.9.3
       version: 5.9.3
     vitest:
-      specifier: ^4.0.14
+      specifier: 4.0.14
       version: 4.0.14
 
 importers:
@@ -36,9 +36,15 @@ importers:
       '@justkits/eslint':
         specifier: workspace:*
         version: link:packages/eslint
+      '@justkits/tsconfig':
+        specifier: workspace:*
+        version: link:packages/_tsconfig
       '@microsoft/eslint-formatter-sarif':
         specifier: ^3.1.0
         version: 3.1.0
+      '@types/node':
+        specifier: 'catalog:'
+        version: 20.19.25
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -48,6 +54,9 @@ importers:
       prettier:
         specifier: 'catalog:'
         version: 3.7.3
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
 
   packages/_svgs-core:
     devDependencies:
@@ -111,6 +120,10 @@ importers:
         version: 4.0.14(@types/node@24.10.1)(jiti@2.6.1)(jsdom@27.2.0)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
 
   packages/eslint:
+    dependencies:
+      commander:
+        specifier: ^14.0.2
+        version: 14.0.2
     devDependencies:
       '@eslint/css':
         specifier: ^0.13.0
@@ -127,6 +140,15 @@ importers:
       '@justkits/tsconfig':
         specifier: workspace:*
         version: link:../_tsconfig
+      '@justkits/vitest-config':
+        specifier: workspace:*
+        version: link:../_vitest
+      '@types/node':
+        specifier: 'catalog:'
+        version: 20.19.25
+      '@vitest/coverage-v8':
+        specifier: 'catalog:'
+        version: 4.0.14(vitest@4.0.14(@types/node@20.19.25)(jiti@2.6.1)(jsdom@27.2.0)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       eslint:
         specifier: 'catalog:'
         version: 9.38.0(jiti@2.6.1)
@@ -136,12 +158,18 @@ importers:
       globals:
         specifier: ^16.5.0
         version: 16.5.0
+      tsc-esm-fix:
+        specifier: ^3.1.2
+        version: 3.1.2
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
       typescript-eslint:
         specifier: ^8.48.0
         version: 8.48.0(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3)
+      vitest:
+        specifier: 'catalog:'
+        version: 4.0.14(@types/node@20.19.25)(jiti@2.6.1)(jsdom@27.2.0)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
 
   packages/icons:
     dependencies:
@@ -191,6 +219,12 @@ importers:
       vitest:
         specifier: 'catalog:'
         version: 4.0.14(@types/node@20.19.25)(jiti@2.6.1)(jsdom@27.2.0)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
+
+  packages/test:
+    devDependencies:
+      '@justkits/eslint':
+        specifier: workspace:*
+        version: link:../eslint
 
 packages:
 
@@ -1157,6 +1191,10 @@ packages:
       '@types/react-dom':
         optional: true
 
+  '@topoconfig/extends@0.16.2':
+    resolution: {integrity: sha512-sTF+qpWakr5jf1Hn/kkFSi833xPW15s/loMAiKSYSSVv4vDonxf6hwCGzMXjLq+7HZoaK6BgaV72wXr1eY7FcQ==}
+    hasBin: true
+
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
@@ -1737,6 +1775,9 @@ packages:
     resolution: {integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==}
     engines: {node: '>= 0.8'}
 
+  depseek@0.4.3:
+    resolution: {integrity: sha512-0Ex/Uoz9Y9oipbqvgSc7FoV2q4GTDGORkg8TGgM9Pd3RyvRzrDYScKplWiqHU7WqckbKN5kukqD0opEayu2bXg==}
+
   dequal@2.0.3:
     resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
     engines: {node: '>=6'}
@@ -2061,6 +2102,10 @@ packages:
   fresh@0.5.2:
     resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
     engines: {node: '>= 0.6'}
+
+  fs-extra@11.3.2:
+    resolution: {integrity: sha512-Xr9F6z6up6Ws+NjzMCZc6WXg2YFRlrLP9NQDO3VQrWrfiojdhS56TzueT88ze0uBdCTwEIhQ3ptnmKeWGFAe0A==}
+    engines: {node: '>=14.14'}
 
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
@@ -2511,6 +2556,9 @@ packages:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
     hasBin: true
+
+  jsonfile@6.2.0:
+    resolution: {integrity: sha512-FGuPw30AdOIUTRMC2OMRtQV+jkVj2cfPqSeWXv1NEAJ1qZ5zb1X6z1mFhbfOB/iy3ssJCD+3KuZ8r8C3uVFlAg==}
 
   jsx-ast-utils@3.3.5:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
@@ -3480,6 +3528,11 @@ packages:
     engines: {node: '>=16.20.2'}
     hasBin: true
 
+  tsc-esm-fix@3.1.2:
+    resolution: {integrity: sha512-1/OpZssMcEp2ae6DyZV+yvDviofuCdDf7dEWEaBvm/ac8vtS04lFyl0LVs8LQE56vjKHytgzVjPIL9udM4QuNg==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
+
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
@@ -3503,6 +3556,9 @@ packages:
   type-fest@0.7.1:
     resolution: {integrity: sha512-Ne2YiiGN8bmrmJJEuTWTLJR32nh/JdL1+PSicowtNb0WFpn59GK8/lfD61bVtzguz7b3PBt74nxpv/Pw5po5Rg==}
     engines: {node: '>=8'}
+
+  type-flag@3.0.0:
+    resolution: {integrity: sha512-3YaYwMseXCAhBB14RXW5cRQfJQlEknS6i4C8fCfeUdS3ihG9EdccdR9kt3vP73ZdeTGmPb4bZtkDn5XMIn1DLA==}
 
   typed-array-buffer@1.0.3:
     resolution: {integrity: sha512-nAYYwfY3qnzX30IkA6AQZjVbtK6duGontcQm1WSG1MD94YLqK0515GNApXkoxKOWMusVssAHWLh9SeaoefYFGw==}
@@ -3553,6 +3609,10 @@ packages:
 
   unist-util-visit@5.0.0:
     resolution: {integrity: sha512-MR04uvD+07cwl/yhVuVWAtw+3GOR/knlL55Nd/wAdblk27GCVt3lqpTivy/tkJcZoNPzTwS1Y+KMojlLDhoTzg==}
+
+  universalify@2.0.1:
+    resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
+    engines: {node: '>= 10.0.0'}
 
   unpipe@1.0.0:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
@@ -4666,6 +4726,8 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.7
 
+  '@topoconfig/extends@0.16.2': {}
+
   '@trysound/sax@0.2.0': {}
 
   '@types/aria-query@5.0.4': {}
@@ -5389,6 +5451,8 @@ snapshots:
 
   depd@2.0.0: {}
 
+  depseek@0.4.3: {}
+
   dequal@2.0.3: {}
 
   destroy@1.2.0: {}
@@ -5890,6 +5954,12 @@ snapshots:
   format@0.2.2: {}
 
   fresh@0.5.2: {}
+
+  fs-extra@11.3.2:
+    dependencies:
+      graceful-fs: 4.2.11
+      jsonfile: 6.2.0
+      universalify: 2.0.1
 
   fs.realpath@1.0.0: {}
 
@@ -6394,6 +6464,12 @@ snapshots:
   json-stable-stringify-without-jsonify@1.0.1: {}
 
   json5@2.2.3: {}
+
+  jsonfile@6.2.0:
+    dependencies:
+      universalify: 2.0.1
+    optionalDependencies:
+      graceful-fs: 4.2.11
 
   jsx-ast-utils@3.3.5:
     dependencies:
@@ -7751,6 +7827,15 @@ snapshots:
       normalize-path: 3.0.0
       plimit-lit: 1.6.1
 
+  tsc-esm-fix@3.1.2:
+    dependencies:
+      '@topoconfig/extends': 0.16.2
+      depseek: 0.4.3
+      fast-glob: 3.3.3
+      fs-extra: 11.3.2
+      json5: 2.2.3
+      type-flag: 3.0.0
+
   tslib@2.8.1: {}
 
   tsx@4.21.0:
@@ -7769,6 +7854,8 @@ snapshots:
   type-fest@0.20.2: {}
 
   type-fest@0.7.1: {}
+
+  type-flag@3.0.0: {}
 
   typed-array-buffer@1.0.3:
     dependencies:
@@ -7845,6 +7932,8 @@ snapshots:
       '@types/unist': 3.0.3
       unist-util-is: 6.0.1
       unist-util-visit-parents: 6.0.2
+
+  universalify@2.0.1: {}
 
   unpipe@1.0.0: {}
 
