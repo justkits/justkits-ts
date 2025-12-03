@@ -92,7 +92,7 @@ export class SVGDatabaseManager<T extends SVGMetadata> {
     this.assertLoaded();
 
     if (!this.saveNeeded) {
-      logger.info("No changes to save.");
+      logger.info("✨ No changes to save.");
       return;
     }
 
