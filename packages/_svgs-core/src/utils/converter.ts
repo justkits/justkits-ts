@@ -77,6 +77,9 @@ export abstract class BaseConverter<T extends SVGMetadata> {
           name: "preset-default",
           params: { overrides: { removeViewBox: false } },
         },
+        {
+          name: "prefixIds",
+        },
       ],
     },
   };
