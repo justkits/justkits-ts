@@ -2,10 +2,11 @@
 
 # GitHub Actions Quality Check Results Script
 # Usage: check-quality-results.sh
-# Environment variables required: DEPENDENCY_REVIEW_OUTCOME, PRETTIER_OUTCOME, LINT_OUTCOME, AUDIT_OUTCOME
+# Environment variables required: TYPECHECK_OUTCOME, DEPENDENCY_REVIEW_OUTCOME, PRETTIER_OUTCOME, LINT_OUTCOME, AUDIT_OUTCOME
 
 set -e
 
+TYPECHECK_OUTCOME=${TYPECHECK_OUTCOME:-skipped}
 DEPENDENCY_REVIEW_OUTCOME=${DEPENDENCY_REVIEW_OUTCOME:-skipped}
 PRETTIER_OUTCOME=${PRETTIER_OUTCOME:-skipped}
 LINT_OUTCOME=${LINT_OUTCOME:-skipped}
@@ -15,6 +16,14 @@ echo "## Quality Check Results" >> $GITHUB_STEP_SUMMARY
 echo "" >> $GITHUB_STEP_SUMMARY
 
 FAILED=0
+
+# Check Type Check
+if [ "$TYPECHECK_OUTCOME" != "success" ]; then
+  echo "❌ Type check failed" >> $GITHUB_STEP_SUMMARY
+  FAILED=1
+else
+  echo "✅ Type check passed" >> $GITHUB_STEP_SUMMARY
+fi
 
 # Check Dependency Review (only runs on PRs)
 if [ "$DEPENDENCY_REVIEW_OUTCOME" = "skipped" ]; then

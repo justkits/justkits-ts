@@ -22,6 +22,9 @@
     "access": "restricted",
     "registry": "https://npm.pkg.github.com/"
   },
+  "bin": {
+    "justkits-eslint": "./dist/cli/index.js"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -46,7 +49,9 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc && tsc-esm-fix --target dist",
+    "test": "vitest --coverage",
+    "coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@eslint/css": "^0.13.0",
@@ -54,11 +59,16 @@
     "@eslint/json": "^0.13.2",
     "@eslint/markdown": "^7.5.1",
     "@justkits/tsconfig": "workspace:*",
+    "@justkits/vitest-config": "workspace:*",
+    "@types/node": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.5.0",
+    "tsc-esm-fix": "^3.1.2",
     "typescript": "catalog:",
-    "typescript-eslint": "^8.48.0"
+    "typescript-eslint": "^8.48.0",
+    "vitest": "catalog:"
   },
   "peerDependencies": {
     "@eslint/css": "^0.13.0",
@@ -83,5 +93,8 @@
     "eslint-plugin-react": {
       "optional": true
     }
+  },
+  "dependencies": {
+    "commander": "^14.0.2"
   }
 }

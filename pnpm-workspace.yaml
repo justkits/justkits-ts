@@ -2,12 +2,12 @@ packages:
   - packages/*
 
 catalog:
-  '@types/node': ^20.19.25
+  '@types/node': 20.19.25
   '@vitest/coverage-v8': 4.0.14
   eslint: 9.38.0
   prettier: ^3.7.3
-  typescript: ^5.9.3
-  vitest: ^4.0.14
+  typescript: 5.9.3
+  vitest: 4.0.14
 
 ignoredBuiltDependencies:
   - esbuild
