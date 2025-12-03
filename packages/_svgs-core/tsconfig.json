@@ -2,6 +2,7 @@
   "extends": "@justkits/tsconfig/base.json",
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
+    "rootDir": "src",
     "baseUrl": "src",
     "outDir": "dist",
     "tsBuildInfoFile": "./dist/.tsbuildinfo",
@@ -10,5 +11,6 @@
       "@managers/*": ["managers/*"],
       "@utils/*": ["utils/*"]
     }
-  }
+  },
+  "include": ["src"]
 }
