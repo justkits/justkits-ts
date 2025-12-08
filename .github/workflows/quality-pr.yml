@@ -38,6 +38,11 @@ jobs:
       - name: Build Project Packages
         uses: ./.github/actions/build-packages
 
+      - name: Type Check
+        id: typecheck
+        continue-on-error: true
+        run: pnpm -r exec tsc --noEmit
+
       - name: Dependency Review
         id: dependency-review
         if: github.event_name == 'pull_request'
@@ -112,6 +117,7 @@ jobs:
           chmod +x .github/scripts/check-quality-results.sh
           .github/scripts/check-quality-results.sh
         env:
+          TYPECHECK_OUTCOME: ${{ steps.typecheck.outcome }}
           DEPENDENCY_REVIEW_OUTCOME: ${{ steps.dependency-review.outcome }}
           PRETTIER_OUTCOME: ${{ steps.prettier.outcome }}
           LINT_OUTCOME: ${{ steps.lint.outcome }}

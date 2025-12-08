@@ -16,46 +16,88 @@ Install this package as a development dependency:
 pnpm add -D @justkits/eslint
 ```
 
-## Usage
+## CLI
 
-### Quick Start (All-in-One)
+This package includes a CLI tool to help you quickly set up your ESLint configuration.
 
-Create an `eslint.config.js` file in your project root and use the all-inclusive configuration:
+### `init`
 
-```javascript
-// eslint.config.js
-import { allConfig } from "@justkits/eslint";
+Initialize a new `eslint.config.ts` file with your chosen preset:
 
-export default [
-  ...allConfig,
-  // Add your project-specific rules here
-  // {
-  //   rules: {
-  //     'no-console': 'warn',
-  //   }
-  // }
-];
+```bash
+# Base configuration (TypeScript + JavaScript)
+pnpm exec justkits-eslint init
+
+# With React support
+pnpm exec justkits-eslint init --react
+
+# All-in-one (Base + React + JSON + Markdown)
+pnpm exec justkits-eslint init --all
+
+# Force overwrite existing config
+pnpm exec justkits-eslint init --force
 ```
 
-### Granular Configuration
+### Options
+
+- `--react` - Include React configuration
+- `--all` - Include all configurations (Base, React, JSON, Markdown)
+- `-f, --force` - Overwrite existing `eslint.config.ts` if it exists
+
+The CLI will create a TypeScript config file wrapped with `defineConfig()` for better type safety and IntelliSense support.
+
+## Usage
+
+### Quick Start with CLI (Recommended)
+
+The easiest way to get started is using the CLI:
+
+```bash
+pnpm exec justkits-eslint init --all
+```
+
+This creates an `eslint.config.ts` file ready to use.
+
+### Manual Setup
+
+#### All-in-One Configuration
+
+Create an `eslint.config.ts` file in your project root with the all-inclusive configuration:
+
+```typescript
+// eslint.config.ts
+import { defineConfig } from "eslint/config";
+import { allConfig } from "@justkits/eslint";
+
+export default defineConfig([
+  ...allConfig,
+  {
+    // Add your custom rules here
+  },
+]);
+```
+
+#### Granular Configuration
 
 Pick and choose only the configs you need:
 
-```javascript
-// eslint.config.js
-import {
-  baseConfig,
-  reactConfig,
-  jsonConfig,
-  markdownConfig,
-} from "@justkits/eslint";
+```typescript
+// eslint.config.ts
+import { defineConfig } from "eslint/config";
+import { baseConfig } from "@justkits/eslint";
+import { reactConfig } from "@justkits/eslint/react";
+import { jsonConfig } from "@justkits/eslint/json";
+import { markdownConfig } from "@justkits/eslint/markdown";
 
-export default [
+export default defineConfig([
   ...baseConfig, // Always include base config
   ...reactConfig, // For React projects
   jsonConfig, // For linting JSON files
   markdownConfig, // For linting Markdown files
-];
+  {
+    // Add your custom rules here
+  },
+]);
 ```
 
 ## Available Configurations
@@ -104,49 +146,6 @@ This package will include custom ESLint rules specific to JustKits patterns and 
 - Import ordering
 - Component structure
 - And more...
-
-## Development
-
-```bash
-# Build the package
-pnpm build
-```
-
-Type checking and linting are handled at the repository level.
-
-## Publishing
-
-This package uses tag-based publishing. To publish a new version:
-
-### 1. Update the version
-
-```bash
-cd packages/eslint
-npm version patch  # or minor, major
-```
-
-This updates `package.json` and creates a git commit.
-
-### 2. Create and push the version tag
-
-```bash
-git tag eslint-v2.0.1  # Use the version from step 1
-git push origin main --tags
-```
-
-### 3. Automated publishing
-
-The GitHub Actions workflow will automatically:
-
-- Build the package
-- Run validation
-- Publish to GitHub Packages
-
-### Version Guidelines
-
-- **Patch** (`2.0.x`): Bug fixes, minor config tweaks
-- **Minor** (`2.x.0`): New configs, non-breaking features
-- **Major** (`x.0.0`): Breaking changes to existing configs
 
 ## License
 
