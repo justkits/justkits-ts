@@ -75,10 +75,12 @@ export abstract class BaseChangesDetector<
   }
 
   private printSummary(): void {
-    logger.info("=== Changes Detection Summary ===");
-    logger.info(
-      `${this.addedCount} new, ${this.updatedCount} updated, ${this.toDelete.length} deleted icons detected.`,
-    );
+    logger.info("==== Changes Detection Summary ====");
+    logger.success("Changes detection completed.");
+    logger.info("Summary:");
+    logger.detail(`- New icons to add: ${this.addedCount}`);
+    logger.detail(`- Existing icons to update: ${this.updatedCount}`);
+    logger.detail(`- Icons to delete: ${this.toDelete.length}`);
 
     if (this.errors.length > 0) {
       logger.error("❌ Validation errors found:");
@@ -90,6 +92,6 @@ export abstract class BaseChangesDetector<
       logger.success("✨ No validation errors found.");
     }
 
-    logger.info("=================================");
+    logger.info("===================================\n");
   }
 }

@@ -1,0 +1,11 @@
+{
+  "extends": "@justkits/tsconfig/base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "paths": {
+      "@logos/*": ["./src/*"],
+      "@scripts/*": ["./scripts/*"]
+    }
+  },
+  "include": ["src", "scripts", "tests"]
+}

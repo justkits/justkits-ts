@@ -74,8 +74,8 @@ export abstract class AssetsBaseManager<T extends AssetsMeta> {
   protected printSummary() {
     this.assertScanned();
 
-    logger.info("=== Assets Scan Summary ===");
-    logger.success(`Detected ${this.svgs.length} SVG files.`);
+    logger.info("======= Assets Scan Summary =======");
+    logger.success(`Found ${this.svgs.length} SVG files.`);
 
     if (this.warnings.length > 0) {
       logger.warn(`(${this.warnings.length}) Warnings:`);
@@ -83,7 +83,7 @@ export abstract class AssetsBaseManager<T extends AssetsMeta> {
         logger.warn(`  - ${warning}`);
       }
     } else {
-      logger.success("No warnings detected.");
+      logger.detail("- No warnings detected.");
     }
 
     if (this.errors.length > 0) {
@@ -93,9 +93,9 @@ export abstract class AssetsBaseManager<T extends AssetsMeta> {
       }
       throw new Error("Assets scan completed with errors.");
     } else {
-      logger.success("No errors detected.");
+      logger.detail("- No errors detected.");
     }
 
-    logger.info("===========================");
+    logger.info("===================================\n");
   }
 }

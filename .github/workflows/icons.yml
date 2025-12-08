@@ -82,6 +82,6 @@ jobs:
 
       - name: Publish to GitHub Packages
         working-directory: packages/icons
-        run: pnpm publish --no-git-checks
+        run: pnpm exec prettier --write packages/icons/src/ && pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

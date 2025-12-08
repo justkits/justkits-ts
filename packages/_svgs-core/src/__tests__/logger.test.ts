@@ -13,6 +13,7 @@ vi.mock("chalk", () => {
       yellow: simpleLog,
       red: simpleLog,
       green: simpleLog,
+      gray: simpleLog,
     },
   };
 });
@@ -38,6 +39,13 @@ describe("logger", () => {
     logger.info(message);
     expect(consoleLogSpy).toHaveBeenCalledWith(message);
     expect(chalk.cyan).toHaveBeenCalledWith(message);
+  });
+
+  it("should log detail messages in gray", () => {
+    const message = "This is a detail message";
+    logger.detail(message);
+    expect(consoleLogSpy).toHaveBeenCalledWith("   ", message);
+    expect(chalk.gray).toHaveBeenCalledWith(message);
   });
 
   it("should log warning messages in yellow with a warning icon", () => {

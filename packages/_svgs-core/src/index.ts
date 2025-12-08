@@ -5,4 +5,5 @@ export { SVGMetadata, SVGDatabaseManager } from "./managers/database";
 export { BaseChangesDetector } from "./utils/changes";
 export { BaseConverter } from "./utils/converter";
 
+export { logger } from "./lib/logger";
 export { atomicWrite } from "./lib/storage";

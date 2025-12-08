@@ -4,6 +4,10 @@ function info(message: string): void {
   console.log(chalk.cyan(message));
 }
 
+function detail(message: string): void {
+  console.log("   ", chalk.gray(message));
+}
+
 function warn(message: string): void {
   console.warn("⚠️", chalk.yellow(message));
 }
@@ -18,6 +22,7 @@ function success(message: string): void {
 
 export const logger = {
   info,
+  detail,
   warn,
   error,
   success,
