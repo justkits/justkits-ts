@@ -1,4 +1,5 @@
 import { basename, dirname, join, relative } from "node:path";
+import { fileURLToPath } from "node:url";
 import { Config } from "@svgr/core";
 import jsxPlugin from "@svgr/plugin-jsx";
 import svgoPlugin from "@svgr/plugin-svgo";
@@ -8,7 +9,7 @@ class IconsBuilder extends BaseSvgBuilder {
   private readonly exportMap: Record<string, string[]>; // key: familyName, value: componentNames[]
 
   constructor(options: Options) {
-    super(options, __dirname);
+    super(options, join(dirname(fileURLToPath(import.meta.url)), ".."));
     this.exportMap = {};
   }
 
@@ -63,9 +64,13 @@ class IconsBuilder extends BaseSvgBuilder {
     logger.info("\nGenerating barrel files...");
 
     const rootBarrelLines: string[] = [];
+    const sortedFamilyNames = Object.keys(this.exportMap).sort((a, b) =>
+      a.localeCompare(b),
+    );
 
-    for (const familyName of Object.keys(this.exportMap)) {
+    for (const familyName of sortedFamilyNames) {
       const componentNames = this.exportMap[familyName];
+      componentNames.sort((a, b) => a.localeCompare(b));
       const familyBarrelLines: string[] = [];
 
       for (const componentName of componentNames) {
