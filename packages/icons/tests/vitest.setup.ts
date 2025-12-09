@@ -7,10 +7,3 @@ vi.mock("node:fs/promises", () => ({
   },
   readdir: vi.fn(),
 }));
-vi.mock("@scripts/config", () => ({
-  PATHS: {
-    DATABASE: "/mocked/path/database.json",
-    ASSETS: "/mocked/path/assets",
-    SRC: "/mocked/path/src",
-  },
-}));
