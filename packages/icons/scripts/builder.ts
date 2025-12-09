@@ -61,8 +61,6 @@ class IconsBuilder extends BaseSvgBuilder {
   }
 
   protected async generateBarrelFiles(): Promise<void> {
-    logger.info("\nGenerating barrel files...");
-
     const rootBarrelLines: string[] = [];
     const sortedFamilyNames = Object.keys(this.exportMap).sort((a, b) =>
       a.localeCompare(b),
@@ -102,8 +100,6 @@ class IconsBuilder extends BaseSvgBuilder {
       join(this.SRC_DIR, "native", "index.ts"),
       rootBarrelContent,
     );
-
-    logger.success("Barrel files generated successfully.\n");
   }
 }
 
