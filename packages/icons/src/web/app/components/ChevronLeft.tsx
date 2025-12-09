@@ -6,10 +6,10 @@ export function ChevronLeft({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       fill="none"
       viewBox="0 0 20 20"
+      width={size}
+      height={size}
       color={color}
     >
       <path

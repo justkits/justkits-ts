@@ -7,8 +7,9 @@ const config = defineConfig({
   resolve: {
     alias: {
       "@icons": resolve(__dirname, "src"),
-      "@justkits/svgs-core": resolve(__dirname, "tests/__mocks__/svgs-core.ts"),
       "@scripts": resolve(__dirname, "scripts"),
+      "node:fs/promises": resolve(__dirname, "tests/__mocks__/fs-promises.ts"),
+      "fast-glob": resolve(__dirname, "tests/__mocks__/fast-glob.ts"),
       "react-native-svg": resolve(
         __dirname,
         "tests/__mocks__/react-native-svg.tsx",
@@ -23,7 +24,6 @@ const config = defineConfig({
       include: ["src/**/*.tsx", "scripts/**/*.ts"],
       exclude: ["tests/*"],
     },
-    setupFiles: ["tests/vitest.setup.ts"],
   },
 });
 

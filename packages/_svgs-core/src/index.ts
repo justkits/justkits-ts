@@ -1,9 +1,2 @@
-export { AssetsMeta, AssetsBaseManager } from "./managers/assets";
-export { ComponentMeta, ComponentsBaseManager } from "./managers/components";
-export { SVGMetadata, SVGDatabaseManager } from "./managers/database";
-
-export { BaseChangesDetector } from "./utils/changes";
-export { BaseConverter } from "./utils/converter";
-
-export { logger } from "./lib/logger";
-export { atomicWrite } from "./lib/storage";
+export { BaseSvgBuilder, type Options } from "./builder";
+export { logger } from "./logger";

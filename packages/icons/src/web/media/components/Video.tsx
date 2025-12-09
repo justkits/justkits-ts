@@ -3,10 +3,10 @@ export function Video({ size = 24, color = "#000" }: Readonly<IconProps>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       fill="none"
       viewBox="0 0 16 16"
+      width={size}
+      height={size}
       color={color}
     >
       <path
