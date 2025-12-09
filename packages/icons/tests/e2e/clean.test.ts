@@ -25,7 +25,7 @@ vi.mock("@justkits/svgs-core", () => ({
 describe("clean.ts script", () => {
   const mockExit = vi
     .spyOn(process, "exit")
-    .mockImplementation((() => {}) as any); // eslint-disable-line @typescript-eslint/no-explicit-any
+    .mockImplementation(vi.fn() as never);
 
   const consoleErrorSpy = vi
     .spyOn(console, "error")
