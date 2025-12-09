@@ -6,10 +6,10 @@ export function ChevronRight({
 }: Readonly<IconProps>) {
   return (
     <Svg
-      width={size}
-      height={size}
       fill="none"
       viewBox="0 0 20 20"
+      width={size}
+      height={size}
       color={color}
     >
       <Path

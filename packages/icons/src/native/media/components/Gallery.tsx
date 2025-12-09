@@ -3,10 +3,10 @@ import type { IconProps } from "@icons/types";
 export function Gallery({ size = 24, color = "#000" }: Readonly<IconProps>) {
   return (
     <Svg
-      width={size}
-      height={size}
       fill="none"
       viewBox="0 0 16 16"
+      width={size}
+      height={size}
       color={color}
     >
       <G
@@ -14,15 +14,15 @@ export function Gallery({ size = 24, color = "#000" }: Readonly<IconProps>) {
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={1.143}
-        clipPath="url(#a)"
+        clipPath="url(#prefix__a)"
       >
         <Path d="M11.521 2.845a1.19 1.19 0 0 0-1.063-1.026c-1.32-.125-2.7-.282-4.117-.282-1.419 0-2.798.158-4.12.282A1.19 1.19 0 0 0 1.16 2.845C1.017 3.905.857 5.009.857 6.143s.161 2.238.302 3.298c.072.546.514.974 1.063 1.025" />
         <Path d="M4.479 13.155c.072.547.514.974 1.063 1.026 1.32.125 2.7.282 4.117.282 1.419 0 2.798-.158 4.12-.282.548-.052.99-.48 1.062-1.026.14-1.06.302-2.164.302-3.298s-.161-2.238-.302-3.298a1.19 1.19 0 0 0-1.063-1.025c-1.32-.126-2.7-.283-4.119-.283-1.417 0-2.797.158-4.117.283a1.19 1.19 0 0 0-1.063 1.025c-.14 1.06-.302 2.164-.302 3.298s.16 2.238.302 3.298" />
         <Path d="M4.363 12.206a8.7 8.7 0 0 1 1.75-1.635c.647-.458 1.512-.493 2.159-.034 1.41 1.003 2.603 2.432 3.412 3.837m-.163-4.283c.896 0 1.399-.502 1.399-1.397s-.503-1.4-1.399-1.4c-.895 0-1.399.504-1.399 1.4s.504 1.398 1.4 1.398" />
       </G>
       <Defs>
-        <ClipPath id="a">
-          <Path fill="#fff" d="M0 0h16v16H0z" />
+        <ClipPath id="prefix__a">
+          <Path fill="currentColor" d="M0 0h16v16H0z" />
         </ClipPath>
       </Defs>
     </Svg>

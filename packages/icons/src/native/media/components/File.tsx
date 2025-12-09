@@ -3,10 +3,10 @@ import type { IconProps } from "@icons/types";
 export function File({ size = 24, color = "#000" }: Readonly<IconProps>) {
   return (
     <Svg
-      width={size}
-      height={size}
       fill="none"
       viewBox="0 0 16 16"
+      width={size}
+      height={size}
       color={color}
     >
       <Path

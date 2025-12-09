@@ -6,10 +6,10 @@ export function ChevronDown({
 }: Readonly<IconProps>) {
   return (
     <Svg
-      width={size}
-      height={size}
       fill="none"
       viewBox="0 0 24 24"
+      width={size}
+      height={size}
       color={color}
     >
       <Path
