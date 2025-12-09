@@ -7,3 +7,5 @@ vi.mock("node:fs/promises", async (importOriginal) => {
     readFile: vi.fn(original.readFile),
   };
 });
+vi.mock("fast-glob");
+vi.mock("@svgr/core");

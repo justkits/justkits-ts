@@ -15,7 +15,7 @@ const config = defineConfig({
     coverage: {
       include: ["src/**/*.ts"],
     },
-    setupFiles: ["tests/vitest.setup.ts"],
+    setupFiles: ["tests/setup/mocks.ts"],
   },
 });
 
