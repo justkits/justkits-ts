@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { logger } from "@lib/logger";
+import { logger } from "@/logger";
 
 vi.mock("chalk", () => {
   const simpleLog = vi.fn((msg: string) => msg);
