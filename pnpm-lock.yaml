@@ -214,6 +214,9 @@ importers:
       eslint:
         specifier: 'catalog:'
         version: 9.38.0(jiti@2.6.1)
+      fast-glob:
+        specifier: ^3.3.3
+        version: 3.3.3
       jsdom:
         specifier: ^27.2.0
         version: 27.2.0

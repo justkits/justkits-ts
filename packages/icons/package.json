@@ -49,6 +49,7 @@
     "@types/react": "^19.2.7",
     "@vitest/coverage-v8": "catalog:",
     "eslint": "catalog:",
+    "fast-glob": "^3.3.3",
     "jsdom": "^27.2.0",
     "tsc-alias": "^1.8.16",
     "tsx": "^4.21.0",
