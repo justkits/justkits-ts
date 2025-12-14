@@ -1,4 +1,4 @@
-name: Icons CI/CD
+name: Icons CI
 
 on:
   workflow_dispatch:
@@ -7,8 +7,6 @@ on:
       - main
     paths:
       - "packages/icons/**"
-    tags:
-      - "icons-v*"
   pull_request:
     branches:
       - main
@@ -17,7 +15,6 @@ on:
 
 permissions:
   contents: read
-  packages: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -43,45 +40,3 @@ jobs:
           package-path: packages/icons
           package-name: "@justkits/icons"
           codecov-token: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: Upload Build Artifacts
-        if: startsWith(github.ref, 'refs/tags/icons-v')
-        uses: actions/upload-artifact@v4
-        with:
-          name: icons-package
-          path: |
-            packages/icons
-            !packages/icons/node_modules
-          retention-days: 1
-
-  publish:
-    if: startsWith(github.ref, 'refs/tags/icons-v')
-    needs: test
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Project
-        uses: ./.github/actions/prepare
-
-      - name: Download Build Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: icons-package
-          path: packages/icons
-
-      - name: Setup .npmrc for GitHub Packages
-        run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
-          echo "@justkits:registry=https://npm.pkg.github.com" >> ~/.npmrc
-
-      - name: Publish to GitHub Packages
-        working-directory: packages/icons
-        run: pnpm exec prettier --write packages/icons/src/ && pnpm publish --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
