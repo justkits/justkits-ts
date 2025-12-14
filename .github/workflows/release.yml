@@ -26,6 +26,9 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Build Project Packages
+        uses: ./.github/actions/build-packages
+
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
