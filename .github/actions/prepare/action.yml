@@ -6,6 +6,10 @@ inputs:
     description: Node.js version to setup
     required: false
     default: 22.14.0
+  github-token:
+    description: GitHub token for authentication
+    required: false
+    default: ""
 
 runs:
   using: "composite"
@@ -24,3 +28,5 @@ runs:
     - name: Install dependencies
       shell: bash
       run: pnpm install --frozen-lockfile
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
