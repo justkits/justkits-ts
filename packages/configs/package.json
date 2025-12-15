@@ -2,6 +2,7 @@
   "name": "@justkits/configs",
   "description": "Internal shared configuration for ESLint, Vitest, and TypeScript",
   "private": true,
+  "type": "module",
   "exports": {
     "./vitest": "./vitest.base.js",
     "./tsconfig.base.json": "./tsconfig.base.json"
