@@ -15,8 +15,7 @@
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@justkits/tsconfig": "workspace:*",
-    "@justkits/vitest-config": "workspace:*",
+    "@justkits/configs": "workspace:*",
     "@types/node": "catalog:",
     "@vitest/coverage-v8": "catalog:",
     "chalk": "^5.6.2",
