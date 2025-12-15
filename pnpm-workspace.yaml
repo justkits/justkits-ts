@@ -2,7 +2,7 @@ packages:
   - packages/*
 
 catalog:
-  '@types/node': 20.19.25
+  '@types/node': 25.0.2
   '@vitest/coverage-v8': 4.0.14
   eslint: 9.38.0
   prettier: ^3.7.3
