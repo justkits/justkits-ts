@@ -6,14 +6,20 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.2",
     "@changesets/cli": "^2.29.8",
-    "@justkits/eslint": "workspace:*",
-    "@justkits/tsconfig": "workspace:*",
-    "@microsoft/eslint-formatter-sarif": "^3.1.0",
+    "@eslint/css": "^0.13.0",
+    "@eslint/js": "^9.39.1",
+    "@eslint/json": "^0.13.2",
+    "@eslint/markdown": "^7.5.1",
+    "@justkits/configs": "workspace:*",
     "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.5.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "typescript-eslint": "^8.48.0"
   },
   "scripts": {
     "prepare": "husky",
@@ -28,8 +34,5 @@
       "eslint",
       "prettier --check"
     ]
-  },
-  "dependencies": {
-    "eslint": "catalog:"
   }
 }
