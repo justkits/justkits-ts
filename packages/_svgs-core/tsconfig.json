@@ -1,10 +1,10 @@
 {
-  "extends": "@justkits/tsconfig/base.json",
-  "include": ["src", "tests"],
-  "exclude": ["node_modules", "dist"],
+  "extends": "@justkits/configs/tsconfig.base.json",
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"]
     }
-  }
+  },
+  "include": ["src", "tests"],
+  "exclude": ["dist", "node_modules"]
 }

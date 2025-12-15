@@ -1,8 +1,0 @@
-{
-  "name": "@justkits/tsconfig",
-  "private": true,
-  "peerDependencies": {
-    "typescript": "catalog:",
-    "@types/node": "^24.9.1"
-  }
-}

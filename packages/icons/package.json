@@ -22,7 +22,6 @@
   "exports": {
     ".": {
       "types": "./dist/web/index.d.ts",
-      "react-native": "./dist/native/index.js",
       "default": "./dist/web/index.js"
     }
   },
@@ -38,9 +37,8 @@
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
+    "@justkits/configs": "workspace:*",
     "@justkits/svgs-core": "workspace:*",
-    "@justkits/tsconfig": "workspace:*",
-    "@justkits/vitest-config": "workspace:*",
     "@svgr/core": "^8.1.0",
     "@svgr/plugin-jsx": "^8.1.0",
     "@svgr/plugin-svgo": "^8.1.0",
