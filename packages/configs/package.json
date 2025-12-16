@@ -8,6 +8,9 @@
     "./vitest": "./vitest.base.js",
     "./tsconfig.base.json": "./tsconfig.base.json"
   },
+  "scripts": {
+    "clean": "rm -rf node_modules"
+  },
   "devDependencies": {
     "@types/node": "catalog:",
     "typescript": "catalog:",
