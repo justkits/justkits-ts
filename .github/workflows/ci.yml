@@ -1,0 +1,119 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
+      - "LICENSE"
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
+      - "LICENSE"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Quality Checks (Lint, Format, Security)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Project
+        uses: ./.github/actions/prepare
+
+      - name: Lint
+        id: lint
+        continue-on-error: true
+        uses: ./.github/actions/lint
+
+      - name: Check Formatting
+        id: prettier
+        continue-on-error: true
+        run: pnpm exec prettier --check .
+
+      - name: Dependency Review
+        id: dependency-review
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        uses: actions/dependency-review-action@v4
+
+      - name: Security Audit
+        id: audit
+        continue-on-error: true
+        run: pnpm audit
+
+      - name: Check Quality Results
+        if: always()
+        env:
+          LINT_OUTCOME: ${{ steps.lint.outcome }}
+          PRETTIER_OUTCOME: ${{ steps.prettier.outcome }}
+          DEPENDENCY_REVIEW_OUTCOME: ${{ steps.dependency-review.outcome }}
+          AUDIT_OUTCOME: ${{ steps.audit.outcome }}
+        run: bash .github/scripts/check-quality-results.sh
+
+  build-and-test:
+    name: Build, Typecheck & Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Project
+        uses: ./.github/actions/prepare
+
+      - name: Build
+        run: pnpm build
+
+      - name: Type Check
+        run: pnpm typecheck
+
+      - name: Test
+        run: pnpm test
+
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: packages/*/coverage/clover.xml
+          fail_ci_if_error: true
+
+  sonar-scan:
+    name: SonarCloud Scan
+    needs: [quality, build-and-test]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      security-events: write # SonarQube results might need this
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
