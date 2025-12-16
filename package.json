@@ -19,6 +19,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "catalog:",
+    "turbo": "^2.6.3",
     "typescript": "catalog:",
     "typescript-eslint": "^8.48.0"
   },
@@ -26,7 +27,11 @@
     "prepare": "husky",
     "lint": "eslint .",
     "format": "prettier --write --log-level warn .",
-    "clean": "rm -rf node_modules .eslintcache .prettiercache packages/*/dist packages/*/node_modules",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean && rm -rf node_modules .prettiercache",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "version": "changeset version",
     "release": "changeset publish"
   },
   "lint-staged": {
