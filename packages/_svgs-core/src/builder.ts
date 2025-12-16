@@ -1,6 +1,7 @@
 import { mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";
 import { basename, dirname, join, resolve } from "node:path";
 import { performance } from "node:perf_hooks";
+import { createHash } from "node:crypto";
 import fg from "fast-glob";
 import { Config, transform } from "@svgr/core";
 
@@ -15,7 +16,8 @@ export abstract class BaseSvgBuilder {
   protected readonly ASSETS_DIR: string;
   protected readonly SRC_DIR: string;
 
-  protected readonly registry: Map<string, string>; // key: componentName, value: filePath (중복 검사용)
+  protected readonly nameRegistry: Map<string, string>; // key: componentName, value: filePath (duplicate check)
+  protected readonly contentRegistry: Map<string, string>; // key: contentHash, value: filePath (duplicate check)
 
   private readonly options: Options;
   private readonly baseDir: string;
@@ -28,7 +30,8 @@ export abstract class BaseSvgBuilder {
     this.ASSETS_DIR = resolve(this.baseDir, "assets");
     this.SRC_DIR = resolve(this.baseDir, "src");
 
-    this.registry = new Map();
+    this.nameRegistry = new Map();
+    this.contentRegistry = new Map();
 
     this.options = options;
   }
@@ -59,7 +62,7 @@ export abstract class BaseSvgBuilder {
     const endTime = performance.now();
     const duration = ((endTime - startTime) / 1000).toFixed(2);
 
-    const count = this.registry.size;
+    const count = this.nameRegistry.size;
 
     logger.success(
       `✨ [Success] Generated ${count} components in ${duration}s`,
@@ -107,8 +110,9 @@ export abstract class BaseSvgBuilder {
         const svgCode = await readFile(file, "utf-8");
         const componentName = this.kebabToPascal(fileName);
 
-        if (this.registry.has(componentName)) {
-          const existingPath = this.registry.get(componentName);
+        // Check for duplicate component names
+        if (this.nameRegistry.has(componentName)) {
+          const existingPath = this.nameRegistry.get(componentName);
           logger.error(
             `Duplicate component name detected: ${componentName}\n` +
               ` - ${existingPath}\n` +
@@ -119,8 +123,22 @@ export abstract class BaseSvgBuilder {
           throw new Error("Duplicate component names found.");
         }
 
-        // 오류가 발생하지 않은 경우 처리
-        this.registry.set(componentName, file);
+        // Check for duplicate SVG content using MD5 hash
+        const contentHash = createHash("sha512").update(svgCode).digest("hex");
+        if (this.contentRegistry.has(contentHash)) {
+          const existingPath = this.contentRegistry.get(contentHash);
+          logger.error(
+            `Duplicate SVG content detected:\n` +
+              ` - ${existingPath}\n` +
+              ` - ${file}\n` +
+              `These files contain identical SVG code. Please remove one or modify the content.`,
+          );
+          throw new Error("Duplicate SVG content found.");
+        }
+
+        // Register new component and content
+        this.nameRegistry.set(componentName, file);
+        this.contentRegistry.set(contentHash, file);
 
         const { webCode, nativeCode } = await this.svg2tsx(
           svgCode,

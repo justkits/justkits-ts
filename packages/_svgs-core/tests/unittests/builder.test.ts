@@ -58,7 +58,11 @@ describe("BaseSvgBuilder", () => {
         resolve(mockBaseDir, "assets/icon-two.svg"),
       ];
       (fg as unknown as Mock).mockResolvedValue(mockSvgFiles);
-      (readFile as unknown as Mock).mockResolvedValue("<svg>content</svg>");
+      (readFile as unknown as Mock).mockImplementation((path) => {
+        return path.endsWith("icon-one.svg")
+          ? "<svg>content1</svg>"
+          : "<svg>content2</svg>";
+      });
 
       await builder.generate();
 
@@ -123,6 +127,22 @@ describe("BaseSvgBuilder", () => {
       );
       expect(logger.error).toHaveBeenCalledWith(
         expect.stringContaining("Duplicate component name detected: IconOne"),
+      );
+    });
+
+    it("should throw error for duplicate SVG content", async () => {
+      const mockSvgFiles = [
+        resolve(mockBaseDir, "assets/icon-one.svg"),
+        resolve(mockBaseDir, "assets/icon-two.svg"),
+      ];
+      (fg as unknown as Mock).mockResolvedValue(mockSvgFiles);
+      (readFile as unknown as Mock).mockResolvedValue("<svg>content</svg>"); // Same content
+
+      await expect(builder.generate()).rejects.toThrow(
+        "Duplicate SVG content found",
+      );
+      expect(logger.error).toHaveBeenCalledWith(
+        expect.stringContaining("Duplicate SVG content detected"),
       );
     });
   });
