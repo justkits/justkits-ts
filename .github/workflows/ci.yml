@@ -38,15 +38,15 @@ jobs:
       - name: Setup Project
         uses: ./.github/actions/prepare
 
-      - name: Lint
-        id: lint
-        continue-on-error: true
-        uses: ./.github/actions/lint
-
       - name: Check Formatting
         id: prettier
         continue-on-error: true
         run: pnpm exec prettier --check .
+
+      - name: Lint
+        id: lint
+        continue-on-error: true
+        uses: ./.github/actions/lint
 
       - name: Dependency Review
         id: dependency-review
