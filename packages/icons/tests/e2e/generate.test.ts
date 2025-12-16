@@ -28,10 +28,31 @@ describe("Icons Builder E2E", () => {
       resolve(assetsDir, "action/arrow-icon.svg"),
     ]);
 
-    // Mock readFile to return fake SVG content
-    (readFile as unknown as Mock).mockResolvedValue(
-      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M12 2L2 12h10v10h10V12h10L12 2z" fill="currentColor"/></svg>',
-    );
+    // Mock readFile to return unique SVG content for each file to avoid duplicate detection
+    (readFile as unknown as Mock).mockImplementation((filePath: string) => {
+      const fileName = filePath.split("/").pop() || "";
+      // Return unique SVG content based on file name
+      if (fileName.includes("test-icon.svg")) {
+        return Promise.resolve(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M12 2L2 12h10v10h10V12h10L12 2z" fill="currentColor"/></svg>',
+        );
+      } else if (fileName.includes("test-icon2.svg")) {
+        return Promise.resolve(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="10" fill="currentColor"/></svg>',
+        );
+      } else if (fileName.includes("arrow-icon.svg")) {
+        return Promise.resolve(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M12 2L22 12L12 22L2 12z" fill="currentColor"/></svg>',
+        );
+      } else if (fileName.includes("orphan-icon.svg")) {
+        return Promise.resolve(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><rect x="2" y="2" width="20" height="20" fill="currentColor"/></svg>',
+        );
+      }
+      return Promise.resolve(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="currentColor"/></svg>',
+      );
+    });
 
     // Mock atomicWrite to prevent actual file writes
     atomicWriteSpy = vi.fn().mockResolvedValue(undefined);
