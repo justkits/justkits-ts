@@ -30,7 +30,10 @@
   "files": [
     "dist"
   ],
-  "scripts": {},
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist node_modules"
+  },
   "devDependencies": {
     "@justkits/configs": "workspace:*",
     "@justkits/svgs-core": "workspace:*",

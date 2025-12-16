@@ -30,11 +30,12 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json && tsc-alias --project tsconfig.build.json",
-    "clean": "tsx ./scripts/clean.ts",
+    "typecheck": "tsc --noEmit",
+    "clean": "tsx ./scripts/clean.ts && rm -rf dist node_modules",
     "generate": "tsx ./scripts/generate.ts",
     "check": "tsx ./scripts/check.ts",
-    "test": "vitest --coverage",
-    "coverage": "vitest run --coverage"
+    "test": "vitest run",
+    "test:dev": "vitest --watch --coverage"
   },
   "devDependencies": {
     "@justkits/configs": "workspace:*",
@@ -42,13 +43,12 @@
     "@svgr/core": "^8.1.0",
     "@svgr/plugin-jsx": "^8.1.0",
     "@svgr/plugin-svgo": "^8.1.0",
-    "@testing-library/react": "^16.3.0",
+    "@testing-library/react": "^16.3.1",
     "@types/node": "catalog:",
     "@types/react": "^19.2.7",
     "@vitest/coverage-v8": "catalog:",
-    "eslint": "catalog:",
     "fast-glob": "^3.3.3",
-    "jsdom": "^27.2.0",
+    "jsdom": "^27.3.0",
     "tsc-alias": "^1.8.16",
     "tsx": "^4.21.0",
     "typescript": "catalog:",
