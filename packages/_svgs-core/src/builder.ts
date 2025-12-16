@@ -124,7 +124,7 @@ export abstract class BaseSvgBuilder {
         }
 
         // Check for duplicate SVG content using MD5 hash
-        const contentHash = createHash("md5").update(svgCode).digest("hex");
+        const contentHash = createHash("sha512").update(svgCode).digest("hex");
         if (this.contentRegistry.has(contentHash)) {
           const existingPath = this.contentRegistry.get(contentHash);
           logger.error(
