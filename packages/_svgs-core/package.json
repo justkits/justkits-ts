@@ -11,9 +11,10 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
-    "clean": "rm -rf dist",
-    "test": "vitest --coverage",
-    "coverage": "vitest run --coverage"
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist node_modules",
+    "test": "vitest run",
+    "test:dev": "vitest --watch --coverage"
   },
   "devDependencies": {
     "@justkits/configs": "workspace:*",

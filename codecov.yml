@@ -32,10 +32,6 @@ flag_management:
       paths:
         - "packages/_svgs-core/"
 
-    - name: "@justkits/eslint"
-      paths:
-        - "packages/eslint/"
-
     - name: "@justkits/react-jwt"
       paths:
         - "packages/react-jwt/"
