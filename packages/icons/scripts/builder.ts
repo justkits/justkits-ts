@@ -1,8 +1,7 @@
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { Config } from "@svgr/core";
-import jsxPlugin from "@svgr/plugin-jsx";
-import svgoPlugin from "@svgr/plugin-svgo";
-
-import { IconsBuilder } from "./core";
+import { FamilySvgBuilder, defaultOptions } from "@justkits/svgs-core";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function template(variables: any, { tpl }: any) {
@@ -17,17 +16,7 @@ function template(variables: any, { tpl }: any) {
 }
 
 const options: Config = {
-  icon: true,
-  typescript: true,
-  prettier: true,
-  jsxRuntime: "automatic",
-  expandProps: false,
-  plugins: [svgoPlugin, jsxPlugin],
-  svgProps: {
-    width: "{size}",
-    height: "{size}",
-    color: "{color}",
-  },
+  ...defaultOptions,
   svgoConfig: {
     plugins: [
       {
@@ -45,11 +34,7 @@ const options: Config = {
   template,
 };
 
-const typesContent = `export type IconProps = {
-  size?: number;
-  color?: string;
-};
-
-`;
-
-export const builder = new IconsBuilder(options, typesContent);
+export const builder = new FamilySvgBuilder(
+  options,
+  join(dirname(fileURLToPath(import.meta.url)), ".."),
+);
