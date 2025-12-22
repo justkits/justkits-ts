@@ -19,10 +19,16 @@
     "access": "restricted",
     "registry": "https://npm.pkg.github.com/"
   },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/web/index.d.ts",
-      "default": "./dist/web/index.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*/index.d.ts",
+      "default": "./dist/*/index.js"
     }
   },
   "files": [
@@ -31,8 +37,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json && tsc-alias --project tsconfig.build.json",
     "typecheck": "tsc --noEmit",
-    "clean": "tsx ./scripts/clean.ts && rm -rf dist node_modules",
-    "generate": "tsx ./scripts/generate.ts",
+    "clean": "rm -rf dist node_modules",
+    "generate": "tsx ./scripts/generate.ts && prettier --write src/",
     "check": "tsx ./scripts/check.ts",
     "test": "vitest run",
     "test:dev": "vitest --watch --coverage"
@@ -41,13 +47,10 @@
     "@justkits/configs": "workspace:*",
     "@justkits/svgs-core": "workspace:*",
     "@svgr/core": "^8.1.0",
-    "@svgr/plugin-jsx": "^8.1.0",
-    "@svgr/plugin-svgo": "^8.1.0",
     "@testing-library/react": "^16.3.1",
     "@types/node": "catalog:",
     "@types/react": "^19.2.7",
     "@vitest/coverage-v8": "catalog:",
-    "fast-glob": "^3.3.3",
     "jsdom": "^27.3.0",
     "tsc-alias": "^1.8.16",
     "tsx": "^4.21.0",
@@ -55,12 +58,6 @@
     "vitest": "catalog:"
   },
   "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-native-svg": ">=15.0.0"
-  },
-  "peerDependenciesMeta": {
-    "react-native-svg": {
-      "optional": true
-    }
+    "react": ">=18.0.0"
   }
 }
