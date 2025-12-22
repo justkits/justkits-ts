@@ -242,7 +242,7 @@ const defaultOptions: Config = {
 
 1. **컴포넌트 이름 중복**: 서로 다른 카테고리에도 동일한 이름의 아이콘은 허용되지 않는다.
 
-   ```
+   ```text
    ❌ assets/media/user.svg
    ❌ assets/app/user.svg
    ```
