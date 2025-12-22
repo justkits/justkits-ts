@@ -25,7 +25,7 @@
 
 **디렉토리 구조:**
 
-```
+```text
 assets/
   ├── media/
   │   ├── album.svg
@@ -38,7 +38,7 @@ assets/
 
 **생성 결과:**
 
-```
+```text
 src/
   ├── media/
   │   ├── components/
@@ -60,7 +60,7 @@ src/
 
 **디렉토리 구조:**
 
-```
+```text
 assets/
   ├── album.svg
   ├── video.svg
@@ -70,7 +70,7 @@ assets/
 
 **생성 결과:**
 
-```
+```text
 src/
   ├── components/
   │   ├── Album.tsx
