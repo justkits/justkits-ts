@@ -4,9 +4,21 @@ import { Config } from "@svgr/core";
 import { BaseSvgBuilder } from "./base";
 import { logger } from "@/logger";
 
+/**
+ * SVG -> React 컴포넌트 변환용 빌더 (Family 분류를 포함)
+ *
+ * assets/[family]/[icon-name].svg 구조의 SVG 파일을
+ * src/[family]/components/[ComponentName].tsx 형태로 변환.
+ */
 export class FamilySvgBuilder extends BaseSvgBuilder {
   private readonly exportMap: Record<string, string[]>; // key: familyName, value: componentNames[]
 
+  /**
+   * FamilySvgBuilder 초기화
+   *
+   * @param options - SVGR 변환 설정 객체
+   * @param baseDir - 패키지 루트 디렉토리
+   */
   constructor(options: Config, baseDir: string) {
     super(options, baseDir);
     this.exportMap = {};

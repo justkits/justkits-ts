@@ -3,11 +3,16 @@ import { basename, dirname, resolve } from "node:path";
 import { performance } from "node:perf_hooks";
 import { createHash } from "node:crypto";
 import fg from "fast-glob";
-import { Config, transform } from "@svgr/core";
 import pLimit from "p-limit";
+import { Config, transform } from "@svgr/core";
 
 import { logger } from "@/logger";
 
+/**
+ * SVG 파일을 React 컴포넌트로 변환하는 추상 베이스 빌더 클래스
+ *
+ * @abstract
+ */
 export abstract class BaseSvgBuilder {
   protected readonly ASSETS_DIR: string;
   protected readonly SRC_DIR: string;
@@ -19,7 +24,18 @@ export abstract class BaseSvgBuilder {
   private readonly baseDir: string;
 
   /**
-   * Constructor to initialize paths and data structures
+   * 빌더 초기화
+   *
+   * @param options - SVGR 변환 설정 객체
+   * @param baseDir - 패키지 루트 디렉토리 (assets/와 src/의 부모 경로)
+   *
+   * @example
+   * ```typescript
+   * const builder = new FamilySvgBuilder(
+   *   defaultOptions,
+   *   join(dirname(fileURLToPath(import.meta.url)), "..")
+   * );
+   * ```
    */
   constructor(options: Config, baseDir: string) {
     this.baseDir = baseDir;
@@ -33,8 +49,9 @@ export abstract class BaseSvgBuilder {
   }
 
   /**
-   * The main method to generate SVG components
-   *   - Workflow: clean - process - generate barrels - print summary
+   * SVG 파일을 React 컴포넌트로 변환하는 메인 메서드
+
+   * @throws {Error} 파일명이 kebab-case가 아니거나 중복이 발견된 경우
    */
   public async generate(): Promise<void> {
     const startTime = performance.now();
@@ -92,10 +109,10 @@ export abstract class BaseSvgBuilder {
         limit(async () => {
           const fileName = basename(file, ".svg");
 
-          // Kebab-case 검사
-          if (!/^[a-z0-9-]+$/.test(fileName)) {
+          // Kebab-case 검사: 소문자와 단일 대시만 허용, 숫자/선행/후행/이중 대시 불허
+          if (!/^[a-z]+(-[a-z]+)*$/.test(fileName)) {
             throw new Error(
-              `Invalid filename: "${fileName}". Filenames must be strictly kebab-case (e.g., "my-icon").`,
+              `Invalid filename: "${fileName}". Filenames must be strictly kebab-case (lowercase letters and single dashes only, e.g., "my-icon").`,
             );
           }
 
@@ -126,18 +143,47 @@ export abstract class BaseSvgBuilder {
   // ================ Abstract Methods ================ //
   // ================================================== //
 
+  /**
+   * 변환된 컴포넌트를 파일로 저장
+   *
+   * @param content - 변환된 React 컴포넌트 코드
+   * @param componentName - PascalCase 컴포넌트 이름
+   * @param file - 원본 SVG 파일 경로 (선택사항)
+   *
+   * @abstract
+   */
   protected abstract saveComponentFile(
     content: string,
     componentName: string,
     file?: string,
   ): Promise<void>;
+
+  /**
+   * index.ts 배럴 파일 생성
+   *
+   * @abstract
+   */
   protected abstract generateBarrelFiles(): Promise<void>;
+
+  /**
+   * 변환 결과 요약 출력
+   *
+   * @abstract
+   */
   protected abstract printSummary(): void;
 
   // ================================================== //
   // =============== Utility Methods ================== //
   // ================================================== //
 
+  /**
+   * 파일을 원자적으로 작성 (먼저 .tmp 파일에 쓴 후 rename하여 부분적인 쓰기를 방지)
+   *
+   * @param filePath - 대상 파일 경로
+   * @param content - 파일에 쓸 내용
+   *
+   * @throws {Error} 파일 쓰기 중 오류가 발생한 경우
+   */
   protected async atomicWrite(
     filePath: string,
     content: string,

@@ -4,7 +4,19 @@ import { Config } from "@svgr/core";
 import { BaseSvgBuilder } from "./base";
 import { logger } from "@/logger";
 
+/**
+ * SVG -> React 컴포넌트 변환용 빌더 (Standalone 플랫 구조; Family 분류 없음)
+ *
+ * assets/[icon-name].svg 구조의 SVG 파일을
+ * src/components/[ComponentName].tsx 형태로 변환합니다.
+ */
 export class StandaloneSvgBuilder extends BaseSvgBuilder {
+  /**
+   * StandaloneSvgBuilder 초기화
+   *
+   * @param options - SVGR 변환 설정 객체
+   * @param baseDir - 패키지 루트 디렉토리
+   */
   constructor(options: Config, baseDir: string) {
     super(options, baseDir);
   }
