@@ -30,7 +30,7 @@ describe("FamilySvgBuilder", () => {
       expect.any(String),
     );
     expect(atomicWriteSpy).toHaveBeenCalledWith(
-      expect.stringContaining("media/components/TestIcon2.tsx"),
+      expect.stringContaining("media/components/SecondTestIcon.tsx"),
       expect.any(String),
     );
     expect(atomicWriteSpy).toHaveBeenCalledWith(
@@ -55,7 +55,9 @@ describe("FamilySvgBuilder", () => {
     // Verify root barrel file was written
     expect(atomicWriteSpy).toHaveBeenCalledWith(
       expect.stringContaining("src/index.ts"),
-      expect.stringContaining('export { TestIcon, TestIcon2 } from "./media";'),
+      expect.stringContaining(
+        'export { SecondTestIcon, TestIcon } from "./media";',
+      ),
     );
     expect(atomicWriteSpy).toHaveBeenCalledWith(
       expect.stringContaining("src/index.ts"),

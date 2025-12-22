@@ -19,7 +19,7 @@ describe("StandaloneSvgBuilder", () => {
       expect.any(String),
     );
     expect(atomicWriteSpy).toHaveBeenCalledWith(
-      expect.stringContaining("components/TestIcon2.tsx"),
+      expect.stringContaining("components/SecondTestIcon.tsx"),
       expect.any(String),
     );
     expect(atomicWriteSpy).toHaveBeenCalledWith(
@@ -37,7 +37,7 @@ describe("StandaloneSvgBuilder", () => {
     expect(atomicWriteSpy).toHaveBeenCalledWith(
       expect.stringContaining("src/index.ts"),
       expect.stringContaining(
-        'export { TestIcon2 } from "./components/TestIcon2";',
+        'export { SecondTestIcon } from "./components/SecondTestIcon";',
       ),
     );
     expect(atomicWriteSpy).toHaveBeenCalledWith(

@@ -10,19 +10,19 @@ vi.mock("node:fs/promises", async (importOriginal) => {
     ...original,
     readFile: vi.fn().mockImplementation((filePath: string) => {
       const fileName = filePath.split("/").pop() || "";
-      if (fileName.includes("test-icon.svg")) {
+      if (fileName === "test-icon.svg") {
         return Promise.resolve(
           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M12 2L2 12h10v10h10V12h10L12 2z" fill="currentColor"/></svg>',
         );
-      } else if (fileName.includes("test-icon2.svg")) {
+      } else if (fileName === "second-test-icon.svg") {
         return Promise.resolve(
           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="10" fill="currentColor"/></svg>',
         );
-      } else if (fileName.includes("arrow-icon.svg")) {
+      } else if (fileName === "arrow-icon.svg") {
         return Promise.resolve(
           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M12 2L22 12L12 22L2 12z" fill="currentColor"/></svg>',
         );
-      } else if (fileName.includes("orphan-icon.svg")) {
+      } else if (fileName === "orphan-icon.svg") {
         return Promise.resolve(
           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><rect x="2" y="2" width="20" height="20" fill="currentColor"/></svg>',
         );
@@ -44,7 +44,7 @@ vi.mock("fast-glob", () => {
       .fn()
       .mockResolvedValue([
         `${mockAssetsDir}/media/test-icon.svg`,
-        `${mockAssetsDir}/media/test-icon2.svg`,
+        `${mockAssetsDir}/media/second-test-icon.svg`,
         `${mockAssetsDir}/action/arrow-icon.svg`,
       ]),
   };
