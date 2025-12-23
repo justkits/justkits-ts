@@ -1,5 +1,9 @@
 export { Album } from "./components/Album";
 export { File } from "./components/File";
+export { Forum } from "./components/Forum";
 export { Gallery } from "./components/Gallery";
+export { Hashtag } from "./components/Hashtag";
+export { Image } from "./components/Image";
+export { Tag } from "./components/Tag";
 export { Upload } from "./components/Upload";
 export { Video } from "./components/Video";
