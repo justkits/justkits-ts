@@ -1,6 +1,6 @@
 {
   "name": "@justkits/configs",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Internal shared configuration for ESLint, Vitest, and TypeScript",
   "private": true,
   "type": "module",
