@@ -1,5 +1,11 @@
 # @justkits/icons
 
+## 1.0.0
+
+### Major Changes
+
+- [#42](https://github.com/justkits/justkits-ts/pull/42) [`211e7a5`](https://github.com/justkits/justkits-ts/commit/211e7a55e895ca2cb3ac16d6bb42257f3d751758) Thanks [@justwon0307](https://github.com/justwon0307)! - Add new icons for first major release
+
 ## 0.1.0
 
 ### Minor Changes
