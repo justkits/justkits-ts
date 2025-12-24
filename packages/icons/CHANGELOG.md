@@ -1,5 +1,11 @@
 # @justkits/icons
 
+## 1.1.0
+
+### Minor Changes
+
+- [#47](https://github.com/justkits/justkits-ts/pull/47) [`193db5d`](https://github.com/justkits/justkits-ts/commit/193db5d21bf48d7e2700e7e8159ebedd13963adf) Thanks [@justwon0307](https://github.com/justwon0307)! - Add suffix to icons
+
 ## 1.0.1
 
 ### Patch Changes
