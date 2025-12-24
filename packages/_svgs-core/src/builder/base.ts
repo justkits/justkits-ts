@@ -22,12 +22,14 @@ export abstract class BaseSvgBuilder {
 
   private readonly options: Config;
   private readonly baseDir: string;
+  private readonly suffix: string;
 
   /**
    * 빌더 초기화
    *
    * @param options - SVGR 변환 설정 객체
    * @param baseDir - 패키지 루트 디렉토리 (assets/와 src/의 부모 경로)
+   * @param suffix - 컴포넌트 이름 뒤에 붙일 접미사 (기본값: "")
    *
    * @example
    * ```typescript
@@ -37,7 +39,7 @@ export abstract class BaseSvgBuilder {
    * );
    * ```
    */
-  constructor(options: Config, baseDir: string) {
+  constructor(options: Config, baseDir: string, suffix: string = "") {
     this.baseDir = baseDir;
     this.ASSETS_DIR = resolve(this.baseDir, "assets");
     this.SRC_DIR = resolve(this.baseDir, "src");
@@ -46,6 +48,7 @@ export abstract class BaseSvgBuilder {
     this.contentRegistry = new Map();
 
     this.options = options;
+    this.suffix = suffix;
   }
 
   /**
@@ -228,10 +231,12 @@ export abstract class BaseSvgBuilder {
     }
   }
 
-  private kebabToPascal(str: string): string {
-    return str
+  protected kebabToPascal(str: string): string {
+    const pascalName = str
       .split("-")
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
       .join("");
+
+    return pascalName + this.suffix;
   }
 }
