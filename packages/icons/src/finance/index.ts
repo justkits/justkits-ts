@@ -1,2 +1,2 @@
-export { BarChart } from "./components/BarChart";
-export { Money } from "./components/Money";
+export { BarChartIcon } from "./components/BarChartIcon";
+export { MoneyIcon } from "./components/MoneyIcon";
