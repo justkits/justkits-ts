@@ -1,2 +1,2 @@
-export { People } from "./components/People";
-export { Person } from "./components/Person";
+export { PeopleIcon } from "./components/PeopleIcon";
+export { PersonIcon } from "./components/PersonIcon";
