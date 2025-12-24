@@ -39,7 +39,6 @@
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist node_modules",
     "generate": "tsx ./scripts/generate.ts && prettier --write src/",
-    "check": "tsx ./scripts/check.ts",
     "test": "vitest run",
     "test:dev": "vitest --watch --coverage"
   },

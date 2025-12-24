@@ -32,7 +32,7 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "version": "changeset version",
-    "release": "changeset publish"
+    "release": "turbo run build && changeset publish"
   },
   "lint-staged": {
     "*.{json,md,yml,yaml}": "prettier --check",
