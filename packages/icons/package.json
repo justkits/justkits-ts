@@ -2,7 +2,7 @@
   "name": "@justkits/icons",
   "description": "JustKits Icons Package",
   "private": false,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "keywords": [
     "icons",
