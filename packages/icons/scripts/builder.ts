@@ -37,4 +37,5 @@ const options: Config = {
 export const builder = new FamilySvgBuilder(
   options,
   join(dirname(fileURLToPath(import.meta.url)), ".."),
+  "Icon",
 );
