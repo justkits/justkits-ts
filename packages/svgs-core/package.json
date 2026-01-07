@@ -19,14 +19,14 @@
   },
   "dependencies": {
     "@svgr/core": "^8.1.0",
+    "@svgr/plugin-jsx": "^8.1.0",
+    "@svgr/plugin-svgo": "^8.1.0",
     "chalk": "^5.6.2",
     "fast-glob": "^3.3.3",
     "p-limit": "^6.1.0"
   },
   "devDependencies": {
     "@justkits/configs": "workspace:*",
-    "@svgr/plugin-jsx": "^8.1.0",
-    "@svgr/plugin-svgo": "^8.1.0",
     "@types/node": "catalog:",
     "@vitest/coverage-v8": "catalog:",
     "dir-compare": "^5.0.0",
