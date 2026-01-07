@@ -5,11 +5,16 @@
   "private": false,
   "type": "module",
   "bin": {
-    "svgs": "./dist/index.js"
+    "svgs": "./dist/generate.js"
   },
   "exports": {
     ".": "./dist/index.js"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
