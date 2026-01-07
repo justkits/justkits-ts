@@ -16,7 +16,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsup",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist node_modules"
   },
@@ -29,6 +29,7 @@
   "devDependencies": {
     "@svgr/core": "^8.1.0",
     "@types/node": "catalog:",
+    "tsup": "^8.5.1",
     "typescript": "catalog:"
   }
 }
