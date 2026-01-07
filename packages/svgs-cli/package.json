@@ -1,7 +1,7 @@
 {
   "name": "@justkits/svgs-cli",
   "description": "JustKits SVGs CLI Package",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": false,
   "type": "module",
   "bin": {

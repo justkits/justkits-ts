@@ -1,5 +1,11 @@
 # @justkits/svgs-cli
 
+## 1.1.0
+
+### Minor Changes
+
+- [#57](https://github.com/justkits/justkits-ts/pull/57) [`81efe12`](https://github.com/justkits/justkits-ts/commit/81efe126869fdea1eb90a24e4e983f306f667461) Thanks [@justwon0307](https://github.com/justwon0307)! - Switch build tool
+
 ## 1.0.1
 
 ### Patch Changes
