@@ -170,15 +170,6 @@ importers:
       '@justkits/svgs-core':
         specifier: workspace:*
         version: link:../svgs-core
-      '@svgr/core':
-        specifier: ^8.1.0
-        version: 8.1.0(typescript@5.9.3)
-      '@svgr/plugin-jsx':
-        specifier: ^8.1.0
-        version: 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))
-      '@svgr/plugin-svgo':
-        specifier: ^8.1.0
-        version: 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))(typescript@5.9.3)
       chalk:
         specifier: ^5.6.2
         version: 5.6.2
@@ -189,6 +180,9 @@ importers:
         specifier: ^2.4.2
         version: 2.6.1
     devDependencies:
+      '@svgr/core':
+        specifier: ^8.1.0
+        version: 8.1.0(typescript@5.9.3)
       '@types/node':
         specifier: 'catalog:'
         version: 25.0.2
@@ -204,12 +198,6 @@ importers:
       '@svgr/core':
         specifier: ^8.1.0
         version: 8.1.0(typescript@5.9.3)
-      '@svgr/plugin-jsx':
-        specifier: ^8.1.0
-        version: 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))
-      '@svgr/plugin-svgo':
-        specifier: ^8.1.0
-        version: 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))(typescript@5.9.3)
       chalk:
         specifier: ^5.6.2
         version: 5.6.2
@@ -223,6 +211,12 @@ importers:
       '@justkits/configs':
         specifier: workspace:*
         version: link:../configs
+      '@svgr/plugin-jsx':
+        specifier: ^8.1.0
+        version: 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))
+      '@svgr/plugin-svgo':
+        specifier: ^8.1.0
+        version: 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))(typescript@5.9.3)
       '@types/node':
         specifier: 'catalog:'
         version: 25.0.2
