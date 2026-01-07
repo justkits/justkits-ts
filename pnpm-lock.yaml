@@ -84,7 +84,88 @@ importers:
         specifier: ^8.50.0
         version: 8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
 
-  packages/_svgs-core:
+  packages/configs:
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.0.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.0.15(@types/node@25.0.2)(jiti@2.6.1)(jsdom@27.3.0(postcss@8.5.6))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
+
+  packages/icons:
+    dependencies:
+      react:
+        specifier: '>=18.0.0'
+        version: 19.2.0
+    devDependencies:
+      '@justkits/configs':
+        specifier: workspace:*
+        version: link:../configs
+      '@justkits/svgs-core':
+        specifier: workspace:*
+        version: link:../svgs-core
+      '@svgr/core':
+        specifier: ^8.1.0
+        version: 8.1.0(typescript@5.9.3)
+      '@testing-library/react':
+        specifier: ^16.3.1
+        version: 16.3.1(@testing-library/dom@10.4.1)(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.0.2
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      '@vitest/coverage-v8':
+        specifier: 'catalog:'
+        version: 4.0.15(vitest@4.0.15(@types/node@25.0.2)(jiti@2.6.1)(jsdom@27.3.0(postcss@8.5.6))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
+      jsdom:
+        specifier: ^27.3.0
+        version: 27.3.0(postcss@8.5.6)
+      tsc-alias:
+        specifier: ^1.8.16
+        version: 1.8.16
+      tsx:
+        specifier: ^4.21.0
+        version: 4.21.0
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.0.15(@types/node@25.0.2)(jiti@2.6.1)(jsdom@27.3.0(postcss@8.5.6))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
+
+  packages/logos:
+    devDependencies:
+      '@justkits/configs':
+        specifier: workspace:*
+        version: link:../configs
+      '@justkits/svgs-core':
+        specifier: workspace:*
+        version: link:../svgs-core
+      '@svgr/core':
+        specifier: ^8.1.0
+        version: 8.1.0(typescript@5.9.3)
+      '@svgr/plugin-jsx':
+        specifier: ^8.1.0
+        version: 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))
+      '@svgr/plugin-svgo':
+        specifier: ^8.1.0
+        version: 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))(typescript@5.9.3)
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.0.2
+      tsx:
+        specifier: ^4.21.0
+        version: 4.21.0
+
+  packages/react-jwt: {}
+
+  packages/svgs-core:
     dependencies:
       '@svgr/core':
         specifier: ^8.1.0
@@ -126,85 +207,6 @@ importers:
       vitest:
         specifier: 'catalog:'
         version: 4.0.15(@types/node@25.0.2)(jiti@2.6.1)(jsdom@27.3.0(postcss@8.5.6))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
-
-  packages/configs:
-    devDependencies:
-      '@types/node':
-        specifier: 'catalog:'
-        version: 25.0.2
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.0.15(@types/node@25.0.2)(jiti@2.6.1)(jsdom@27.3.0(postcss@8.5.6))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
-
-  packages/icons:
-    dependencies:
-      react:
-        specifier: '>=18.0.0'
-        version: 19.2.0
-    devDependencies:
-      '@justkits/configs':
-        specifier: workspace:*
-        version: link:../configs
-      '@justkits/svgs-core':
-        specifier: workspace:*
-        version: link:../_svgs-core
-      '@svgr/core':
-        specifier: ^8.1.0
-        version: 8.1.0(typescript@5.9.3)
-      '@testing-library/react':
-        specifier: ^16.3.1
-        version: 16.3.1(@testing-library/dom@10.4.1)(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@types/node':
-        specifier: 'catalog:'
-        version: 25.0.2
-      '@types/react':
-        specifier: ^19.2.7
-        version: 19.2.7
-      '@vitest/coverage-v8':
-        specifier: 'catalog:'
-        version: 4.0.15(vitest@4.0.15(@types/node@25.0.2)(jiti@2.6.1)(jsdom@27.3.0(postcss@8.5.6))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
-      jsdom:
-        specifier: ^27.3.0
-        version: 27.3.0(postcss@8.5.6)
-      tsc-alias:
-        specifier: ^1.8.16
-        version: 1.8.16
-      tsx:
-        specifier: ^4.21.0
-        version: 4.21.0
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.0.15(@types/node@25.0.2)(jiti@2.6.1)(jsdom@27.3.0(postcss@8.5.6))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
-
-  packages/logos:
-    devDependencies:
-      '@justkits/configs':
-        specifier: workspace:*
-        version: link:../configs
-      '@justkits/svgs-core':
-        specifier: workspace:*
-        version: link:../_svgs-core
-      '@svgr/core':
-        specifier: ^8.1.0
-        version: 8.1.0(typescript@5.9.3)
-      '@svgr/plugin-jsx':
-        specifier: ^8.1.0
-        version: 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))
-      '@svgr/plugin-svgo':
-        specifier: ^8.1.0
-        version: 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))(typescript@5.9.3)
-      '@types/node':
-        specifier: 'catalog:'
-        version: 25.0.2
-      tsx:
-        specifier: ^4.21.0
-        version: 4.21.0
 
 packages:
 
