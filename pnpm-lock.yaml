@@ -167,22 +167,28 @@ importers:
 
   packages/svgs-cli:
     dependencies:
-      '@justkits/svgs-core':
-        specifier: workspace:*
-        version: link:../svgs-core
+      '@svgr/core':
+        specifier: ^8.1.0
+        version: 8.1.0(typescript@5.9.3)
       chalk:
         specifier: ^5.6.2
         version: 5.6.2
       commander:
         specifier: ^13.1.0
         version: 13.1.0
+      fast-glob:
+        specifier: ^3.3.3
+        version: 3.3.3
       jiti:
         specifier: ^2.4.2
         version: 2.6.1
+      p-limit:
+        specifier: ^6.1.0
+        version: 6.2.0
     devDependencies:
-      '@svgr/core':
-        specifier: ^8.1.0
-        version: 8.1.0(typescript@5.9.3)
+      '@justkits/svgs-core':
+        specifier: workspace:*
+        version: link:../svgs-core
       '@types/node':
         specifier: 'catalog:'
         version: 25.0.2
