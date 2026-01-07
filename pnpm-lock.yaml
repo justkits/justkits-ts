@@ -9,21 +9,9 @@ catalogs:
     '@types/node':
       specifier: 25.0.2
       version: 25.0.2
-    '@vitest/coverage-v8':
-      specifier: 4.0.15
-      version: 4.0.15
-    eslint:
-      specifier: 9.39.2
-      version: 9.39.2
-    prettier:
-      specifier: 3.7.4
-      version: 3.7.4
     typescript:
       specifier: 5.9.3
       version: 5.9.3
-    vitest:
-      specifier: 4.0.15
-      version: 4.0.15
 
 importers:
 
@@ -164,6 +152,31 @@ importers:
         version: 4.21.0
 
   packages/react-jwt: {}
+
+  packages/svgs-cli:
+    dependencies:
+      '@justkits/svgs-core':
+        specifier: workspace:*
+        version: link:../svgs-core
+      chalk:
+        specifier: ^5.6.2
+        version: 5.6.2
+      commander:
+        specifier: ^13.1.0
+        version: 13.1.0
+      jiti:
+        specifier: ^2.4.2
+        version: 2.6.1
+    devDependencies:
+      '@svgr/core':
+        specifier: ^8.1.0
+        version: 8.1.0(typescript@5.9.3)
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.0.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
 
   packages/svgs-core:
     dependencies:
@@ -1416,6 +1429,10 @@ packages:
 
   colorette@2.0.20:
     resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==}
+
+  commander@13.1.0:
+    resolution: {integrity: sha512-/rFeCpNJQbhSZjGVwO9RFV3xPqbnERS8MmIQzCtD/zl6gpJuV/bMLuN92oG3F7d8oDEHHRrujSXNUr8fpjntKw==}
+    engines: {node: '>=18'}
 
   commander@14.0.2:
     resolution: {integrity: sha512-TywoWNNRbhoD0BXs1P3ZEScW8W5iKrnbithIl0YH+uCmBd0QpPOA8yc82DS3BIE5Ma6FnBVUsJ7wVUDz4dvOWQ==}
@@ -4521,6 +4538,8 @@ snapshots:
 
   colorette@2.0.20: {}
 
+  commander@13.1.0: {}
+
   commander@14.0.2: {}
 
   commander@2.20.3:
@@ -5457,8 +5476,7 @@ snapshots:
       has-symbols: 1.1.0
       set-function-name: 2.0.2
 
-  jiti@2.6.1:
-    optional: true
+  jiti@2.6.1: {}
 
   js-tokens@4.0.0: {}
 
