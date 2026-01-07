@@ -1,5 +1,11 @@
 # @justkits/svgs-cli
 
+## 1.1.1
+
+### Patch Changes
+
+- [#59](https://github.com/justkits/justkits-ts/pull/59) [`b45b341`](https://github.com/justkits/justkits-ts/commit/b45b3413d43a29b14e7936f93f1d671effcad852) Thanks [@justwon0307](https://github.com/justwon0307)! - tsup config bugfix
+
 ## 1.1.0
 
 ### Minor Changes
