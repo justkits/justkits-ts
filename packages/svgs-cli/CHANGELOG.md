@@ -1,5 +1,11 @@
 # @justkits/svgs-cli
 
+## 1.1.2
+
+### Patch Changes
+
+- [#61](https://github.com/justkits/justkits-ts/pull/61) [`ab03d78`](https://github.com/justkits/justkits-ts/commit/ab03d786e803d21f31aaefa5cb00f106658497ea) Thanks [@justwon0307](https://github.com/justwon0307)! - Bundle svgs-core together
+
 ## 1.1.1
 
 ### Patch Changes
