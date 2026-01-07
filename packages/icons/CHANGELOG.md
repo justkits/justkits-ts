@@ -1,5 +1,11 @@
 # @justkits/icons
 
+## 1.1.1
+
+### Patch Changes
+
+- [#49](https://github.com/justkits/justkits-ts/pull/49) [`5cbcabf`](https://github.com/justkits/justkits-ts/commit/5cbcabf83a63412c3ddae63eaf6f4cb0896c72ac) Thanks [@justwon0307](https://github.com/justwon0307)! - Publish svgs-core
+
 ## 1.1.0
 
 ### Minor Changes
