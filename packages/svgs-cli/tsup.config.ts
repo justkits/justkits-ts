@@ -1,19 +1,31 @@
 import { defineConfig } from "tsup";
 
-export default defineConfig({
-  entry: ["src/index.ts", "src/generate.ts"],
-  format: ["esm"],
-  dts: {
-    entry: "src/index.ts",
+export default defineConfig([
+  // Library export (index.ts) - no shebang
+  {
+    entry: ["src/index.ts"],
+    format: ["esm"],
+    dts: true,
+    tsconfig: "./tsconfig.build.json",
+    clean: true,
+    splitting: false,
+    sourcemap: true,
+    minify: true,
+    treeshake: true,
   },
-  tsconfig: "./tsconfig.build.json",
-  clean: true,
-  splitting: false,
-  sourcemap: true,
-  minify: true,
-  treeshake: true,
-  // Shebang(#!/usr/bin/env node)을 보존합니다.
-  banner: {
-    js: "#!/usr/bin/env node",
+  // CLI entry point (generate.ts) - with shebang
+  {
+    entry: ["src/generate.ts"],
+    format: ["esm"],
+    dts: false,
+    tsconfig: "./tsconfig.build.json",
+    clean: false, // Don't clean again
+    splitting: false,
+    sourcemap: true,
+    minify: true,
+    treeshake: true,
+    banner: {
+      js: "#!/usr/bin/env node",
+    },
   },
-});
+]);
