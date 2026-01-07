@@ -1,7 +1,8 @@
 {
   "name": "@justkits/svgs-core",
+  "description": "JustKits SVGs Core Package",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "type": "module",
   "exports": {
     ".": {
