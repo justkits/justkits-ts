@@ -19,9 +19,15 @@ export class FamilySvgBuilder extends BaseSvgBuilder {
    * @param options - SVGR 변환 설정 객체
    * @param baseDir - 패키지 루트 디렉토리
    * @param suffix - 컴포넌트 이름 뒤에 붙일 접미사 (기본값: "")
+   * @param generateIndex - index.ts 파일 생성 여부 (기본값: false)
    */
-  constructor(options: Config, baseDir: string, suffix: string = "") {
-    super(options, baseDir, suffix);
+  constructor(
+    options: Config,
+    baseDir: string,
+    suffix: string = "",
+    generateIndex: boolean = false,
+  ) {
+    super(options, baseDir, suffix, generateIndex);
     this.exportMap = {};
   }
 

@@ -12,7 +12,7 @@ describe("FamilySvgBuilder", () => {
 
   beforeEach(async () => {
     vi.clearAllMocks();
-    builder = new FamilySvgBuilder(defaultOptions, mockBaseDir);
+    builder = new FamilySvgBuilder(defaultOptions, mockBaseDir, "", true);
 
     // Mock atomicWrite to prevent actual file writes
     atomicWriteSpy = vi.fn().mockResolvedValue(undefined);
@@ -21,7 +21,7 @@ describe("FamilySvgBuilder", () => {
     vi.spyOn(console, "table").mockImplementation(() => {});
   });
 
-  it("should generate icons without errors", async () => {
+  it("should generate icons with barrel files when generateIndex is true", async () => {
     await builder.generate();
 
     // Verify component files were written
@@ -72,6 +72,48 @@ describe("FamilySvgBuilder", () => {
 
     await expect(builder.generate()).rejects.toThrow(
       'Icon "orphan-icon.svg" must be placed inside a category folder',
+    );
+  });
+
+  it("should not generate barrel files when generateIndex is false", async () => {
+    // Reset glob mock to default behavior
+    (glob as unknown as Mock).mockResolvedValue([
+      resolve(mockAssetsDir, "media/test-icon.svg"),
+      resolve(mockAssetsDir, "media/second-test-icon.svg"),
+      resolve(mockAssetsDir, "action/arrow-icon.svg"),
+    ]);
+
+    const builderWithoutIndex = new FamilySvgBuilder(
+      defaultOptions,
+      mockBaseDir,
+      "",
+      false,
+    );
+    const atomicWriteSpyNoIndex = vi.fn().mockResolvedValue(undefined);
+    (builderWithoutIndex as any).atomicWrite = atomicWriteSpyNoIndex; // eslint-disable-line @typescript-eslint/no-explicit-any
+
+    vi.spyOn(console, "table").mockImplementation(() => {});
+
+    await builderWithoutIndex.generate();
+
+    // Verify component files were written
+    expect(atomicWriteSpyNoIndex).toHaveBeenCalledWith(
+      expect.stringContaining("media/components/TestIcon.tsx"),
+      expect.any(String),
+    );
+    expect(atomicWriteSpyNoIndex).toHaveBeenCalledWith(
+      expect.stringContaining("media/components/SecondTestIcon.tsx"),
+      expect.any(String),
+    );
+    expect(atomicWriteSpyNoIndex).toHaveBeenCalledWith(
+      expect.stringContaining("action/components/ArrowIcon.tsx"),
+      expect.any(String),
+    );
+
+    // Verify barrel files were NOT written
+    expect(atomicWriteSpyNoIndex).not.toHaveBeenCalledWith(
+      expect.stringContaining("index.ts"),
+      expect.any(String),
     );
   });
 });

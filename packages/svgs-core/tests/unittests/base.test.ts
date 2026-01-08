@@ -145,14 +145,35 @@ describe("BaseSvgBuilder", () => {
     );
   });
 
-  it("test atomicWrite", async () => {
-    // Mock rename to fail
+  it("should test atomicWrite success path", async () => {
+    const testPath = "/test/path/file.tsx";
+    const testContent = "test content";
+
+    // Call atomicWrite - should succeed with mocked functions
+    await expect(
+      (builder as any).atomicWrite(testPath, testContent), // eslint-disable-line @typescript-eslint/no-explicit-any
+    ).resolves.not.toThrow();
+
+    // Verify writeFile was called with temp file
+    expect(writeFile).toHaveBeenCalledWith(
+      `${testPath}.tmp`,
+      testContent,
+      "utf-8",
+    );
+
+    // Verify rename was called
+    expect(rename).toHaveBeenCalledWith(`${testPath}.tmp`, testPath);
+  });
+
+  it("should test atomicWrite error handling", async () => {
+    const testPath = "/test/path/file-error.tsx";
+    const testContent = "test content";
+
+    // Mock rename to fail for this specific test
+    const originalRename = rename;
     (rename as unknown as Mock).mockRejectedValueOnce(
       new Error("Rename failed"),
     );
-
-    const testPath = "/test/path/file.tsx";
-    const testContent = "test content";
 
     // Call atomicWrite and expect it to throw
     await expect(
@@ -171,5 +192,8 @@ describe("BaseSvgBuilder", () => {
 
     // Verify rename was attempted
     expect(rename).toHaveBeenCalledWith(`${testPath}.tmp`, testPath);
+
+    // Restore original mock
+    (rename as unknown as Mock).mockImplementation(originalRename);
   });
 });

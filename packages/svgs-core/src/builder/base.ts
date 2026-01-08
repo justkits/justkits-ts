@@ -23,6 +23,7 @@ export abstract class BaseSvgBuilder {
   private readonly options: Config;
   private readonly baseDir: string;
   private readonly suffix: string;
+  private readonly generateIndex: boolean;
 
   /**
    * 빌더 초기화
@@ -30,6 +31,7 @@ export abstract class BaseSvgBuilder {
    * @param options - SVGR 변환 설정 객체
    * @param baseDir - 패키지 루트 디렉토리 (assets/와 src/의 부모 경로)
    * @param suffix - 컴포넌트 이름 뒤에 붙일 접미사 (기본값: "")
+   * @param generateIndex - index.ts 파일 생성 여부 (기본값: false)
    *
    * @example
    * ```typescript
@@ -39,7 +41,12 @@ export abstract class BaseSvgBuilder {
    * );
    * ```
    */
-  constructor(options: Config, baseDir: string, suffix: string = "") {
+  constructor(
+    options: Config,
+    baseDir: string,
+    suffix: string = "",
+    generateIndex: boolean = false,
+  ) {
     this.baseDir = baseDir;
     this.ASSETS_DIR = resolve(this.baseDir, "assets");
     this.SRC_DIR = resolve(this.baseDir, "src");
@@ -49,6 +56,7 @@ export abstract class BaseSvgBuilder {
 
     this.options = options;
     this.suffix = suffix;
+    this.generateIndex = generateIndex;
   }
 
   /**
@@ -65,10 +73,16 @@ export abstract class BaseSvgBuilder {
     logger.success("Clean completed. Starting generation...\n");
     await this.processSvgs();
 
-    logger.success("SVG processing completed. Generating barrel files...\n");
-    await this.generateBarrelFiles();
+    if (this.generateIndex) {
+      logger.success("SVG processing completed. Generating barrel files...\n");
+      await this.generateBarrelFiles();
+      logger.success("Barrel files generated successfully.\n");
+    } else {
+      logger.success(
+        "SVG processing completed. Skipping barrel file generation.\n",
+      );
+    }
 
-    logger.success("Barrel files generated successfully.\n");
     this.printSummary();
 
     const endTime = performance.now();
