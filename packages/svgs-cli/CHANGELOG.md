@@ -1,5 +1,11 @@
 # @justkits/svgs-cli
 
+## 1.1.3
+
+### Patch Changes
+
+- [#63](https://github.com/justkits/justkits-ts/pull/63) [`c1439f6`](https://github.com/justkits/justkits-ts/commit/c1439f622c317746895454e0b039aff13cbe227c) Thanks [@justwon0307](https://github.com/justwon0307)! - Bundle plugins together
+
 ## 1.1.2
 
 ### Patch Changes
