@@ -6,14 +6,12 @@ import { SvgsConfig } from "./types";
 
 const DEFAULT_FILE_PATH = "svg2tsx.config.ts";
 
-export async function loadConfig(
-  cwd: string = process.cwd(),
-  explicitPath?: string,
-): Promise<SvgsConfig> {
+export async function loadConfig(configPath?: string): Promise<SvgsConfig> {
+  const cwd: string = process.cwd();
   let config: SvgsConfig | null = null;
 
-  if (explicitPath) {
-    const resolvedPath = resolve(cwd, explicitPath);
+  if (configPath) {
+    const resolvedPath = resolve(cwd, configPath);
     config = await readConfigFile(cwd, resolvedPath);
   } else {
     const defaultPath = resolve(cwd, DEFAULT_FILE_PATH);
@@ -23,6 +21,10 @@ export async function loadConfig(
   if (config) {
     return config;
   }
+
+  console.warn(
+    `Config file not found at ${configPath || DEFAULT_FILE_PATH}. Proceeding with default configuration.`,
+  );
 
   // Return default config if no file found
   return {

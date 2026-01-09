@@ -6,15 +6,14 @@ import { logger } from "@lib/logger";
 
 export async function generateAction(options: { config?: string }) {
   try {
-    const cwd = process.cwd();
-    const config = await loadConfig(cwd, options.config);
+    const config = await loadConfig(options.config);
 
     const svgrOptions = {
       ...defaultOptions,
       ...config.options,
     };
 
-    const baseDir = config.baseDir || cwd;
+    const baseDir = config.baseDir || process.cwd();
     const suffix = config.suffix || "";
     const generateIndex = config.index ?? false;
 
