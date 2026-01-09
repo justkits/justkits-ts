@@ -28,13 +28,13 @@ npm install --save-dev @justkits/svg2tsx
 pnpm svg2tsx generate
 ```
 
-설정 파일을 명시적으로 지정하려면 `-c` 또는 `--config` 옵션을 사용한다. (기본적으로 프로젝트 루트에 svg.config.{ts,js,mjs,cjs}를 두면 자동으로 감지 & 적용한다)
+설정 파일을 명시적으로 지정하려면 `-c` 또는 `--config` 옵션을 사용한다. (기본적으로 프로젝트 루트에 svg2tsx.config.ts를 두면 자동으로 감지 & 적용한다)
 
 ```bash
 npx svg2tsx generate --config custom.config.ts
 ```
 
-설정 관련 자세한 내용은 [설정 문서](./docs/settings.md)를 참고하면 된다.
+설정 관련 자세한 내용은 [설정 문서](./docs/settings.md)를 참고하면 된다. 특히 커스텀 템플릿과 타입 정의를 활용하는 예시는 [여기](./docs/settings.md#커스텀-템플릿-사용하기)에서 확인할 수 있다.
 
 ## 📝 규칙 및 제약사항
 
@@ -77,3 +77,8 @@ npx svg2tsx generate --config custom.config.ts
 
 - **FamilySvgBuilder**: `assets/[category]/[icon-name].svg` 구조 필수
 - **StandaloneSvgBuilder**: `assets/[icon-name].svg` 플랫 구조 사용
+
+### 4. 출력 경로 및 파일 보존
+
+- **고정 출력 경로**: 모든 변환 결과물은 패키지 루트의 `src/` 디렉토리로 출력된다. (현재 변경 불가)
+- **파일 보존**: `src/` 폴더 내의 파일들은 생성 시 초기화되지만, `types.ts` 파일은 삭제되지 않고 보존된다. 공통 타입 정의가 필요한 경우 `src/types.ts`에 작성하면 된다.
