@@ -25,9 +25,4 @@ export const defaultOptions: Config = {
   jsxRuntime: "automatic",
   expandProps: false,
   plugins: [svgoPlugin, jsxPlugin],
-  svgProps: {
-    width: "{size}",
-    height: "{size}",
-    color: "{color}",
-  },
 };
