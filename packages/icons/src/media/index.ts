@@ -1,9 +1,0 @@
-export { AlbumIcon } from "./components/AlbumIcon";
-export { FileIcon } from "./components/FileIcon";
-export { ForumIcon } from "./components/ForumIcon";
-export { GalleryIcon } from "./components/GalleryIcon";
-export { HashtagIcon } from "./components/HashtagIcon";
-export { ImageIcon } from "./components/ImageIcon";
-export { TagIcon } from "./components/TagIcon";
-export { UploadIcon } from "./components/UploadIcon";
-export { VideoIcon } from "./components/VideoIcon";

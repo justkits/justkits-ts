@@ -1,0 +1,13 @@
+{
+  "extends": "@justkits/configs/tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "@lib/*": ["./src/lib/*"],
+      "@converter/*": ["./src/converter/*"],
+      "@cli/*": ["./src/cli/*"],
+      "@tests/*": ["./tests/*"]
+    }
+  },
+  "include": ["src", "tests"],
+  "exclude": ["dist", "node_modules"]
+}
