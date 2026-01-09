@@ -34,7 +34,3 @@ export interface SvgsConfig {
    */
   index?: boolean;
 }
-
-export function defineConfig(config: SvgsConfig): SvgsConfig {
-  return config;
-}
