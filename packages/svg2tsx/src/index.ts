@@ -1,1 +1,2 @@
-export { defineConfig, type SvgsConfig, type BuilderType } from "./cli/types";
+export { defineConfig } from "./cli/defineConfig";
+export { SvgsConfig, BuilderType } from "./cli/types";
