@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 
-import { defineConfig } from "@cli/types";
+import { defineConfig } from "@cli/defineConfig";
 
 describe("defineConfig", () => {
   it("should return the same config object passed to it", () => {

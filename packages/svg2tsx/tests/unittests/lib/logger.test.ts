@@ -3,6 +3,20 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { logger } from "@lib/logger";
 
+vi.mock("chalk", () => {
+  const simpleLog = vi.fn((msg: string) => msg);
+
+  return {
+    __esModule: true,
+    default: {
+      cyan: simpleLog,
+      yellow: simpleLog,
+      red: simpleLog,
+      green: simpleLog,
+      gray: simpleLog,
+    },
+  };
+});
 vi.unmock("@lib/logger");
 
 describe("logger", () => {
