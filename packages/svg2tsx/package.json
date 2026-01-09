@@ -1,7 +1,7 @@
 {
   "name": "@justkits/svg2tsx",
   "description": "JustKits SVG to TSX Converter Package",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": false,
   "type": "module",
   "keywords": [
