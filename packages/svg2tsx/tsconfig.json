@@ -4,7 +4,8 @@
     "paths": {
       "@lib/*": ["./src/lib/*"],
       "@converter/*": ["./src/converter/*"],
-      "@cli/*": ["./src/cli/*"]
+      "@cli/*": ["./src/cli/*"],
+      "@tests/*": ["./tests/*"]
     }
   },
   "include": ["src", "tests"],

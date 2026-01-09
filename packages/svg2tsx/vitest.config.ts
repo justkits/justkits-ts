@@ -9,6 +9,7 @@ const config = defineConfig({
       "@lib": resolve(__dirname, "src/lib"),
       "@converter": resolve(__dirname, "src/converter"),
       "@cli": resolve(__dirname, "src/cli"),
+      "@tests": resolve(__dirname, "tests"),
     },
   },
   test: {
@@ -18,7 +19,7 @@ const config = defineConfig({
       include: ["src/**/*.ts"],
       exclude: ["src/**/index.ts"],
     },
-    setupFiles: ["tests/setup/mocks.ts"],
+    setupFiles: ["tests/setup/vitest.setup.ts"],
   },
 });
 
