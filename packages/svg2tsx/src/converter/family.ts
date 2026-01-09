@@ -3,6 +3,7 @@ import { Config } from "@svgr/core";
 
 import { BaseSvgBuilder } from "./base";
 import { logger } from "@lib/logger";
+import { atomicWrite } from "@lib/atomicWrite";
 
 /**
  * SVG -> React 컴포넌트 변환용 빌더 (Family 분류를 포함)
@@ -65,14 +66,14 @@ export class FamilySvgBuilder extends BaseSvgBuilder {
       );
       const familyBarrelContent = familyBarrelLines.join("\n") + "\n";
 
-      await this.atomicWrite(
+      await atomicWrite(
         join(this.SRC_DIR, familyName, "index.ts"),
         familyBarrelContent,
       );
     }
 
     const rootBarrelContent = rootBarrelLines.join("\n") + "\n";
-    await this.atomicWrite(join(this.SRC_DIR, "index.ts"), rootBarrelContent);
+    await atomicWrite(join(this.SRC_DIR, "index.ts"), rootBarrelContent);
   }
 
   protected async saveComponentFile(
@@ -88,7 +89,7 @@ export class FamilySvgBuilder extends BaseSvgBuilder {
       );
     }
 
-    await this.atomicWrite(
+    await atomicWrite(
       join(this.SRC_DIR, familyName, `components/${componentName}.tsx`),
       content,
     );

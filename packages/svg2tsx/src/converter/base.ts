@@ -1,5 +1,5 @@
-import { mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";
-import { basename, dirname, resolve } from "node:path";
+import { readFile, rm } from "node:fs/promises";
+import { basename, resolve } from "node:path";
 import { performance } from "node:perf_hooks";
 import { createHash } from "node:crypto";
 import fg from "fast-glob";
@@ -7,6 +7,7 @@ import pLimit from "p-limit";
 import { Config, transform } from "@svgr/core";
 
 import { logger } from "@lib/logger";
+import { kebabToPascal } from "@lib/kebabToPascal";
 
 /**
  * SVG 파일을 React 컴포넌트로 변환하는 추상 베이스 빌더 클래스
@@ -126,15 +127,8 @@ export abstract class BaseSvgBuilder {
         limit(async () => {
           const fileName = basename(file, ".svg");
 
-          // Kebab-case 검사: 소문자와 단일 대시만 허용, 숫자/선행/후행/이중 대시 불허
-          if (!/^[a-z]+(-[a-z]+)*$/.test(fileName)) {
-            throw new Error(
-              `Invalid filename: "${fileName}". Filenames must be strictly kebab-case (lowercase letters and single dashes only, e.g., "my-icon").`,
-            );
-          }
-
           const svgCode = await readFile(file, "utf-8");
-          const componentName = this.kebabToPascal(fileName);
+          const componentName = kebabToPascal(fileName, this.suffix);
           this.duplicateNameCheck(componentName, file);
 
           const contentHash = createHash("sha512")
@@ -193,31 +187,6 @@ export abstract class BaseSvgBuilder {
   // =============== Utility Methods ================== //
   // ================================================== //
 
-  /**
-   * 파일을 원자적으로 작성 (먼저 .tmp 파일에 쓴 후 rename하여 부분적인 쓰기를 방지)
-   *
-   * @param filePath - 대상 파일 경로
-   * @param content - 파일에 쓸 내용
-   *
-   * @throws {Error} 파일 쓰기 중 오류가 발생한 경우
-   */
-  protected async atomicWrite(
-    filePath: string,
-    content: string,
-  ): Promise<void> {
-    const tempFilePath = `${filePath}.tmp`;
-
-    await mkdir(dirname(filePath), { recursive: true });
-    await writeFile(tempFilePath, content, "utf-8");
-
-    try {
-      await rename(tempFilePath, filePath);
-    } catch (error) {
-      await rm(tempFilePath, { force: true });
-      throw error;
-    }
-  }
-
   private duplicateNameCheck(componentName: string, file: string): void {
     if (this.nameRegistry.has(componentName)) {
       const existingPath = this.nameRegistry.get(componentName);
@@ -243,14 +212,5 @@ export abstract class BaseSvgBuilder {
       );
       throw new Error("Duplicate SVG content found.");
     }
-  }
-
-  protected kebabToPascal(str: string): string {
-    const pascalName = str
-      .split("-")
-      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-      .join("");
-
-    return pascalName + this.suffix;
   }
 }

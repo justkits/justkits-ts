@@ -3,6 +3,7 @@ import { Config } from "@svgr/core";
 
 import { BaseSvgBuilder } from "./base";
 import { logger } from "@lib/logger";
+import { atomicWrite } from "@lib/atomicWrite";
 
 /**
  * SVG -> React 컴포넌트 변환용 빌더 (Standalone 플랫 구조; Family 분류 없음)
@@ -53,7 +54,7 @@ export class StandaloneSvgBuilder extends BaseSvgBuilder {
     }
 
     const barrelContent = barrelLines.join("\n") + "\n";
-    await this.atomicWrite(join(this.SRC_DIR, "index.ts"), barrelContent);
+    await atomicWrite(join(this.SRC_DIR, "index.ts"), barrelContent);
   }
 
   protected async saveComponentFile(
@@ -63,7 +64,7 @@ export class StandaloneSvgBuilder extends BaseSvgBuilder {
     const componentDir = join(this.SRC_DIR, "components");
     const componentPath = join(componentDir, `${componentName}.tsx`);
 
-    await this.atomicWrite(componentPath, content);
+    await atomicWrite(componentPath, content);
     logger.info(`Generated: ${componentName}`);
   }
 }
