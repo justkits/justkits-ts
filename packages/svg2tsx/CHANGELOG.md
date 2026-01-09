@@ -1,5 +1,11 @@
 # @justkits/svg2tsx
 
+## 1.0.1
+
+### Patch Changes
+
+- [#67](https://github.com/justkits/justkits-ts/pull/67) [`08d7e0e`](https://github.com/justkits/justkits-ts/commit/08d7e0e589a9411ae1a7afc0dd21cbb7329c2348) Thanks [@justwon0307](https://github.com/justwon0307)! - Update documentation and minor fix to default options
+
 ## 1.0.0
 
 ### Major Changes
