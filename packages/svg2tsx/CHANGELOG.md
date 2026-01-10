@@ -1,5 +1,11 @@
 # @justkits/svg2tsx
 
+## 1.0.2
+
+### Patch Changes
+
+- [#69](https://github.com/justkits/justkits-ts/pull/69) [`22de261`](https://github.com/justkits/justkits-ts/commit/22de2616143a2a06a3e9f74429b2c2231cf7922f) Thanks [@justwon0307](https://github.com/justwon0307)! - Add docs to bundle
+
 ## 1.0.1
 
 ### Patch Changes
