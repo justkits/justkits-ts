@@ -54,7 +54,9 @@ export class StandaloneSvgBuilder extends BaseSvgBuilder {
     }
 
     const barrelContent = barrelLines.join("\n") + "\n";
-    await atomicWrite(join(this.SRC_DIR, "index.ts"), barrelContent);
+    const barrelPath = join(this.SRC_DIR, "index.ts");
+    await atomicWrite(barrelPath, barrelContent);
+    this.trackGeneratedFile(barrelPath);
   }
 
   protected async saveComponentFile(
@@ -65,6 +67,7 @@ export class StandaloneSvgBuilder extends BaseSvgBuilder {
     const componentPath = join(componentDir, `${componentName}.tsx`);
 
     await atomicWrite(componentPath, content);
+    this.trackGeneratedFile(componentPath);
     logger.info(`Generated: ${componentName}`);
   }
 }

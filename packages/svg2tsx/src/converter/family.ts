@@ -66,14 +66,15 @@ export class FamilySvgBuilder extends BaseSvgBuilder {
       );
       const familyBarrelContent = familyBarrelLines.join("\n") + "\n";
 
-      await atomicWrite(
-        join(this.SRC_DIR, familyName, "index.ts"),
-        familyBarrelContent,
-      );
+      const familyBarrelPath = join(this.SRC_DIR, familyName, "index.ts");
+      await atomicWrite(familyBarrelPath, familyBarrelContent);
+      this.trackGeneratedFile(familyBarrelPath);
     }
 
     const rootBarrelContent = rootBarrelLines.join("\n") + "\n";
-    await atomicWrite(join(this.SRC_DIR, "index.ts"), rootBarrelContent);
+    const rootBarrelPath = join(this.SRC_DIR, "index.ts");
+    await atomicWrite(rootBarrelPath, rootBarrelContent);
+    this.trackGeneratedFile(rootBarrelPath);
   }
 
   protected async saveComponentFile(
@@ -89,10 +90,14 @@ export class FamilySvgBuilder extends BaseSvgBuilder {
       );
     }
 
-    await atomicWrite(
-      join(this.SRC_DIR, familyName, `components/${componentName}.tsx`),
-      content,
+    const componentPath = join(
+      this.SRC_DIR,
+      familyName,
+      `components/${componentName}.tsx`,
     );
+    await atomicWrite(componentPath, content);
+    this.trackGeneratedFile(componentPath);
+
     if (!this.exportMap[familyName]) {
       this.exportMap[familyName] = [];
     }
