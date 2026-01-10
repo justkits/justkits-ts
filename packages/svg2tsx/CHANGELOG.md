@@ -1,5 +1,11 @@
 # @justkits/svg2tsx
 
+## 1.0.3
+
+### Patch Changes
+
+- [#71](https://github.com/justkits/justkits-ts/pull/71) [`be3449d`](https://github.com/justkits/justkits-ts/commit/be3449dc7f2d1afb0a5cd368ee27fde46ee488ca) Thanks [@justwon0307](https://github.com/justwon0307)! - Update clean method: use manifest
+
 ## 1.0.2
 
 ### Patch Changes
