@@ -8,6 +8,7 @@ import { Config, transform } from "@svgr/core";
 
 import { logger } from "@lib/logger";
 import { kebabToPascal } from "@lib/kebabToPascal";
+import { atomicWrite } from "@lib/atomicWrite";
 
 /**
  * SVG 파일을 React 컴포넌트로 변환하는 추상 베이스 빌더 클래스
@@ -20,11 +21,14 @@ export abstract class BaseSvgBuilder {
 
   protected readonly nameRegistry: Map<string, string>; // key: componentName, value: filePath (duplicate check)
   protected readonly contentRegistry: Map<string, string>; // key: contentHash, value: filePath (duplicate check)
+  protected readonly generatedFiles: Set<string>; // Set of generated file paths
 
   private readonly options: Config;
   private readonly baseDir: string;
   private readonly suffix: string;
   private readonly generateIndex: boolean;
+
+  private readonly MANIFEST_FILENAME = ".svg2tsx-manifest.json";
 
   /**
    * 빌더 초기화
@@ -54,6 +58,7 @@ export abstract class BaseSvgBuilder {
 
     this.nameRegistry = new Map();
     this.contentRegistry = new Map();
+    this.generatedFiles = new Set();
 
     this.options = options;
     this.suffix = suffix;
@@ -84,6 +89,7 @@ export abstract class BaseSvgBuilder {
       );
     }
 
+    await this.saveManifest();
     this.printSummary();
 
     const endTime = performance.now();
@@ -101,16 +107,34 @@ export abstract class BaseSvgBuilder {
   // ================================================== //
 
   private async clean(): Promise<void> {
-    const patterns = ["**/*.tsx", "**/index.ts"];
-    const deletedPaths = await fg(patterns, {
-      cwd: this.SRC_DIR,
-      absolute: true,
-      ignore: ["types.ts"], // Ensure types.ts is never deleted even if matched
-    });
+    const manifestPath = resolve(this.SRC_DIR, this.MANIFEST_FILENAME);
+    try {
+      const content = await readFile(manifestPath, "utf-8");
+      const manifest = JSON.parse(content) as string[];
 
-    for (const path of deletedPaths) {
-      await rm(path, { force: true });
+      // Filter out files that are outside the SRC_DIR to prevent accidental deletion of important files
+      // This is a safety measure.
+      const safeToDelete = manifest.filter((path) =>
+        path.startsWith(this.SRC_DIR),
+      );
+
+      for (const path of safeToDelete) {
+        await rm(path, { force: true });
+      }
+      logger.detail(`Cleaned up ${safeToDelete.length} files from manifest.`);
+    } catch {
+      logger.detail("No manifest found or failed to read. Skipping clean.");
     }
+  }
+
+  private async saveManifest(): Promise<void> {
+    const paths = Array.from(this.generatedFiles);
+    const manifestPath = resolve(this.SRC_DIR, this.MANIFEST_FILENAME);
+    await atomicWrite(manifestPath, JSON.stringify(paths, null, 2));
+  }
+
+  protected trackGeneratedFile(filePath: string): void {
+    this.generatedFiles.add(filePath);
   }
 
   private async processSvgs() {
