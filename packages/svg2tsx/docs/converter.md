@@ -23,10 +23,12 @@ svg2tsx CLI에서 SVG → React 컴포넌트로 자동 변환하는 기능을 �
 
 `generate` 워크플로우 내부에서는 다음 순서로 변환이 실행된다:
 
-1. **Clean**: `src/` 디렉토리의 기존 `.tsx` 및 `index.ts` 파일 삭제
-2. **Process**: `assets/` 디렉토리의 모든 SVG 파일을 스캔하고 변환
+1. **Clean**: 출력 디렉토리(기본: `src/`)의 기존 `.tsx` 및 `index.ts` 파일 삭제
+2. **Process**: 입력 디렉토리(기본: `assets/`)의 모든 SVG 파일을 스캔하고 변환
 3. **Generate Barrels**: `index.ts` 배럴 파일 자동 생성 (설정 시)
 4. **Summary**: 변환 결과 요약 출력
+
+> 입출력 디렉토리는 `assetsDir`과 `srcDir` 옵션으로 커스터마이징할 수 있다. 자세한 내용은 [설정 문서](./settings.md)를 참고한다.
 
 ## 🚀 사용 가능한 빌더
 
