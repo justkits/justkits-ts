@@ -6,22 +6,22 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.2",
     "@changesets/cli": "^2.29.8",
-    "@eslint/css": "^0.13.0",
+    "@eslint/css": "^0.14.1",
     "@eslint/js": "^9.39.2",
-    "@eslint/json": "^0.13.2",
+    "@eslint/json": "^0.14.0",
     "@eslint/markdown": "^7.5.1",
     "@justkits/configs": "workspace:*",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
-    "@types/node": "^25.0.2",
+    "@types/node": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-react": "^7.37.5",
-    "globals": "^16.5.0",
+    "globals": "^17.1.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "catalog:",
-    "turbo": "^2.7.3",
+    "turbo": "^2.7.6",
     "typescript": "catalog:",
-    "typescript-eslint": "^8.50.0"
+    "typescript-eslint": "^8.53.1"
   },
   "scripts": {
     "prepare": "husky",
@@ -40,5 +40,10 @@
       "eslint",
       "prettier --check"
     ]
+  },
+  "pnpm": {
+    "overrides": {
+      "lodash": ">=4.17.23"
+    }
   }
 }
