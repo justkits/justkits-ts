@@ -54,6 +54,8 @@ describe("generateAction", () => {
         mockConfigOutput.baseDir,
         mockConfigOutput.suffix,
         mockConfigOutput.index,
+        "assets",
+        "src",
       );
       expect(mockGenerate).toHaveBeenCalled();
       expect(logger.info).toHaveBeenCalledWith(
@@ -74,6 +76,8 @@ describe("generateAction", () => {
         "/test/path",
         "",
         false,
+        "assets",
+        "src",
       );
     });
   });
@@ -90,6 +94,8 @@ describe("generateAction", () => {
         defaultConfig.baseDir,
         "",
         false,
+        "assets",
+        "src",
       );
       expect(mockGenerate).toHaveBeenCalled();
       expect(logger.info).toHaveBeenCalledWith(
@@ -109,6 +115,8 @@ describe("generateAction", () => {
         process.cwd(),
         "",
         false,
+        "assets",
+        "src",
       );
     });
 
@@ -124,6 +132,8 @@ describe("generateAction", () => {
         "/test/path",
         "",
         false,
+        "assets",
+        "src",
       );
       expect(logger.info).toHaveBeenCalledWith(
         "🚀 Starting generation (type: standalone)...",
@@ -186,6 +196,50 @@ describe("generateAction", () => {
         "/test",
         "",
         false,
+        "assets",
+        "src",
+      );
+    });
+  });
+
+  describe("custom directories", () => {
+    it("should use custom assetsDir and srcDir from config", async () => {
+      vi.mocked(loadConfig).mockResolvedValueOnce({
+        type: "standalone",
+        baseDir: "/custom/base",
+        assetsDir: "icons",
+        srcDir: "generated",
+      });
+
+      await generateAction({});
+
+      expect(StandaloneSvgBuilder).toHaveBeenCalledWith(
+        expect.any(Object),
+        "/custom/base",
+        "",
+        false,
+        "icons",
+        "generated",
+      );
+    });
+
+    it("should use custom directories with family builder", async () => {
+      vi.mocked(loadConfig).mockResolvedValueOnce({
+        type: "family",
+        baseDir: "/project",
+        assetsDir: "svg-assets",
+        srcDir: "components",
+      });
+
+      await generateAction({});
+
+      expect(FamilySvgBuilder).toHaveBeenCalledWith(
+        expect.any(Object),
+        "/project",
+        "",
+        false,
+        "svg-assets",
+        "components",
       );
     });
   });
