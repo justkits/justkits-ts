@@ -22,6 +22,12 @@ export default defineConfig({
   // index.ts 배럴 파일 생성 여부
   index: true,
 
+  // 커스텀 assets 디렉토리 경로 (baseDir 기준 상대경로 또는 절대경로)
+  assetsDir: "assets",
+
+  // 커스텀 src 디렉토리 경로 (baseDir 기준 상대경로 또는 절대경로)
+  srcDir: "src",
+
   // SVGR 설정 옵션
   options: {
     typescript: true,
@@ -33,13 +39,15 @@ export default defineConfig({
 
 ## 설정 옵션
 
-| 옵션      | 타입                       | 기본값           | 설명                                                                        |
-| --------- | -------------------------- | ---------------- | --------------------------------------------------------------------------- |
-| `type`    | `'standalone' \| 'family'` | `'standalone'`   | 컴포넌트 생성 구조를 결정한다.                                              |
-| `suffix`  | `string`                   | `""`             | 생성된 컴포넌트 이름 뒤에 추가할 문자열이다.                                |
-| `index`   | `boolean`                  | `false`          | `index.ts` 배럴 파일 생성 여부를 결정한다.                                  |
-| `options` | `Config` (SVGR)            | `defaultOptions` | [SVGR 설정](https://react-svgr.com/docs/options/)과 동일한 옵션을 지원한다. |
-| `baseDir` | `string`                   | `process.cwd()`  | `assets`와 `src` 폴더가 위치한 기준 디렉토리다.                             |
+| 옵션        | 타입                       | 기본값           | 설명                                                                            |
+| ----------- | -------------------------- | ---------------- | ------------------------------------------------------------------------------- |
+| `type`      | `'standalone' \| 'family'` | `'standalone'`   | 컴포넌트 생성 구조를 결정한다.                                                  |
+| `suffix`    | `string`                   | `""`             | 생성된 컴포넌트 이름 뒤에 추가할 문자열이다.                                    |
+| `index`     | `boolean`                  | `false`          | `index.ts` 배럴 파일 생성 여부를 결정한다.                                      |
+| `options`   | `Config` (SVGR)            | `defaultOptions` | [SVGR 설정](https://react-svgr.com/docs/options/)과 동일한 옵션을 지원한다.     |
+| `baseDir`   | `string`                   | `process.cwd()`  | `assetsDir`와 `srcDir`의 기준 디렉토리다.                                       |
+| `assetsDir` | `string`                   | `"assets"`       | SVG 파일이 위치한 디렉토리 경로다. (baseDir 기준 상대경로 또는 절대경로)        |
+| `srcDir`    | `string`                   | `"src"`          | 변환된 컴포넌트가 출력될 디렉토리 경로다. (baseDir 기준 상대경로 또는 절대경로) |
 
 ---
 
