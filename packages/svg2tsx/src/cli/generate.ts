@@ -16,6 +16,8 @@ export async function generateAction(options: { config?: string }) {
     const baseDir = config.baseDir || process.cwd();
     const suffix = config.suffix || "";
     const generateIndex = config.index ?? false;
+    const assetsDir = config.assetsDir || "assets";
+    const srcDir = config.srcDir || "src";
 
     let builder;
     if (config.type === "family") {
@@ -24,6 +26,8 @@ export async function generateAction(options: { config?: string }) {
         baseDir,
         suffix,
         generateIndex,
+        assetsDir,
+        srcDir,
       );
     } else {
       builder = new StandaloneSvgBuilder(
@@ -31,6 +35,8 @@ export async function generateAction(options: { config?: string }) {
         baseDir,
         suffix,
         generateIndex,
+        assetsDir,
+        srcDir,
       );
     }
 

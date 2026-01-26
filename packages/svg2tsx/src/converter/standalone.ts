@@ -19,14 +19,18 @@ export class StandaloneSvgBuilder extends BaseSvgBuilder {
    * @param baseDir - 패키지 루트 디렉토리
    * @param suffix - 컴포넌트 이름 뒤에 붙일 접미사 (기본값: "")
    * @param generateIndex - index.ts 파일 생성 여부 (기본값: false)
+   * @param assetsDir - 커스텀 assets 디렉토리 경로 (기본값: "assets")
+   * @param srcDir - 커스텀 src 디렉토리 경로 (기본값: "src")
    */
   constructor(
     options: Config,
     baseDir: string,
     suffix: string = "",
     generateIndex: boolean = false,
+    assetsDir: string = "assets",
+    srcDir: string = "src",
   ) {
-    super(options, baseDir, suffix, generateIndex);
+    super(options, baseDir, suffix, generateIndex, assetsDir, srcDir);
   }
 
   protected printSummary(): void {

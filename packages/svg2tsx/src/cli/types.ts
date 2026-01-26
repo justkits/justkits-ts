@@ -29,6 +29,18 @@ export interface SvgsConfig {
   baseDir?: string;
 
   /**
+   * Custom assets directory path (relative to baseDir or absolute)
+   * @default "assets"
+   */
+  assetsDir?: string;
+
+  /**
+   * Custom src directory path (relative to baseDir or absolute)
+   * @default "src"
+   */
+  srcDir?: string;
+
+  /**
    * Whether to generate index.ts (barrel) files
    * @default false
    */

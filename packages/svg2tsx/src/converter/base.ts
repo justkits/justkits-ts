@@ -37,12 +37,18 @@ export abstract class BaseSvgBuilder {
    * @param baseDir - 패키지 루트 디렉토리 (assets/와 src/의 부모 경로)
    * @param suffix - 컴포넌트 이름 뒤에 붙일 접미사 (기본값: "")
    * @param generateIndex - index.ts 파일 생성 여부 (기본값: false)
+   * @param assetsDir - 커스텀 assets 디렉토리 경로 (상대 또는 절대, 기본값: "assets")
+   * @param srcDir - 커스텀 src 디렉토리 경로 (상대 또는 절대, 기본값: "src")
    *
    * @example
    * ```typescript
    * const builder = new FamilySvgBuilder(
    *   defaultOptions,
-   *   join(dirname(fileURLToPath(import.meta.url)), "..")
+   *   join(dirname(fileURLToPath(import.meta.url)), ".."),
+   *   "",
+   *   false,
+   *   "icons",    // custom assets dir
+   *   "generated" // custom src dir
    * );
    * ```
    */
@@ -51,10 +57,12 @@ export abstract class BaseSvgBuilder {
     baseDir: string,
     suffix: string = "",
     generateIndex: boolean = false,
+    assetsDir: string = "assets",
+    srcDir: string = "src",
   ) {
     this.baseDir = baseDir;
-    this.ASSETS_DIR = resolve(this.baseDir, "assets");
-    this.SRC_DIR = resolve(this.baseDir, "src");
+    this.ASSETS_DIR = resolve(this.baseDir, assetsDir);
+    this.SRC_DIR = resolve(this.baseDir, srcDir);
 
     this.nameRegistry = new Map();
     this.contentRegistry = new Map();
