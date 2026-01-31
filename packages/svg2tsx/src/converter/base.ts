@@ -1,5 +1,5 @@
 import { readFile, rm } from "node:fs/promises";
-import { basename, resolve } from "node:path";
+import { basename, relative, resolve } from "node:path";
 import { performance } from "node:perf_hooks";
 import { createHash } from "node:crypto";
 import fg from "fast-glob";
@@ -28,7 +28,7 @@ export abstract class BaseSvgBuilder {
   private readonly suffix: string;
   private readonly generateIndex: boolean;
 
-  private readonly MANIFEST_FILENAME = ".svg2tsx-manifest.json";
+  private readonly MANIFEST_FILENAME = ".svg2tsx/manifest.json";
 
   /**
    * 빌더 초기화
@@ -115,29 +115,30 @@ export abstract class BaseSvgBuilder {
   // ================================================== //
 
   private async clean(): Promise<void> {
-    const manifestPath = resolve(this.SRC_DIR, this.MANIFEST_FILENAME);
+    const manifestPath = resolve(this.baseDir, this.MANIFEST_FILENAME);
     try {
       const content = await readFile(manifestPath, "utf-8");
-      const manifest = JSON.parse(content) as string[];
+      const relativePaths = JSON.parse(content) as string[];
 
-      // Filter out files that are outside the SRC_DIR to prevent accidental deletion of important files
-      // This is a safety measure.
-      const safeToDelete = manifest.filter((path) =>
-        path.startsWith(this.SRC_DIR),
-      );
+      // Resolve relative paths back to absolute, then filter to SRC_DIR for safety
+      const safeToDelete = relativePaths
+        .map((p) => resolve(this.baseDir, p))
+        .filter((p) => p.startsWith(this.SRC_DIR));
 
       for (const path of safeToDelete) {
         await rm(path, { force: true });
       }
       logger.detail(`Cleaned up ${safeToDelete.length} files from manifest.`);
     } catch {
-      logger.detail("No manifest found or failed to read. Skipping clean.");
+      logger.detail("No manifest found. Skipping clean.");
     }
   }
 
   private async saveManifest(): Promise<void> {
-    const paths = Array.from(this.generatedFiles);
-    const manifestPath = resolve(this.SRC_DIR, this.MANIFEST_FILENAME);
+    const paths = Array.from(this.generatedFiles).map((p) =>
+      relative(this.baseDir, p),
+    );
+    const manifestPath = resolve(this.baseDir, this.MANIFEST_FILENAME);
     await atomicWrite(manifestPath, JSON.stringify(paths, null, 2));
   }
 

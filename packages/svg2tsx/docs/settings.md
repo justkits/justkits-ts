@@ -59,7 +59,7 @@ export default defineConfig({
 
 ### 1단계: 타입 정의 (types.ts)
 
-`src/types.ts` 파일은 생성 시 삭제되지 않고 보존된다(README 참고). 이 파일에 공통 인터페이스를 정의한다.
+svg2tsx는 매니페스트(`.svg2tsx/manifest.json`)에 기록된 파일만 삭제하므로, 직접 작성한 `src/types.ts` 같은 파일은 보존된다. 이 파일에 공통 인터페이스를 정의한다.
 
 ```typescript
 // src/types.ts

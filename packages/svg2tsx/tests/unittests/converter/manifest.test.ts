@@ -9,7 +9,7 @@ import { mockBaseDir } from "@tests/setup/mocks";
 
 describe("Manifest Generation and Cleanup", () => {
   let builder: FamilySvgBuilder;
-  const manifestPath = resolve(mockBaseDir, "src/.svg2tsx-manifest.json");
+  const manifestPath = resolve(mockBaseDir, ".svg2tsx/manifest.json");
 
   beforeEach(async () => {
     vi.clearAllMocks();
@@ -22,7 +22,7 @@ describe("Manifest Generation and Cleanup", () => {
 
     // Verify atomicWrite is called with the correct manifest filename
     expect(atomicWrite).toHaveBeenCalledWith(
-      expect.stringMatching(/\.svg2tsx-manifest\.json$/),
+      expect.stringMatching(/manifest\.json$/),
       expect.any(String),
     );
 
@@ -31,22 +31,19 @@ describe("Manifest Generation and Cleanup", () => {
       expect.stringContaining("media/components/Test.tsx"),
     );
 
-    // Check if the content passed to atomicWrite is a valid JSON array
+    // Check if the content passed to atomicWrite is a valid JSON array of relative paths
     const lastCall = (atomicWrite as Mock).mock.calls.find(
       (call) => call[0] === manifestPath,
     );
     expect(lastCall).toBeDefined();
     const content = JSON.parse(lastCall![1]);
     expect(Array.isArray(content)).toBe(true);
-    expect(content).toContain(
-      resolve(mockBaseDir, "src/media/components/Test.tsx"),
-    );
+    expect(content).toContain("src/media/components/Test.tsx");
   });
 
   it("should clean up files based on manifest", async () => {
-    // Mock existing manifest
-    const oldFile = resolve(mockBaseDir, "src/old-file.tsx");
-    const manifestContent = JSON.stringify([oldFile]);
+    // Mock existing manifest with relative paths
+    const manifestContent = JSON.stringify(["src/old-file.tsx"]);
 
     (readFile as unknown as Mock).mockImplementation((path: string) => {
       if (path === manifestPath) {
@@ -58,13 +55,14 @@ describe("Manifest Generation and Cleanup", () => {
 
     await builder.generate();
 
-    expect(rm).toHaveBeenCalledWith(oldFile, { force: true });
+    expect(rm).toHaveBeenCalledWith(resolve(mockBaseDir, "src/old-file.tsx"), {
+      force: true,
+    });
   });
 
   it("should not delete files outside SRC_DIR even if in manifest", async () => {
-    // Mock malicious manifest
-    const unsafeFile = resolve(mockBaseDir, "outside.tsx");
-    const manifestContent = JSON.stringify([unsafeFile]);
+    // Mock malicious manifest with a relative path that resolves outside SRC_DIR
+    const manifestContent = JSON.stringify(["outside.tsx"]);
 
     (readFile as unknown as Mock).mockImplementation((path: string) => {
       if (path === manifestPath) {
@@ -75,6 +73,9 @@ describe("Manifest Generation and Cleanup", () => {
 
     await builder.generate();
 
-    expect(rm).not.toHaveBeenCalledWith(unsafeFile, expect.anything());
+    expect(rm).not.toHaveBeenCalledWith(
+      resolve(mockBaseDir, "outside.tsx"),
+      expect.anything(),
+    );
   });
 });
