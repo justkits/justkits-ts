@@ -1,5 +1,11 @@
 # @justkits/svg2tsx
 
+## 1.1.1
+
+### Patch Changes
+
+- [#75](https://github.com/justkits/justkits-ts/pull/75) [`6e5ef9c`](https://github.com/justkits/justkits-ts/commit/6e5ef9c56f9397300364659360fcc99ea74eab19) Thanks [@justwon0307](https://github.com/justwon0307)! - Modify manifest file save path, and save relative paths of components in manifest (instead of absolute paths)
+
 ## 1.1.0
 
 ### Minor Changes
