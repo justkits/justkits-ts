@@ -83,7 +83,7 @@ export function AuthProvider({
       clearAuthState,
       broadcast,
     };
-  }, [accessToken]);
+  }, [accessToken, setAuthState, clearAuthState, broadcast]);
 
   if (!isReady) {
     if (fallback) {

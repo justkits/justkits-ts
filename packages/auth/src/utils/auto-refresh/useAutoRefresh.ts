@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { AxiosError, type AxiosRequestConfig, AxiosInstance } from "axios";
 
 import { AutoRefreshConfig } from "./config";
@@ -16,6 +16,20 @@ export function useAutoRefresh(
   tokenRefreshFn: () => Promise<string>,
   config: AutoRefreshConfig,
 ) {
+  const configRef = useRef(config);
+  configRef.current = config;
+  const refreshFnRef = useRef(tokenRefreshFn);
+  refreshFnRef.current = tokenRefreshFn;
+  const refreshPromiseRef = useRef<Promise<string> | null>(null);
+
+  async function refreshOnce() {
+    refreshPromiseRef.current ??= refreshFnRef.current().finally(() => {
+      refreshPromiseRef.current = null;
+    });
+
+    return refreshPromiseRef.current;
+  }
+
   async function errorResponseHandler(error: AxiosError) {
     const originalRequest = error.config as RetryableConfig | undefined;
 
@@ -25,14 +39,17 @@ export function useAutoRefresh(
     }
 
     // 무한 루프 방지 체크 (리프레시 요청이거나, 이미 재시도한 요청)
-    if (config.isRefreshRequest?.(originalRequest) || originalRequest._retry) {
+    if (
+      configRef.current.isRefreshRequest?.(originalRequest) ||
+      originalRequest._retry
+    ) {
       throw error;
     }
 
     // "토큰 만료"로 간주되는 에러이며 아직 재시도 안했으면 리프레시 시도
-    if (config.shouldRefresh(error)) {
+    if (configRef.current.shouldRefresh(error)) {
       try {
-        const newToken = await tokenRefreshFn();
+        const newToken = await refreshOnce();
 
         // 토큰 갱신에 성공했으면, 원 요청을 새로운 토큰으로 재시도
         originalRequest._retry = true;
@@ -63,5 +80,5 @@ export function useAutoRefresh(
       // 인터셉터 해제
       instance.interceptors.response.eject(id);
     };
-  }, [instance, tokenRefreshFn, config]);
+  }, [instance]);
 }

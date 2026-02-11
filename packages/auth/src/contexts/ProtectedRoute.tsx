@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useAuth } from "./useAuth";
 
 interface Props {
@@ -20,11 +21,13 @@ export function ProtectedRoute({
 
   const { isAuthenticated } = useAuth();
 
-  if (!isAuthenticated) {
-    if (onUnauthorized) {
+  useEffect(() => {
+    if (!isAuthenticated && onUnauthorized) {
       onUnauthorized();
-      return null;
     }
+  }, [isAuthenticated, onUnauthorized]);
+
+  if (!isAuthenticated) {
     return <>{fallback}</>;
   }
 

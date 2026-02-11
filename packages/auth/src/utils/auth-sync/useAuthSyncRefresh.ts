@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 import { AUTH_SYNC_CHANNEL_NAME } from "./config";
 
@@ -20,9 +20,12 @@ import { AUTH_SYNC_CHANNEL_NAME } from "./config";
  * }
  */
 export function useAuthSyncRefresh() {
-  const channel = new BroadcastChannel(AUTH_SYNC_CHANNEL_NAME);
+  const channelRef = useRef<BroadcastChannel | null>(null);
 
   useEffect(() => {
+    const channel = new BroadcastChannel(AUTH_SYNC_CHANNEL_NAME);
+    channelRef.current = channel;
+
     channel.onmessage = (event: MessageEvent) => {
       if (event.data === "LOGIN_SUCCESS" || event.data === "LOGOUT") {
         // 인증 상태 변경 신호 수신 시, 페이지 강제 새로고침
@@ -36,9 +39,9 @@ export function useAuthSyncRefresh() {
   }, []);
 
   // 인증 상태 변경 이벤트 브로드캐스트 함수
-  const broadcast = (event: "LOGIN_SUCCESS" | "LOGOUT") => {
-    channel.postMessage(event);
-  };
+  const broadcast = useCallback((event: "LOGIN_SUCCESS" | "LOGOUT") => {
+    channelRef.current?.postMessage(event);
+  }, []);
 
   return { broadcast };
 }

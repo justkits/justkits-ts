@@ -1,7 +1,13 @@
 export function decodeJWT(token: string) {
   try {
-    // 1. 토큰을 . 으로 분리하고, Payload 부분을 추출
-    const payload = token.split(".")[1];
+    // 0. 토큰을 . 으로 분리하고, 총 3부분인지 확인
+    const parts = token.split(".");
+    if (parts.length !== 3) {
+      return null;
+    }
+
+    // 1. Payload 부분을 추출
+    const payload = parts[1];
 
     // 2. base64url 형식을 base64 형식으로 변환
     const base64 = payload.replaceAll("-", "+").replaceAll("_", "/");
