@@ -42,12 +42,14 @@
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist node_modules",
     "test": "vitest run",
-    "test:watch": "vitest --watch"
+    "test:dev": "vitest --watch --coverage"
   },
   "devDependencies": {
     "@justkits/configs": "workspace:^",
+    "@testing-library/react": "^16",
     "@types/react": "^19",
     "@vitest/coverage-v8": "catalog:",
+    "jsdom": "^26",
     "tsup": "^8.5.1",
     "vitest": "catalog:"
   },
