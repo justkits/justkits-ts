@@ -16,6 +16,7 @@ const config = defineConfig({
   },
   resolve: {
     alias: {
+      "@tests": resolve(__dirname, "tests"),
       "@": resolve(__dirname, "src"),
     },
   },
