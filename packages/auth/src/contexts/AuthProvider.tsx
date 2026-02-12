@@ -16,25 +16,21 @@ interface Props {
   /**
    * 토큰 갱신 API 단순 호출 함수
    */
-  tokenRefreshFn: () => Promise<string>;
+  tokenRefreshAPICall: () => Promise<string>;
   /**
    * 초기화 중 보여줄 폴백 UI
    */
   fallback?: ReactNode;
   /**
-   * 로그인 성공 시 호출되는 콜백
-   *  - me API 호출 등 추가 작업이 필요한 경우 활용
-   * @param token
+   * 로그아웃 시 호출되는 콜백
    * @example
    * ```tsx
-   * function onLoginSuccess(token: string) {
-   *   // 사용자 정보 조회 API 호출
-   *   fetchUserProfile();
-   *   router.push("/dashboard");
+   * function onLogout() {
+   *   // 모든 쿼리 초기화 + 로그인 페이지로 이동
+   *   invalidateQueries();
+   *   router.push("/login");
    * }
-   * ```
    */
-  onLoginSuccess?: () => void;
   onLogout?: () => void;
   autoRefreshConfig?: AutoRefreshConfig;
 }
@@ -46,23 +42,20 @@ interface Props {
 export function AuthProvider({
   instance,
   children,
-  tokenRefreshFn,
+  tokenRefreshAPICall,
   fallback,
-  onLoginSuccess,
   onLogout,
   autoRefreshConfig = DEFAULT_AUTO_REFRESH_CONFIG,
 }: Readonly<Props>) {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const { broadcast } = useAuthSyncRefresh();
-  useAutoRefresh(instance, tokenRefreshFn, autoRefreshConfig);
 
   const setAuthState = useCallback(
-    async (token: string) => {
+    (token: string) => {
       setAccessToken(token);
       instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      onLoginSuccess?.();
     },
-    [instance, onLoginSuccess],
+    [instance],
   );
 
   const clearAuthState = useCallback(() => {
@@ -71,10 +64,18 @@ export function AuthProvider({
     onLogout?.();
   }, [instance, onLogout]);
 
+  const tokenRefreshFn = useCallback(async () => {
+    const newToken = await tokenRefreshAPICall();
+
+    setAuthState(newToken);
+    return newToken;
+  }, [tokenRefreshAPICall, setAuthState]);
+
   const { isReady } = useSessionInit({
     tokenRefreshFn,
     setAuthState,
   });
+  useAutoRefresh(instance, tokenRefreshFn, autoRefreshConfig);
 
   const value = useMemo(() => {
     return {
