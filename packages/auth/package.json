@@ -1,0 +1,60 @@
+{
+  "name": "@justkits/auth",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "description": "Justkits React Auth Kits",
+  "author": "JustWon",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justkits/justkits-ts.git"
+  },
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "keywords": [
+    "react",
+    "typescript",
+    "auth",
+    "jwt"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist node_modules",
+    "test": "vitest run",
+    "test:dev": "vitest --watch --coverage"
+  },
+  "devDependencies": {
+    "@justkits/configs": "workspace:^",
+    "@testing-library/react": "^16",
+    "@types/react": "^19",
+    "@vitest/coverage-v8": "catalog:",
+    "jsdom": "^26",
+    "tsup": "^8.5.1",
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "axios": "^1.13.5",
+    "react": "^19"
+  }
+}

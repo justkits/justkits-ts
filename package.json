@@ -1,6 +1,6 @@
 {
   "name": "justkits-ts",
-  "packageManager": "pnpm@10.26.1+sha512.664074abc367d2c9324fdc18037097ce0a8f126034160f709928e9e9f95d98714347044e5c3164d65bd5da6c59c6be362b107546292a8eecb7999196e5ce58fa",
+  "packageManager": "pnpm@10.29.2+sha512.bef43fa759d91fd2da4b319a5a0d13ef7a45bb985a3d7342058470f9d2051a3ba8674e629672654686ef9443ad13a82da2beb9eeb3e0221c87b8154fff9d74b8",
   "version": "1.0.0",
   "private": true,
   "devDependencies": {
@@ -19,7 +19,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "catalog:",
-    "turbo": "^2.8.1",
+    "turbo": "^2.8.5",
     "typescript": "catalog:",
     "typescript-eslint": "^8.54.0"
   },
