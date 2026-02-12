@@ -25,6 +25,8 @@ export function useSessionInit({
         const accessToken = await tokenRefreshFn();
 
         setAuthState(accessToken);
+      } catch {
+        // token refresh failed — app starts unauthenticated
       } finally {
         setIsReady(true);
       }
