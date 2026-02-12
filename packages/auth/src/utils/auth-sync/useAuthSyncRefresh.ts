@@ -23,6 +23,8 @@ export function useAuthSyncRefresh() {
   const channelRef = useRef<BroadcastChannel | null>(null);
 
   useEffect(() => {
+    if (typeof BroadcastChannel === "undefined") return;
+
     const channel = new BroadcastChannel(AUTH_SYNC_CHANNEL_NAME);
     channelRef.current = channel;
 
