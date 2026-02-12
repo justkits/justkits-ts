@@ -12,13 +12,6 @@ export function ProtectedRoute({
   fallback,
   onUnauthorized,
 }: Readonly<Props>) {
-  // fallback UI 혹은 onUnauthorized 둘 중 하나는 반드시 제공되어야 한다.
-  if (!fallback && !onUnauthorized) {
-    throw new Error(
-      "ProtectedRoute requires either a fallback UI or an onUnauthorized handler.",
-    );
-  }
-
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
@@ -26,6 +19,13 @@ export function ProtectedRoute({
       onUnauthorized();
     }
   }, [isAuthenticated, onUnauthorized]);
+
+  // fallback UI 혹은 onUnauthorized 둘 중 하나는 반드시 제공되어야 한다.
+  if (!fallback && !onUnauthorized) {
+    throw new Error(
+      "ProtectedRoute requires either a fallback UI or an onUnauthorized handler.",
+    );
+  }
 
   if (!isAuthenticated) {
     return <>{fallback}</>;
