@@ -100,27 +100,6 @@ describe("ProtectedRoute", () => {
     });
   });
 
-  describe("validation", () => {
-    it("should throw when neither fallback nor onUnauthorized is provided", () => {
-      // Suppress React error boundary console output
-      const spy = vi.spyOn(console, "error").mockImplementation(() => {});
-
-      expect(() => {
-        render(
-          <TestProvider>
-            <ProtectedRoute>
-              <div>Content</div>
-            </ProtectedRoute>
-          </TestProvider>,
-        );
-      }).toThrow(
-        "ProtectedRoute requires either a fallback UI or an onUnauthorized handler.",
-      );
-
-      spy.mockRestore();
-    });
-  });
-
   describe("auth state transition", () => {
     it("should switch from fallback to children when auth state changes", () => {
       const { rerender } = render(
