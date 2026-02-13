@@ -1,5 +1,11 @@
 # @justkits/auth
 
+## 0.1.1
+
+### Patch Changes
+
+- [#79](https://github.com/justkits/justkits-ts/pull/79) [`b08ebd9`](https://github.com/justkits/justkits-ts/commit/b08ebd96cedae09e758f872d8db7ce7aa8f24f13) Thanks [@justwon0307](https://github.com/justwon0307)! - Make ProtectedRoute type-safe
+
 ## 0.1.0
 
 ### Minor Changes
