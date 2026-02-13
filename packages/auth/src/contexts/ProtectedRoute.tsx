@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useAuth } from "./useAuth";
 
-interface Props {
+type Props = {
   children: React.ReactNode;
-  fallback?: React.ReactNode;
-  onUnauthorized?: () => void;
-}
+} & (
+  | { fallback: React.ReactNode; onUnauthorized?: () => void }
+  | { fallback?: React.ReactNode; onUnauthorized: () => void }
+);
 
 export function ProtectedRoute({
   children,
@@ -19,13 +20,6 @@ export function ProtectedRoute({
       onUnauthorized();
     }
   }, [isAuthenticated, onUnauthorized]);
-
-  // fallback UI 혹은 onUnauthorized 둘 중 하나는 반드시 제공되어야 한다.
-  if (!fallback && !onUnauthorized) {
-    throw new Error(
-      "ProtectedRoute requires either a fallback UI or an onUnauthorized handler.",
-    );
-  }
 
   if (!isAuthenticated) {
     return <>{fallback}</>;
