@@ -1,5 +1,11 @@
 # @justkits/auth
 
+## 0.2.0
+
+### Minor Changes
+
+- [#81](https://github.com/justkits/justkits-ts/pull/81) [`dd5d627`](https://github.com/justkits/justkits-ts/commit/dd5d627c20c654884ae5561c19278b82bc9330ba) Thanks [@justwon0307](https://github.com/justwon0307)! - Add onLoginSuccess option to authSyncRefresh feature
+
 ## 0.1.1
 
 ### Patch Changes
