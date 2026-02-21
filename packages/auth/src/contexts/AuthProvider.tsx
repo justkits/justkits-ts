@@ -31,6 +31,7 @@ interface Props {
    *   router.push("/login");
    * }
    */
+  onLoginSuccess?: () => void;
   onLogout?: () => void;
   autoRefreshConfig?: AutoRefreshConfig;
 }
@@ -44,11 +45,12 @@ export function AuthProvider({
   children,
   tokenRefreshAPICall,
   fallback,
+  onLoginSuccess,
   onLogout,
   autoRefreshConfig = DEFAULT_AUTO_REFRESH_CONFIG,
 }: Readonly<Props>) {
   const [accessToken, setAccessToken] = useState<string | null>(null);
-  const { broadcast } = useAuthSyncRefresh();
+  const { broadcast } = useAuthSyncRefresh({ onLoginSuccess });
 
   const setAuthState = useCallback(
     (token: string) => {
