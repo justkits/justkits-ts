@@ -57,7 +57,7 @@ jobs:
       - name: Security Audit
         id: audit
         continue-on-error: true
-        run: pnpm audit
+        run: pnpm audit --audit-level=high
 
       - name: Check Quality Results
         if: always()
