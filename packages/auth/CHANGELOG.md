@@ -1,5 +1,11 @@
 # @justkits/auth
 
+## 0.2.1
+
+### Patch Changes
+
+- [#83](https://github.com/justkits/justkits-ts/pull/83) [`d6d9f7c`](https://github.com/justkits/justkits-ts/commit/d6d9f7c743ebc84664c7e46136a61258c87aed52) Thanks [@justwon0307](https://github.com/justwon0307)! - Make onLoginSuccess callback run AFTER the page reload.
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,5 +1,12 @@
 # tester
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`d6d9f7c`](https://github.com/justkits/justkits-ts/commit/d6d9f7c743ebc84664c7e46136a61258c87aed52)]:
+  - @justkits/auth@0.2.1
+
 ## 0.0.3
 
 ### Patch Changes
