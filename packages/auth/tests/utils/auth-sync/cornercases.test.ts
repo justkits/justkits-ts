@@ -5,13 +5,15 @@ import { useSilentAuthSync, useAuthSyncRefresh } from "@/utils";
 
 describe("BroadcastChannel unavailable", () => {
   describe("useAuthSyncRefresh", () => {
+    const render = () => renderHook(() => useAuthSyncRefresh({}));
+
     it("should not throw when BroadcastChannel is undefined", () => {
       const original = globalThis.BroadcastChannel;
       // @ts-expect-error -- simulating missing API
       globalThis.BroadcastChannel = undefined;
 
       expect(() => {
-        const { unmount } = renderHook(() => useAuthSyncRefresh());
+        const { unmount } = render();
         unmount();
       }).not.toThrow();
 
@@ -23,7 +25,7 @@ describe("BroadcastChannel unavailable", () => {
       // @ts-expect-error -- simulating missing API
       globalThis.BroadcastChannel = undefined;
 
-      const { result } = renderHook(() => useAuthSyncRefresh());
+      const { result } = render();
 
       expect(() => {
         result.current.broadcast("LOGIN_SUCCESS");
@@ -35,6 +37,8 @@ describe("BroadcastChannel unavailable", () => {
 
   describe("useSilentAuthSync", () => {
     const onLoginSuccess = vi.fn();
+    const render = () =>
+      renderHook(() => useSilentAuthSync({ onLoginSuccess }));
 
     it("should not throw when BroadcastChannel is undefined", () => {
       const original = globalThis.BroadcastChannel;
@@ -42,9 +46,7 @@ describe("BroadcastChannel unavailable", () => {
       globalThis.BroadcastChannel = undefined;
 
       expect(() => {
-        const { unmount } = renderHook(() =>
-          useSilentAuthSync({ onLoginSuccess }),
-        );
+        const { unmount } = render();
         unmount();
       }).not.toThrow();
 
@@ -56,9 +58,7 @@ describe("BroadcastChannel unavailable", () => {
       // @ts-expect-error -- simulating missing API
       globalThis.BroadcastChannel = undefined;
 
-      const { result } = renderHook(() =>
-        useSilentAuthSync({ onLoginSuccess }),
-      );
+      const { result } = render();
 
       expect(() => {
         result.current.broadcast("LOGIN_SUCCESS");

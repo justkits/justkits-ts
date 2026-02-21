@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 
-import { AUTH_SYNC_CHANNEL_NAME } from "./config";
+import { AUTH_SYNC_CHANNEL_NAME, AuthSyncConfig } from "./config";
 
 /**
  * 다른 탭에서 인증 상태 변경이 감지되었을 때 강제 새로고침을 수행하여 인증 상태를 동기화하는 훅
@@ -19,7 +19,9 @@ import { AUTH_SYNC_CHANNEL_NAME } from "./config";
  *   }
  * }
  */
-export function useAuthSyncRefresh() {
+export function useAuthSyncRefresh({
+  onLoginSuccess,
+}: Readonly<AuthSyncConfig>) {
   const channelRef = useRef<BroadcastChannel | null>(null);
 
   useEffect(() => {
@@ -32,6 +34,7 @@ export function useAuthSyncRefresh() {
       if (event.data === "LOGIN_SUCCESS" || event.data === "LOGOUT") {
         // 인증 상태 변경 신호 수신 시, 페이지 강제 새로고침
         globalThis.window.location.reload();
+        onLoginSuccess?.();
       }
     };
 

@@ -11,7 +11,7 @@ describe("useAuthSyncRefresh", () => {
 
   describe("receiving messages", () => {
     it("should reload the page when LOGIN_SUCCESS is received", () => {
-      renderHook(() => useAuthSyncRefresh());
+      renderHook(() => useAuthSyncRefresh({}));
 
       act(() => {
         mockChannelInstance.onmessage!({
@@ -22,8 +22,25 @@ describe("useAuthSyncRefresh", () => {
       expect(reloadMock).toHaveBeenCalledOnce();
     });
 
+    it("should call onLoginSuccess callback when LOGIN_SUCCESS is received", () => {
+      const onLoginSuccessMock = vi.fn();
+      renderHook(() =>
+        useAuthSyncRefresh({
+          onLoginSuccess: onLoginSuccessMock,
+        }),
+      );
+
+      act(() => {
+        mockChannelInstance.onmessage!({
+          data: "LOGIN_SUCCESS",
+        } as MessageEvent);
+      });
+
+      expect(onLoginSuccessMock).toHaveBeenCalledOnce();
+    });
+
     it("should reload the page when LOGOUT is received", () => {
-      renderHook(() => useAuthSyncRefresh());
+      renderHook(() => useAuthSyncRefresh({}));
 
       act(() => {
         mockChannelInstance.onmessage!({ data: "LOGOUT" } as MessageEvent);
@@ -33,7 +50,7 @@ describe("useAuthSyncRefresh", () => {
     });
 
     it("should not reload for unknown event types", () => {
-      renderHook(() => useAuthSyncRefresh());
+      renderHook(() => useAuthSyncRefresh({}));
 
       act(() => {
         mockChannelInstance.onmessage!({ data: "UNKNOWN" } as MessageEvent);
@@ -43,7 +60,7 @@ describe("useAuthSyncRefresh", () => {
     });
 
     it("should close the channel on unmount", () => {
-      const { unmount } = renderHook(() => useAuthSyncRefresh());
+      const { unmount } = renderHook(() => useAuthSyncRefresh({}));
 
       unmount();
 
@@ -53,7 +70,7 @@ describe("useAuthSyncRefresh", () => {
 
   describe("broadcast function", () => {
     it("should post LOGIN_SUCCESS message to the channel", () => {
-      const { result } = renderHook(() => useAuthSyncRefresh());
+      const { result } = renderHook(() => useAuthSyncRefresh({}));
 
       act(() => {
         result.current.broadcast("LOGIN_SUCCESS");
@@ -65,7 +82,7 @@ describe("useAuthSyncRefresh", () => {
     });
 
     it("should post LOGOUT message to the channel", () => {
-      const { result } = renderHook(() => useAuthSyncRefresh());
+      const { result } = renderHook(() => useAuthSyncRefresh({}));
 
       act(() => {
         result.current.broadcast("LOGOUT");
