@@ -22,6 +22,11 @@ interface Props {
    */
   fallback?: ReactNode;
   /**
+   * 로그인 성공 시 호출되는 콜백
+   * !! 새로고침이 된 후에 실행되는 함수다 !!
+   */
+  onLoginSuccess?: () => void;
+  /**
    * 로그아웃 시 호출되는 콜백
    * @example
    * ```tsx
@@ -31,7 +36,6 @@ interface Props {
    *   router.push("/login");
    * }
    */
-  onLoginSuccess?: () => void;
   onLogout?: () => void;
   autoRefreshConfig?: AutoRefreshConfig;
 }

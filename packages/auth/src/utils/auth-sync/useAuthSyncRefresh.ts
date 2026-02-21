@@ -25,16 +25,25 @@ export function useAuthSyncRefresh({
   const channelRef = useRef<BroadcastChannel | null>(null);
 
   useEffect(() => {
+    const flag = sessionStorage.getItem(AUTH_SYNC_CHANNEL_NAME);
+    if (flag === "LOGIN_SUCCESS") {
+      sessionStorage.removeItem(AUTH_SYNC_CHANNEL_NAME);
+      onLoginSuccess?.();
+    }
+  }, []);
+
+  useEffect(() => {
     if (typeof BroadcastChannel === "undefined") return;
 
     const channel = new BroadcastChannel(AUTH_SYNC_CHANNEL_NAME);
     channelRef.current = channel;
 
     channel.onmessage = (event: MessageEvent) => {
-      if (event.data === "LOGIN_SUCCESS" || event.data === "LOGOUT") {
-        // 인증 상태 변경 신호 수신 시, 페이지 강제 새로고침
+      if (event.data === "LOGIN_SUCCESS") {
+        sessionStorage.setItem(AUTH_SYNC_CHANNEL_NAME, "LOGIN_SUCCESS");
         globalThis.window.location.reload();
-        onLoginSuccess?.();
+      } else if (event.data === "LOGOUT") {
+        globalThis.window.location.reload();
       }
     };
 
