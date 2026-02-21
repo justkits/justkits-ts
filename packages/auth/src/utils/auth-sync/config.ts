@@ -4,6 +4,7 @@ export type AuthEventType = "LOGIN_SUCCESS" | "LOGOUT";
 export type AuthSyncConfig = {
   /**
    * 다른 탭에서 로그인 성공 시, 본 탭에서 실행할 함수
+   * !! 새로고침이 된 후에 실행되는 함수다 !!
    * @example
    * function onLoginSuccess() {
    *   toast("다른 탭에서 로그인 성공 감지!");
