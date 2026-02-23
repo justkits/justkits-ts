@@ -1,0 +1,31 @@
+{
+  "name": "@justkits/eslint-config",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./base": {
+      "import": "./base.js",
+      "types": "./base.d.ts"
+    },
+    "./react": {
+      "import": "./react.js",
+      "types": "./react.d.ts"
+    }
+  },
+  "peerDependencies": {
+    "eslint": "catalog:"
+  },
+  "dependencies": {
+    "@eslint/css": "^0.14.1",
+    "@eslint/js": "^9.39.2",
+    "@eslint/json": "^1.0.1",
+    "@eslint/markdown": "^7.5.1",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.3.0",
+    "typescript-eslint": "^8.56.0"
+  },
+  "lint-staged": {
+    "*": "prettier --check"
+  }
+}
