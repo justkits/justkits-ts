@@ -45,7 +45,8 @@
     "test:dev": "vitest --watch --coverage"
   },
   "devDependencies": {
-    "@justkits/configs": "workspace:^",
+    "@justkits/tsconfig": "workspace:*",
+    "@justkits/vitest-config": "workspace:*",
     "@testing-library/react": "^16",
     "@types/react": "^19",
     "@vitest/coverage-v8": "catalog:",

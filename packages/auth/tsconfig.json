@@ -1,5 +1,5 @@
 {
-  "extends": "@justkits/configs/tsconfig.base.json",
+  "extends": "@justkits/tsconfig/base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
     "paths": {

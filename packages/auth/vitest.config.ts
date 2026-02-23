@@ -1,7 +1,7 @@
 import { resolve } from "node:path";
 import { defineConfig, mergeConfig } from "vitest/config";
 
-import { sharedConfig } from "@justkits/configs/vitest";
+import { sharedConfig } from "@justkits/vitest-config";
 
 const config = defineConfig({
   test: {
