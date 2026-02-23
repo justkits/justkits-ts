@@ -1,5 +1,5 @@
 {
-  "extends": "@justkits/configs/tsconfig.base.json",
+  "extends": "@justkits/tsconfig/base.json",
   "compilerOptions": {
     "paths": {
       "@lib/*": ["./src/lib/*"],
@@ -8,6 +8,6 @@
       "@tests/*": ["./tests/*"]
     }
   },
-  "include": ["src", "tests"],
+  "include": ["src", "tests", "eslint.config.ts", "vitest.config.ts"],
   "exclude": ["dist", "node_modules"]
 }
