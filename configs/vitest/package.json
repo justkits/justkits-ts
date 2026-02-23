@@ -18,8 +18,5 @@
     "jsdom": {
       "optional": true
     }
-  },
-  "lint-staged": {
-    "*": "prettier --check"
   }
 }
