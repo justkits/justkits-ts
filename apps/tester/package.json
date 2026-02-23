@@ -1,5 +1,5 @@
 {
-  "name": "tester",
+  "name": "@justkits/tester",
   "private": true,
   "version": "0.0.4",
   "type": "module",
