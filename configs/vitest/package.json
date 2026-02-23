@@ -5,8 +5,8 @@
   "private": true,
   "exports": {
     ".": {
-      "import": "./index.js",
-      "types": "./index.d.ts"
+      "import": "./base.js",
+      "types": "./base.d.ts"
     }
   },
   "peerDependencies": {
