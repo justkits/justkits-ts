@@ -1,8 +1,0 @@
-{
-  "extends": "@justkits/configs/tsconfig.base.json",
-  "compilerOptions": {
-    "noEmit": true,
-    "types": ["node"]
-  },
-  "include": ["eslint.config.ts"]
-}

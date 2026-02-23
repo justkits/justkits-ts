@@ -1,0 +1,22 @@
+{
+  "name": "@justkits/vitest-config",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": {
+      "import": "./base.js",
+      "types": "./base.d.ts"
+    }
+  },
+  "peerDependencies": {
+    "@vitest/coverage-v8": "catalog:",
+    "jsdom": "catalog:",
+    "vitest": "catalog:"
+  },
+  "peerDependenciesMeta": {
+    "jsdom": {
+      "optional": true
+    }
+  }
+}

@@ -46,7 +46,7 @@ jobs:
       - name: Lint
         id: lint
         continue-on-error: true
-        uses: ./.github/actions/lint
+        run: pnpm lint
 
       - name: Dependency Review
         id: dependency-review
