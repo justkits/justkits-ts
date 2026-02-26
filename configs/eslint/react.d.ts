@@ -1,2 +1,2 @@
 import { Config } from "eslint/config";
-export declare const config: Config;
+export declare const reactConfig: Config;
