@@ -4,11 +4,8 @@ import { LoginCredentials } from "./login";
 
 type AuthState = {
   isAuthenticated: boolean;
-  login: (
-    payload: LoginCredentials,
-    onLoginSuccess?: () => void | Promise<void>,
-  ) => Promise<void>;
-  logout: (onLogout?: () => void | Promise<void>) => Promise<void>;
+  login: (payload: LoginCredentials) => Promise<void>;
+  logout: () => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthState | null>(null);

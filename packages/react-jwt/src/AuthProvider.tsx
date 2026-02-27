@@ -64,21 +64,15 @@ export function AuthProvider({
   }, []);
 
   const login = useCallback(
-    async (
-      payload: LoginCredentials,
-      onLoginSuccess?: () => void | Promise<void>,
-    ) => {
-      await loginAPI(instance, payload, onLoginSuccess);
+    async (payload: LoginCredentials) => {
+      await loginAPI(instance, payload);
     },
     [instance],
   );
 
-  const logout = useCallback(
-    async (onLogout?: () => void | Promise<void>) => {
-      await logoutAPI(instance, onLogout);
-    },
-    [instance],
-  );
+  const logout = useCallback(async () => {
+    await logoutAPI(instance);
+  }, [instance]);
 
   const contextValue = useMemo(
     () => ({

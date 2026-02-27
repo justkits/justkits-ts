@@ -9,7 +9,6 @@ import { LoginCredentials } from "../models/login";
 export async function loginAPI(
   instance: AxiosInstance,
   payload: LoginCredentials,
-  onSuccess?: () => void | Promise<void>, // example: router.navigate("/dashboard")
 ) {
   // 로그인 API 호출
   // 로그인은 실패하면 호출한 곳에서 에러 처리를 할 수 있어야하기 때문에, 여기서 try-catch로 감싸지 않고 에러를 그대로 던진다
@@ -20,5 +19,4 @@ export async function loginAPI(
   setAuthHeader(instance, token);
   broadcast("LOGIN_SUCCESS");
   updateSession(true);
-  await onSuccess?.();
 }
