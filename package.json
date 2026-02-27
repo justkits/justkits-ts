@@ -23,10 +23,5 @@
   },
   "lint-staged": {
     "*": "prettier --check"
-  },
-  "pnpm": {
-    "overrides": {
-      "minimatch": "10.2.1"
-    }
   }
 }
