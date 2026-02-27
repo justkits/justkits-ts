@@ -1,0 +1,12 @@
+{
+  "extends": "@justkits/tsconfig/base.json",
+  "compilerOptions": {
+    "paths": {
+      "@tests/*": ["./tests/*"],
+      "@/*": ["./src/*"]
+    },
+    "types": ["vitest/globals", "node"]
+  },
+  "include": ["src", "tests", "eslint.config.ts", "vitest.config.ts"],
+  "exclude": ["dist", "node_modules"]
+}
