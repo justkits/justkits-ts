@@ -8,6 +8,8 @@
     "moduleResolution": "Bundler",
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES2022"
+    "target": "ES2022",
+    "jsx": "react-jsx",
+    "types": ["vitest/globals"]
   }
 }
