@@ -12,13 +12,20 @@ export const reactConfig = defineConfig([
     extends: [baseConfig],
   },
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ["src/**/*.{ts,tsx}"],
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
     ],
+    languageOptions: {
+      globals: globals.browser,
+    },
+  },
+  {
+    files: ["tests/**/*.{ts,tsx}"],
+    extends: [js.configs.recommended, tseslint.configs.recommended],
     languageOptions: {
       globals: globals.browser,
     },
