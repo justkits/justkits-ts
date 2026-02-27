@@ -69,8 +69,8 @@ type MyUser = {
 };
 
 declare module "@justkits/react-jwt" {
-  interface LoginCredentials extends MyLoginCredentials {}
-  interface UserType extends MyUser {}
+  type LoginCredentials = MyLoginCredentials;
+  type UserType = MyUser;
 }
 ```
 
