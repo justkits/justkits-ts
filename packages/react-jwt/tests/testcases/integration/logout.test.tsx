@@ -95,7 +95,7 @@ describe("Logout Workflow Test", () => {
 
     // 콘솔에 에러가 찍히는지 확인
     expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Logout API call failed:",
+      "Logout failed:",
       expect.objectContaining({
         message: expect.stringContaining("Server error"),
       }),
