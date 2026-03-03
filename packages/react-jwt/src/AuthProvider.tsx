@@ -76,7 +76,7 @@ export function AuthProvider({
 
   const contextValue = useMemo(
     () => ({
-      isAuthenticated: isAuthenticated,
+      isAuthenticated,
       login,
       logout,
     }),
