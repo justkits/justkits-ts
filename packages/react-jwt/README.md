@@ -175,42 +175,31 @@ const { user, refreshUser } = useUser();
 
 ### `<AuthBoundary>`
 
-인증이 필요한 페이지를 감싸는 래퍼 컴포넌트. `fallback` 혹은 `onUnauthorized` **둘 중 하나만** 전달해야 한다. 둘 다 제공하는 경우 타입 오류가 발생한다.
+인증이 필요한 페이지를 감싸는 래퍼 컴포넌트. 로그인이 되어있지 않은 상태인 경우, `fallback` UI가 렌더링된다.
 
 ```tsx
-// Fallback UI를 제공하는 경우
 <AuthBoundary fallback={<p>Please log in to view this page.</p>}>
-  <ProtectedPage />
-</AuthBoundary>
-
-// onUnauthorized 콜백 함수를 제공하는 경우
-<AuthBoundary onUnauthorized={() => router.navigate("/login")}>
   <ProtectedPage />
 </AuthBoundary>
 ```
 
-| Prop             | 타입                          | 설명                                                                                  |
-| ---------------- | ----------------------------- | ------------------------------------------------------------------------------------- |
-| `fallback`       | `ReactNode`                   | 로그인되어 있지 않은 경우 렌더링 되는 UI (예: "로그인이 필요한 서비스 입니다"를 표시) |
-| `onUnauthorized` | `() => void \| Promise<void>` | 로그인되어 있지 않은 경우 호출되는 콜백 함수. (예: 로그인 페이지로 리디렉트)          |
-
-> 리디렉트 도중 로딩 상태를 보여주는 렌더링을 하고 싶다면, 라우팅 라이브러리의 기능을 활용하는 것을 권장한다.
+| Prop       | 타입        | 설명                                                                                  |
+| ---------- | ----------- | ------------------------------------------------------------------------------------- |
+| `fallback` | `ReactNode` | 로그인되어 있지 않은 경우 렌더링 되는 UI (예: "로그인이 필요한 서비스 입니다"를 표시) |
 
 ### `<GuestsOnly>`
 
-`<AuthBoundary>`와 반대로 로그인 상태가 **아닌** 경우에만 접근할 수 있는 페이지를 감싸는 래퍼 컴포넌트. 로그인 페이지나, 회원가입 페이지 등에 적합하다. 로그인 상태인 유저가 접근할 시, `onAuthorized` 함수가 호출된다.
+`<AuthBoundary>`와 반대로 로그인 상태가 **아닌** 경우에만 접근할 수 있는 페이지를 감싸는 래퍼 컴포넌트. 로그인 페이지나, 회원가입 페이지 등에 적합하다. 로그인 상태인 유저가 접근할 시, `fallback` UI가 렌더링된다.
 
 ```tsx
-<GuestsOnly onAuthorized={() => router.navigate("/dashboard")}>
+<GuestsOnly fallback={<Navigate to="/dashboard" />}>
   <LoginPage />
 </GuestsOnly>
 ```
 
-| Prop           | 타입                          | 설명                                              |
-| -------------- | ----------------------------- | ------------------------------------------------- |
-| `onAuthorized` | `() => void \| Promise<void>` | 로그인 상태인 유저가 접근할 시 호출되는 콜백 함수 |
-
-> 로그인 상태인 경우, `children`은 렌더링되지 않는다 (`null` 반환). 리다이렉트가 완료되기 전까지 빈 화면이 잠깐 보일 수 있으며, 이 경우 라우팅 라이브러리의 로딩 상태를 활용하는 것을 권장한다.
+| Prop       | 타입        | 설명                                         |
+| ---------- | ----------- | -------------------------------------------- |
+| `fallback` | `ReactNode` | 로그인 상태인 유저가 접근할 시 렌더링되는 UI |
 
 ---
 
@@ -296,25 +285,23 @@ export function UserProfile() {
 }
 ```
 
-### Route Protection (TanStack Router 예시)
+### Route Protection
 
 ```tsx
-import { useNavigate } from "@tanstack/react-router";
+import { Navigate } from "@tanstack/react-router";
 import { AuthBoundary, GuestsOnly } from "@justkits/react-jwt";
 
 export function DashboardPage() {
-  const navigate = useNavigate();
   return (
-    <AuthBoundary onUnauthorized={() => navigate("/login")}>
+    <AuthBoundary fallback={<Navigate to="/login" />}>
       <Dashboard />
     </AuthBoundary>
   );
 }
 
 export function LoginPage() {
-  const navigate = useNavigate();
   return (
-    <GuestsOnly onAuthorized={() => navigate("/dashboard")}>
+    <GuestsOnly fallback={<Navigate to="/dashboard" />}>
       <LoginForm />
     </GuestsOnly>
   );
