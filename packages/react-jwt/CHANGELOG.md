@@ -1,5 +1,11 @@
 # @justkits/react-jwt
 
+## 1.0.2
+
+### Patch Changes
+
+- [#93](https://github.com/justkits/justkits-ts/pull/93) [`e4fdf24`](https://github.com/justkits/justkits-ts/commit/e4fdf24d8c52eb80a1536d4fe45055d1fc739295) Thanks [@justwon0307](https://github.com/justwon0307)! - Remove callbacks from guard components. They are prone to timing bugs.
+
 ## 1.0.1
 
 ### Patch Changes
