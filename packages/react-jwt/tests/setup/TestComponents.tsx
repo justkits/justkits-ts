@@ -15,11 +15,13 @@ function TestLoading() {
   return <div>Loading Fallback</div>;
 }
 
+function TestGuestsOnly() {
+  return <div>Only Guests Are Allowed</div>;
+}
+
 function TestLoginPage() {
   const [err, setErr] = useState<boolean>(false);
   const { login } = useAuth();
-
-  const onAuthorized = vi.fn();
 
   const handleLogin = async () => {
     try {
@@ -32,7 +34,7 @@ function TestLoginPage() {
   };
 
   return (
-    <GuestsOnly onAuthorized={onAuthorized}>
+    <GuestsOnly fallback={<TestGuestsOnly />}>
       <h1>Login Form</h1>
       <button onClick={handleLogin}>Login</button>
       {err && <p>Login Failed</p>}
