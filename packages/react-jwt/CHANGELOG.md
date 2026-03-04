@@ -1,5 +1,11 @@
 # @justkits/react-jwt
 
+## 2.0.0
+
+### Major Changes
+
+- [#95](https://github.com/justkits/justkits-ts/pull/95) [`95212a9`](https://github.com/justkits/justkits-ts/commit/95212a95d84894634f2cc4399a30ea0ed0cff2d1) Thanks [@justwon0307](https://github.com/justwon0307)! - Remove Guard Components completely from the library, and enhance documents
+
 ## 1.0.2
 
 ### Patch Changes
