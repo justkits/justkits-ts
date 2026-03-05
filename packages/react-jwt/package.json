@@ -52,12 +52,12 @@
     "@vitest/coverage-v8": "catalog:",
     "eslint": "catalog:",
     "jsdom": "catalog:",
-    "tsup": "^8.5.1",
+    "tsup": "catalog:",
     "vitest": "catalog:"
   },
   "peerDependencies": {
     "@tanstack/react-query": "^5",
-    "axios": "^1.13.5",
+    "axios": "^1.13.6",
     "react": "^19"
   },
   "lint-staged": {
