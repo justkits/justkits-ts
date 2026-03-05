@@ -1,5 +1,11 @@
 # @justkits/react-jwt
 
+## 2.0.1
+
+### Patch Changes
+
+- [#97](https://github.com/justkits/justkits-ts/pull/97) [`9c91d2a`](https://github.com/justkits/justkits-ts/commit/9c91d2a4455a52173af0cc7269e131e9d0b9b655) Thanks [@justwon0307](https://github.com/justwon0307)! - minor tweak to auto-refresh interceptor, so auto refresh interceptor works first
+
 ## 2.0.0
 
 ### Major Changes
