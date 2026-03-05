@@ -16,6 +16,10 @@ function refreshOnce(instance: AxiosInstance) {
 }
 
 export function setupResponseInterceptor(instance: AxiosInstance) {
+  // 기존에 등록된 인터셉터를 저장 후 초기화 → 자동 갱신 인터셉터를 체인 맨 앞에 삽입
+  const existing = instance.interceptors.response.handlers!.filter(Boolean);
+  instance.interceptors.response.clear();
+
   // 응답 에러 중 "토큰 만료"로 간주되는 경우 자동으로 토큰을 갱신하고 원 요청을 재시도하는 인터셉터
   interceptorId = instance.interceptors.response.use(
     (response) => response,
@@ -60,6 +64,11 @@ export function setupResponseInterceptor(instance: AxiosInstance) {
       throw error;
     },
   );
+
+  // 저장해둔 기존 인터셉터를 자동 갱신 인터셉터 뒤에 재등록
+  existing.forEach((handler) => {
+    instance.interceptors.response.use(handler.fulfilled, handler.rejected);
+  });
 }
 
 export function ejectInterceptor(instance: AxiosInstance) {
