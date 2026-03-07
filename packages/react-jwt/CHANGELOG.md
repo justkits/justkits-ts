@@ -1,5 +1,11 @@
 # @justkits/react-jwt
 
+## 2.0.2
+
+### Patch Changes
+
+- [#99](https://github.com/justkits/justkits-ts/pull/99) [`059c4d9`](https://github.com/justkits/justkits-ts/commit/059c4d91fdb5d096ef34528207626744ae3e4e81) Thanks [@justwon0307](https://github.com/justwon0307)! - Export AuthConfigInput for consumers
+
 ## 2.0.1
 
 ### Patch Changes
