@@ -6,3 +6,4 @@ export { UserType, useUser } from "./models/user";
 
 // types
 export { AuthConfigInput } from "./configs/types";
+export { RouterAuthContext } from "./models/auth";

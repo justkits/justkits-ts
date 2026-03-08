@@ -10,6 +10,10 @@ type AuthState = {
 
 export const AuthContext = createContext<AuthState | null>(null);
 
+export type RouterAuthContext = {
+  isAuthenticated: boolean;
+};
+
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
