@@ -1,5 +1,11 @@
 # @justkits/react-jwt
 
+## 2.0.4
+
+### Patch Changes
+
+- [#103](https://github.com/justkits/justkits-ts/pull/103) [`3f524b1`](https://github.com/justkits/justkits-ts/commit/3f524b1d7947c4c4284201e9f94e3cdc1c829fb2) Thanks [@justwon0307](https://github.com/justwon0307)! - Switch RouterAuthContext from type to interface
+
 ## 2.0.3
 
 ### Patch Changes
