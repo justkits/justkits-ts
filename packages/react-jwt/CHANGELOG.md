@@ -1,5 +1,11 @@
 # @justkits/react-jwt
 
+## 2.0.3
+
+### Patch Changes
+
+- [#101](https://github.com/justkits/justkits-ts/pull/101) [`5ea510b`](https://github.com/justkits/justkits-ts/commit/5ea510b340a7d45591ecb2e236858ce7d2ff09c1) Thanks [@justwon0307](https://github.com/justwon0307)! - Export RouterAuthContext type for tanstack router uses
+
 ## 2.0.2
 
 ### Patch Changes
