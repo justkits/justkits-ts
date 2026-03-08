@@ -10,9 +10,9 @@ type AuthState = {
 
 export const AuthContext = createContext<AuthState | null>(null);
 
-export type RouterAuthContext = {
+export interface RouterAuthContext {
   isAuthenticated: boolean;
-};
+}
 
 export function useAuth() {
   const context = useContext(AuthContext);
