@@ -16,7 +16,6 @@
   },
   "devDependencies": {
     "@justkits/eslint-config": "workspace:*",
-    "@justkits/svg2tsx": "workspace:*",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "^19.2.3",
