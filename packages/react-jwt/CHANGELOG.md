@@ -1,5 +1,11 @@
 # @justkits/react-jwt
 
+## 2.1.0
+
+### Minor Changes
+
+- [#106](https://github.com/justkits/justkits-ts/pull/106) [`95489ef`](https://github.com/justkits/justkits-ts/commit/95489ef4e1785b1dfd85ee404a2ed665c63ca1a4) Thanks [@justwon0307](https://github.com/justwon0307)! - Update fallback behavior: Render nothing if fallback component is not given.
+
 ## 2.0.4
 
 ### Patch Changes
