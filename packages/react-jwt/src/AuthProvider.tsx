@@ -90,10 +90,7 @@ export function AuthProvider({
   }, [isAuthenticated, queryClient]);
 
   if (!isReady) {
-    if (fallback !== undefined) {
-      return <>{fallback}</>;
-    }
-    return <div>Loading...</div>;
+    return fallback ? <>{fallback}</> : null;
   }
 
   return (

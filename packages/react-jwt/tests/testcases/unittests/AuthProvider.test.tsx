@@ -16,19 +16,17 @@ describe("AuthProvider corner cases", () => {
   });
 
   it("renders default fallback when no custom fallback provided", async () => {
-    const { getByText } = render(
+    // Stall the refresh so we can assert the initial (isReady=false) render
+    vi.spyOn(testInstance, "post").mockReturnValueOnce(new Promise(() => {}));
+
+    const { container } = render(
       <QueryClientProvider client={queryClient}>
         <AuthProvider instance={testInstance}>TestComponent</AuthProvider>
       </QueryClientProvider>,
     );
 
-    // 기본적으로 "Loading..." 텍스트가 렌더링되는지 확인
-    expect(getByText("Loading...")).toBeTruthy();
-
-    await waitFor(() => {
-      // 토큰 갱신 실패 후에도 "Loading..." 텍스트가 계속 렌더링되는지 확인
-      expect(getByText("TestComponent")).toBeTruthy();
-    });
+    // 기본적으로 로딩 중에는 아무것도 렌더링되지 않는지 확인
+    expect(container.firstChild).toBeNull();
   });
 
   it("handles custom configs correctly", async () => {
